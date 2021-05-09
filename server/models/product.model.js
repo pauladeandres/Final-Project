@@ -1,10 +1,9 @@
-const { ObjectID } = require('bson')
 const mongoose= require('mongoose')
 const Schema = mongoose.Schema
 
 const productSchema = new Schema({
     Supplier: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true
     },
     name: {
@@ -18,10 +17,17 @@ const productSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ['Sofas', 'Chairs', 'Tables', 'Lighting', 'Kitchen', 'Decoration', 'Storage', 'Bedroom']
+        enum: ['Sofas', 'Chairs', 'Tables', 'Lighting', 'Kitchen', 'Decoration', 'Storage', 'Bedroom'],
+        required: true
     },
     options: {
-        type: ObjectID,
+        type: Schema.Types.ObjectId,
         required: true
-    }
+    },
+}, {
+    timestamps: true
 })
+
+const Product = mongoose.model("Product", productSchema)
+
+module.exports = Product
