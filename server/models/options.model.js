@@ -9,15 +9,15 @@ const optionsSchema = new Schema({
     color: {
         type: String,
         enum: ['black', 'white', 'red', 'blue', 'green', 'brown', 'beige', 'yellow', 'orange'],
-        required: true
+        // required: true
     },
     stock: {
         type: Number,
-        required: true
+        // required: true
     },
     image: {
         type: String,
-        required: true,
+        // required: true,
     }
 })
 

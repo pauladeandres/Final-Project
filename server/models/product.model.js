@@ -1,10 +1,11 @@
-const mongoose= require('mongoose')
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const productSchema = new Schema({
-    Supplier: {
+    supplier: {
         type: Schema.Types.ObjectId,
-        required: true
+        ref: 'Supplier'
+        // required: true
     },
     name: {
         type: String,
@@ -12,8 +13,8 @@ const productSchema = new Schema({
     },
     description: {
         type: String,
-        required: true,
-        minlength: 50
+        // required: true,
+        // minlength: 50
     },
     category: {
         type: String,
@@ -22,7 +23,8 @@ const productSchema = new Schema({
     },
     options: {
         type: Schema.Types.ObjectId,
-        required: true
+        ref: 'Options'
+        // required: true
     },
 }, {
     timestamps: true
