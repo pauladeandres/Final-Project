@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
 // CUSTOMER ORDER (GET)
 router.get('/customer', (req, res) => {
     Order
-        .find() // {customer: 'req.session.currentUser'}
+        .find({customer: req.session.currentUser}) 
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
 })
