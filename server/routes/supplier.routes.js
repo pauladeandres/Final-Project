@@ -4,6 +4,9 @@ const router = express.Router()
 const Product = require('../models/product.model')
 
 // Endpoints
+
+router.get('/')
+
 router.get('/newproduct', (req, res) => console.log(res))
 
 

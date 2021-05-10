@@ -8,26 +8,26 @@ const User = require('./../models/user.model')
 // Endpoints
 router.get('/suppliers', (req, res) => {
 
-    Users
-        .find()
-        .then(response => console.log(res.json(response)))
+    User
+        .find({ role: 'SUPPLIER' })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching suppliers', err }))
 
 })
 
 router.get('/clients', (req, res) => {
 
-    Client
-        .find({ "user.role": "CUSTOMER" })
+    User
+        .find({ role: 'CUSTOMER' })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching suppliers', err }))
 
 })
 
 router.get('/dashboard', (req, res) => {
-    Client
+    User
         .find()
-        .then(response => res.json(response))
+        .then(response => console.log(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching clients', err }))
 })
 
