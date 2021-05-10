@@ -16,14 +16,13 @@ const productSchema = new Schema({
         // required: true,
         // minlength: 50
     },
-    category: {
-        type: String,
-        enum: ['Sofas', 'Chairs', 'Tables', 'Lighting', 'Kitchen', 'Decoration', 'Storage', 'Bedroom'],
-        required: true
-    },
+    category: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+    }],
     options: {
         type: Schema.Types.ObjectId,
-        ref: 'Options'
+        ref: 'Option'
         // required: true
     },
 }, {
