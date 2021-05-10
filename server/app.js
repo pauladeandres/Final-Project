@@ -11,6 +11,7 @@ const express = require('express')
 const app = express()
 
 // App settings
+require('./config/cors.config')(app)
 require('./config/session.config')(app)
 require('./config/cors.config')(app)
 require('./config/middleware.config')(app)
