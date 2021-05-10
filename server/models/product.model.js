@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const productSchema = new Schema({
     supplier: {
         type: Schema.Types.ObjectId,
-        ref: 'Supplier'
+        ref: 'Client'
         // required: true
     },
     name: {
@@ -16,15 +16,15 @@ const productSchema = new Schema({
         // required: true,
         // minlength: 50
     },
-    category: [{
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
-    }],
-    options: {
+    },
+    options: [{
         type: Schema.Types.ObjectId,
         ref: 'Option'
         // required: true
-    },
+    }],
 }, {
     timestamps: true
 })

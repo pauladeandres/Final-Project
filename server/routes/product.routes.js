@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const Product = require('./../models/product.model')
+const Product = require('../models/product.model')
 
 router.get('/', (req, res) => {
 
@@ -12,18 +12,18 @@ router.get('/', (req, res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 })
 
-router.get('/detail/:product_id', (req, res) => {
+router.get('/:product_id', (req, res) => {
 
     Product
         .findById(req.params.product_id)
-        .populate('category')
-        .populate('supplier')
-        .populate('options')
+        // .populate('category')
+        // .populate('supplier')
+        // .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading product', err }))
 })
 
 router.get('/:category', (req, res) => {
@@ -35,7 +35,7 @@ router.get('/:category', (req, res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 
 })
 
@@ -48,6 +48,7 @@ router.get('/:supplier', (req, res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 
 })
+
