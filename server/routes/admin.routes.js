@@ -1,15 +1,16 @@
 const express = require('express')
+const Order = require('../models/order.model')
 const router = express.Router()
 
 const Client = require('./../models/client.model')
+const User = require('./../models/user.model')
 
 // Endpoints
 router.get('/suppliers', (req, res) => {
 
-    Client
-        .populate('user')
-        .find({ "user.role": "SUPPLIER" })
-        .then(response => res.json(response))
+    Users
+        .find()
+        .then(response => console.log(res.json(response)))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching suppliers', err }))
 
 })
@@ -17,7 +18,6 @@ router.get('/suppliers', (req, res) => {
 router.get('/clients', (req, res) => {
 
     Client
-        .populate('user')
         .find({ "user.role": "CUSTOMER" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching suppliers', err }))
@@ -26,6 +26,13 @@ router.get('/clients', (req, res) => {
 
 router.get('/dashboard', (req, res) => {
     Client
+        .find()
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching clients', err }))
+})
+
+router.get('/orders', (req, res) => {
+    Order
         .find()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching clients', err }))
