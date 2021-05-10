@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Product = require('./../models/product.model')
 
-router.get('/products', (req,res) => {
+router.get('/', (req, res) => {
 
     Product
         .find()
@@ -15,7 +15,7 @@ router.get('/products', (req,res) => {
         .catch(err => console.log('Error', err))
 })
 
-router.get('/products/detail/:product_id', (req,res) => {
+router.get('/detail/:product_id', (req, res) => {
 
     Product
         .findById(req.params.product_id)
@@ -26,10 +26,10 @@ router.get('/products/detail/:product_id', (req,res) => {
         .catch(err => console.log('Error', err))
 })
 
-router.get('/products/:category', (req, res) => {
+router.get('/:category', (req, res) => {
 
     Product
-        .find({category: req.params.category})
+        .find({ category: req.params.category })
         .select('name supplier category options')
         .populate('category')
         .populate('supplier')
@@ -39,7 +39,7 @@ router.get('/products/:category', (req, res) => {
 
 })
 
-router.get('/products/:supplier', (req, res) => {
+router.get('/:supplier', (req, res) => {
 
     Product
         .find({ supplier: req.params.supplier })

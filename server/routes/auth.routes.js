@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
     User
         .findOne({ email })
         .then(user => {
-
+            console.log(user)
             if (!user) {
                 res.status(401).json({ code: 401, message: 'Email not registered', err })
                 return
@@ -49,6 +49,11 @@ router.post('/login', (req, res) => {
                 res.status(401).json({ code: 401, message: 'Incorect password', err })
                 return
             }
+
+            if (user.role === 'SUPPLIER' && user.client.length === 0) {
+                return res.redirect('/api/auth/supplier/new')
+            }
+
 
             req.session.currentUser = user
             res.json(req.session.currentUser)
@@ -80,8 +85,27 @@ router.post('/client/new', (req, res) => {
 // CURRENT USER CLIENT DETAILS (GET)
 router.get('/client/:id', (req, res) => {
     Client
-        .find({user: req.session.currentUser})
+        .find({ user: req.session.currentUser })
         .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
+})
+
+// CURRENT SUPPLIER DETAILS (GET)
+router.get('/supplier/new', (req, res) => { res.render('hola') })
+
+router.post('/supplier/new', (req, res) => {
+    const _id = req.session.currentUser._id
+    const { firstName, secondName } = req.body
+
+    Client
+        .create({ firstName, secondName })
+        .then(response => {
+
+            User
+                .findByIdAndUpdate(_id, { client: response._id }, { new: true })
+                .then(user => console.log(user))
+                .catch(err => console.log(err))
+        })
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
 
