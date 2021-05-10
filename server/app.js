@@ -12,7 +12,6 @@ const app = express()
 
 // App settings
 require('./config/middleware.config')(app)
-require('./config/views.config')(app)
 require('./config/locals.config')(app)
 
 // Routes index
