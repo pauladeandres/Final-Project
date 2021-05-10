@@ -2,6 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const couponSchema = new Schema({
+    name: {
+        type: String,
+    },
+    value: {
+        type: Number
+    },
+    used: {
+        type: Boolean
+    },
     customer: {
         type: Schema.Types.ObjectId,
         ref: 'Customer'

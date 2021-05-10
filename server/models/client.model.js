@@ -1,17 +1,18 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const customerSchema = new Schema({
-    name: {
-        type: String
-    },
-    password: {
-        type: String
+const clientSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     firstName: {
         type: String
     },
     secondName: {
+        type: String
+    },
+    company: {
         type: String
     },
     address: {
@@ -39,9 +40,13 @@ const customerSchema = new Schema({
     favoriteProducts: [{
         type: Schema.Types.ObjectId,
         ref: 'Product'
+    }],
+    products: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
     }]
 })
 
-const Customer = mongoose.model("Customer", customerSchema)
+const Client = mongoose.model("Client", clientSchema)
 
-module.exports = Customer
+module.exports = Client

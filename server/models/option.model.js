@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const optionsSchema = new Schema({
+const optionSchema = new Schema({
     price: {
         type: Number,
         required: true
@@ -21,6 +21,6 @@ const optionsSchema = new Schema({
     }
 })
 
-const Options = mongoose.model("Options", optionsSchema)
+const Option = mongoose.model("Option", optionSchema)
 
-module.exports = Options
+module.exports = Option
