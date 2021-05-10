@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    name: {
+    email: {
         type: String
     },
     password: {
@@ -12,7 +12,11 @@ const userSchema = new Schema({
         type: String,
         enum: ['CUSTOMER', 'ADMIN', 'SUPPLIER'],
         default: 'CUSTOMER'
-    }
+    },
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: 'Client'
+    },
 })
 
 const User = mongoose.model("User", userSchema)
