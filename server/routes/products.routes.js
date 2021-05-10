@@ -12,7 +12,7 @@ router.get('/products', (req,res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 })
 
 router.get('/products/detail/:product_id', (req,res) => {
@@ -23,7 +23,7 @@ router.get('/products/detail/:product_id', (req,res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading product', err }))
 })
 
 router.get('/products/:category', (req, res) => {
@@ -35,7 +35,7 @@ router.get('/products/:category', (req, res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 
 })
 
@@ -48,6 +48,7 @@ router.get('/products/:supplier', (req, res) => {
         .populate('supplier')
         .populate('options')
         .then(response => res.json(response))
-        .catch(err => console.log('Error', err))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 
 })
+
