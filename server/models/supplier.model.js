@@ -38,7 +38,12 @@ const supplierSchema = new Schema({
     products: [{
         type: Schema.Types.ObjectId,
         ref: 'Product'
-    }]
+    }],
+    role: {
+        type: String,
+        enum: ['Customer', 'Admin', 'Supplier'],
+        default: 'Supplier'
+    }
 })
 
 const Supplier = mongoose.model("Supplier", supplierSchema)
