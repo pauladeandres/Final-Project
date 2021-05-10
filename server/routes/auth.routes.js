@@ -9,14 +9,14 @@ const Client = require('../models/client.model')
 // SIGN UP (POST)
 router.post('/signup', (req, res) => {
 
-    const { username, password } = req.body
+    const { email, password } = req.body
 
     User
-        .findOne({ username })
+        .findOne({ email })
         .then(user => {
 
             if (user) {
-                res.status(400).json({ code: 400, message: 'Username already exixts' })
+                res.status(400).json({ code: 400, message: 'Email already exixts' })
                 return
             }
 
@@ -24,7 +24,7 @@ router.post('/signup', (req, res) => {
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ username, password: hashPass })
+                .create({ email, password: hashPass })
                 .then(() => res.json({ code: 200, message: 'User created' }))
                 .catch(err => res.status(500).json({ code: 500, message: 'DB error while creating user', err }))
         })
@@ -34,14 +34,14 @@ router.post('/signup', (req, res) => {
 // LOG IN (POST)
 router.post('/login', (req, res) => {
 
-    const { username, password } = req.body
+    const { email, password } = req.body
 
     User
-        .findOne({ username })
+        .findOne({ email })
         .then(user => {
 
             if (!user) {
-                res.status(401).json({ code: 401, message: 'Username not registered', err })
+                res.status(401).json({ code: 401, message: 'Email not registered', err })
                 return
             }
 
