@@ -52,3 +52,4 @@ router.get('/:supplier', (req, res) => {
 
 })
 
+module.exports = router
