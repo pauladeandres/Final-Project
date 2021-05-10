@@ -13,12 +13,13 @@ router.post('/', (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error saving order', err }))
 })
+
 // CUSTOMER ORDER (GET)
 router.get('/customer', (req, res) => {
     Order
         .find() // {customer: 'req.session.currentUser'}
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'No order to show on the Cart page', err }))
+        .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
 })
 
 
