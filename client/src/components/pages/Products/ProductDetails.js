@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import ProductsService from '../../../service/products.service'
+import ProductsService from '../../../service/database.service'
 import { Container } from 'react-bootstrap'
 
 class ProductDetails extends Component {

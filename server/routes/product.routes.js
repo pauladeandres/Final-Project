@@ -4,7 +4,6 @@ const router = express.Router()
 const Product = require('../models/product.model')
 
 router.get('/', (req, res) => {
-
     Product
         .find()
         .select('name supplier category options')
@@ -16,7 +15,6 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:product_id', (req, res) => {
-
     Product
         .findById(req.params.product_id)
         // .populate('category')
