@@ -3,6 +3,8 @@ import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+import Routes from './routes/Routes'
+
 class App extends Component {
 
   constructor() {
@@ -13,7 +15,10 @@ class App extends Component {
   render() {
 
     return (
-      <h1>Hello</h1>
+      <main>
+        <h1>Hello</h1>
+        <Routes />
+      </main>
     )
   }
 }
