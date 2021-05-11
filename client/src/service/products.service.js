@@ -10,7 +10,7 @@ class ProductsService {
     }
 
     getAllProducts = () => this.app.get('/product')
-    getOneProduct = () => product_id => this.app.get(`/product/${product_id}`)
+    getOneProduct = product_id => this.app.get(`/product/${product_id}`)
 }
 
 export default ProductsService

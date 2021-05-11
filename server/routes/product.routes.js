@@ -19,9 +19,9 @@ router.get('/:product_id', (req, res) => {
 
     Product
         .findById(req.params.product_id)
-        // .populate('category')
-        // .populate('supplier')
         // .populate('options')
+        .populate('category')
+        // .populate('supplier')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading product', err }))
 })

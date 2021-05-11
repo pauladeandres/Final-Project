@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
 const optionSchema = new Schema({
     price: {
         type: Number,
-        required: true
+        // required: true
     },
     color: {
         type: String,
@@ -20,7 +19,5 @@ const optionSchema = new Schema({
         // required: true,
     }
 })
-
 const Option = mongoose.model("Option", optionSchema)
-
 module.exports = Option

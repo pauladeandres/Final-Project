@@ -17,7 +17,7 @@ require('./config/middleware.config')(app)
 require('./config/locals.config')(app)
 
 // Routes index
-require('./routes')(app)
+require('./routes')(app) 
 
 // Error handling
 require('./config/error-handlers.config')(app)
