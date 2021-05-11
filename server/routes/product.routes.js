@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         .select('name supplier category options')
         // .populate('category')
         // .populate('supplier')
-        // .populate('options')
+        .populate('options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 })

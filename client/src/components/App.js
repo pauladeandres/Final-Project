@@ -3,6 +3,9 @@ import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+import Navigation from './layout/Navigation/Navigation'
+import Home from './pages/Home/Home'
+
 import Routes from './routes/Routes'
 
 class App extends Component {
@@ -16,7 +19,7 @@ class App extends Component {
 
     return (
       <main>
-        <h1>Hello</h1>
+        <Navigation />
         <Routes />
       </main>
     )

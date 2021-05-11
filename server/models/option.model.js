@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const optionSchema = new Schema({
     price: {
         type: Number,
-        required: true
+        // required: true
     },
     color: {
         type: String,
