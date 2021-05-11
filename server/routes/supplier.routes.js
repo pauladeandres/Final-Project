@@ -3,6 +3,7 @@ const router = express.Router()
 
 const Product = require('../models/product.model')
 const Category = require('./../models/category.model')
+const Option = require('./../models/option.model')
 
 // Endpoints
 
@@ -44,7 +45,7 @@ router.post('/newproduct/:product_id/options', (req, res) => {
 
     // })
 
-//PARA CREAR CATEGORIAS DESDE POSTMAN
+// PARA CREAR CATEGORIAS DESDE POSTMAN
 // router.post('/products/createcategory', (req, res) => {
 
 //     const { name } = req.body
@@ -55,5 +56,17 @@ router.post('/newproduct/:product_id/options', (req, res) => {
 //         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 
 // })
+
+// PARA CREAR OPCIONES DESDE POSTMAN
+router.post('/products/createoption', (req, res) => {
+
+    const option = req.body
+
+    Option
+        .create(option)
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
+
+})
 
 module.exports = router

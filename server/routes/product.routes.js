@@ -4,19 +4,17 @@ const router = express.Router()
 const Product = require('../models/product.model')
 
 router.get('/', (req, res) => {
-
     Product
         .find()
         .select('name supplier category options')
         // .populate('category')
         // .populate('supplier')
-        // .populate('options')
+        .populate('options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 })
 
 router.get('/:product_id', (req, res) => {
-
     Product
         .findById(req.params.product_id)
         // .populate('options')
