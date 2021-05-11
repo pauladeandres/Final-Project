@@ -16,7 +16,6 @@ class App extends Component {
 
     return (
       <main>
-        <h1>Hello</h1>
         <Routes />
       </main>
     )

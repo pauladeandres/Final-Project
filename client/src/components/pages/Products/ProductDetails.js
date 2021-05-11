@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 class ProductDetails extends Component {
 
@@ -10,28 +10,25 @@ class ProductDetails extends Component {
             product: undefined
         }
         this.productService = new ProductsService()
-        console.log(this.productService)
     }
 
     componentDidMount() {
-
-        // const { product_id } = this.props.match.params.id
-        console.log(this.props.match.params.id)
+        const product_id = this.props.match.params.id
 
         this.productService
-            .getAllProducts()
-            .then(response => console.log(response))
+            .getOneProduct(product_id)
+            .then(response => this.setState({ product: response.data }))
             .catch(err => console.log(err))
     }
 
     render() {
 
-        // const { product } = this.state
+        const { product } = this.state
+        console.log(product)
 
         return (
             <Container>
-                <h1>Hello</h1>
-                {/* {
+                {
                     !this.state.product ? <h1>Loading...</h1> :
 
                         <Row>
@@ -41,11 +38,14 @@ class ProductDetails extends Component {
                                 <h1>{product.name}</h1>
                                 <h3>Information</h3>
                                 <p>{product.description}</p>
+                                <p>{product.category.name}</p>
+                                {console.log('product options', product.options)}
+                                {/* {product.options.forEach(elm => console.log(elm))} */}
                                 <hr />
                                 
                             </Col>
                         </Row>
-                } */}
+                }
 
             </Container>
         )
