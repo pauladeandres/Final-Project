@@ -6,15 +6,25 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Client'
     },
-    products: [{
+    products: [{ product: {
         type: Schema.Types.ObjectId,
         ref: 'Product'
+        },
+        quantity: {
+            type: Number
+        },
+        option: {
+        type: Schema.Types.ObjectId,
+        ref: 'Option'
+        }
     }],
     paid: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     sent: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

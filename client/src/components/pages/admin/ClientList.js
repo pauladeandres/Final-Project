@@ -29,14 +29,14 @@ class ClientList extends Component {
         console.log(clients)
         return (
             <Container>
-                <Row>
+                {/* <Row>
                     {!clients
                         ?
                         { clients.map(elm => <ClientCard key={elm.id} {...elm} />) }
                         :
                         <h1>Cargando...</h1>
                     }
-                </Row>
+                </Row> */}
             </Container>)
     }
 }

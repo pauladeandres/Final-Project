@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.get('/:product_id', (req, res) => {
     Product
         .findById(req.params.product_id)
-        // .populate('options')
+        .populate('options')
         .populate('category')
         // .populate('supplier')
         .then(response => res.json(response))

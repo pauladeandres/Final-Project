@@ -1,0 +1,9 @@
+.add-cart-bar {
+    display: flex;
+    align-items: flex-end;
+}
+
+.price-detail {
+    font-weight: 800;
+    font-size: 2em;
+}
