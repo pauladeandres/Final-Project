@@ -1,13 +1,16 @@
 import { Component } from "react"
-import { Container } from "react-bootstrap"
+import { Container, Row } from "react-bootstrap"
+import AdminServices from '../../../service/admin.service'
+import ClientCard from "./ClientCard"
 
 
 class ClientList extends Component {
     constructor() {
         super()
         this.state = {
+            clients: undefined
         }
-        this.adminService = new AdminService
+        this.adminService = new AdminServices()
     }
 
     componentDidMount() {
@@ -15,13 +18,25 @@ class ClientList extends Component {
     }
 
     loadClients() {
-        this.AdminService
+        this.adminService
+            .getAllClients()
+            .then(response => this.setState({ clients: response.data }))
+            .catch(err => console.log('error no lo coge'))
     }
 
     render() {
+        const { clients } = this.state
+        console.log(clients)
         return (
             <Container>
-                <h1>Client List</h1>
+                <Row>
+                    {!clients
+                        ?
+                        { clients.map(elm => <ClientCard key={elm.id} {...elm} />) }
+                        :
+                        <h1>Cargando...</h1>
+                    }
+                </Row>
             </Container>)
     }
 }
