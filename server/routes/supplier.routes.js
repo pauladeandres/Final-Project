@@ -7,12 +7,15 @@ const Option = require('./../models/option.model')
 
 // Endpoints
 
-router.get('/')
+router.get('/', (req, res) => {
 
-router.get('/newproduct', (req, res) => console.log(res))
+    Category
+        .find()
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error loading categories', err }))
+})
 
-
-router.post('/newproduct', (req, res) => {
+router.post('/', (req, res) => {
  
     const { name, description, category } = req.body
 
@@ -22,7 +25,9 @@ router.post('/newproduct', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 })
 
-router.post('/newproduct/:product_id/options', (req, res) => { 
+// router.get('/newproduct', (req, res) => console.log(res)) TODO--YA NO LA NECESITAMOS
+
+router.post('/options', (req, res) => { 
 
     const { price, color, stock, image } = req.body
 
@@ -58,15 +63,15 @@ router.post('/newproduct/:product_id/options', (req, res) => {
 // })
 
 // PARA CREAR OPCIONES DESDE POSTMAN
-router.post('/products/createoption', (req, res) => {
+// router.post('/products/createoption', (req, res) => {
 
-    const option = req.body
+//     const option = req.body
 
-    Option
-        .create(option)
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
+//     Option
+//         .create(option)
+//         .then(response => res.json(response))
+//         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 
-})
+// })
 
 module.exports = router

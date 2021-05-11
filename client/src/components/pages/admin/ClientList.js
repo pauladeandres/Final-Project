@@ -30,12 +30,7 @@ class ClientList extends Component {
         return (
             <Container>
                 <Row>
-                    {!clients
-                        ?
-                        { clients.map(elm => <ClientCard key={elm.id} {...elm} />) }
-                        :
-                        <h1>Cargando...</h1>
-                    }
+                    
                 </Row>
             </Container>)
     }
