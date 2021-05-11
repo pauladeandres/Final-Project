@@ -35,7 +35,7 @@ router.get('/orders', (req, res) => {
     Order
         .find()
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching clients', err }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
 })
 
 
