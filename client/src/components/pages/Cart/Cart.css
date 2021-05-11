@@ -1,0 +1,7 @@
+.cart-items {
+    display: flex;
+}
+
+.cart-items input {
+    width: 100%;
+}

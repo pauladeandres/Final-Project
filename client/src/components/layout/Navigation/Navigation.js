@@ -1,5 +1,8 @@
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import './Navigation.css'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = ({ loggedUser, storeUser }) => {
 
@@ -37,6 +40,7 @@ const Navigation = ({ loggedUser, storeUser }) => {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Want to sell with us?</NavDropdown.Item>
                         </NavDropdown>
+                        <Link to="/cart"><FontAwesomeIcon className="shopping-cart-icon" icon={faShoppingCart} size="lg"/></Link>
                     </Nav>
                     {/* <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
