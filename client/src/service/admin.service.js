@@ -1,10 +1,11 @@
 import axios from 'axios'
 
-class AdminServices {
+class AdminService {
 
     constructor() {
         this.app = axios.create({
-            baseURL: 'http://localhost:5000/api/admin'
+            baseURL: 'http://localhost:5000/api/admin',
+            withCredentials: true
         })
     }
 
@@ -13,4 +14,4 @@ class AdminServices {
     getAllOrders = () => this.app.get(`/orders`)
 }
 
-export default AdminServices
+export default AdminService
