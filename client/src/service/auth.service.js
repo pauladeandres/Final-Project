@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class AdminService {
+class AuthService {
 
     constructor() {
         this.app = axios.create({
@@ -13,6 +13,7 @@ class AdminService {
     signup = userDetails => this.app.post('/signup', userDetails)
     logout = () => this.app.get('/logout')
     isloggedin = () => this.app.post('/isloggedin')
+    createUser = () => this.app.post('/supplier/new')
 }
 
-export default AdminService
+export default AuthService

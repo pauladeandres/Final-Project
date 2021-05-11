@@ -4,11 +4,11 @@ import AdminServices from '../../../service/admin.service'
 import ClientCard from "./ClientCard"
 
 
-class ClientList extends Component {
+class SupplierList extends Component {
     constructor() {
         super()
         this.state = {
-            clients: undefined
+            suppliers: undefined
         }
         this.adminService = new AdminServices()
     }
@@ -19,20 +19,20 @@ class ClientList extends Component {
 
     loadClients() {
         this.adminService
-            .getAllClients()
-            .then(response => this.setState({ clients: response.data }))
-            .catch(err => console.log('error no lo coge'))
+            .getAllSuppliers()
+            .then(response => this.setState({ suppliers: response.data }))
+            .catch(err => console.log(err))
     }
 
     render() {
-        const { clients } = this.state
-        console.log(clients)
+        const { suppliers } = this.state
+        console.log(suppliers)
         return (
             <Container>
                 <Row>
-                    {clients
+                    {suppliers
                         ?
-                        clients.map(elm => <ClientCard key={elm.id} {...elm} />)
+                        suppliers.map(elm => <ClientCard key={elm._id} {...elm} />)
                         :
                         <h1>Cargando...</h1>
                     }
@@ -41,4 +41,4 @@ class ClientList extends Component {
     }
 }
 
-export default ClientList
+export default SupplierList
