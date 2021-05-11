@@ -1,5 +1,6 @@
 import { Switch, Route } from 'react-router-dom'
 import ProductDetails from '../pages/Products/ProductDetails'
+import Dashboard from '../pages/admin/Dashboard'
 
 const Routes = () => {
     return (
