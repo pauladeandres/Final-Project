@@ -11,7 +11,9 @@ class ProductsService {
 
     getAllProducts = () => this.app.get('/product')
     getOneProduct = product_id => this.app.get(`/product/${product_id}`)
-    createProduct = productDetails => this.app.post(`/supplier`, productDetails)
+    createProduct = (productDetails, id) => this.app.post(`/supplier/myarea/${id}`, productDetails)
+    getProductBySupplier = supplier_id => this.app.get(`/supplier/myarea/myproducts/${supplier_id}`)
+    getMyProductDetails = product_id => this.app.get(`/supplier/myarea/myproductdetails/${product_id}`)
 }
 
 export default ProductsService

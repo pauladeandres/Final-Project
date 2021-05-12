@@ -1,7 +1,7 @@
 import { Component } from 'react'
 
 import ProductsService from './../../../service/products.service'
-
+import UserService from './../../../service/user.service'
 import NewProduct from '../NewProduct/NewProduct'
 
 import { Row, Container, Card, Accordion, Button } from 'react-bootstrap'
@@ -10,41 +10,56 @@ import MyDetails from './MyDetails'
 
 class SupplierProfile extends Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
             products: undefined,
-            openForm: false
+            openForm: false,
         }
         this.productsService = new ProductsService()
+        this.userService = new UserService()
     }
 
     componentDidMount() {
         this.loadProducts()
+        this.loadUser()
     }
 
     loadProducts() {
         this.productsService
             .getAllProducts()
-            .then(response => this.setState({ products: response.data }))
+            .then(response => {
+                this.setState({ products: response.data })
+                console.log(this.props.loggedUser)
+            })
+            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+    }
+
+    loadUser() {
+
+        this.userService
+            .getOneSupplier(this.props.loggedUser._id)
+            .then(response => {
+                console.log(response)
+                this.props.storeUser( response.data )
+            })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
     render() {
 
-        const { products } = this.state
+        return  (
 
-        return (
             <Container>
                 <h1>My Area</h1>
                 
                 <Row>
-                    <MyDetails />
+                    <MyDetails loggedUser={this.props.loggedUser}/>
                 </Row>
         
                 <Row>
                     <h1>My products</h1>
-                  {/* <MyProductList loggedUser={loggedUser}/> */}
+                  <MyProductList loggedUser={this.props.loggedUser}/>
                 </Row>
 
                 <Row>

@@ -1,7 +1,7 @@
 const express = require('express')
-const Order = require('../models/order.model')
 const router = express.Router()
-
+const Order = require('../models/order.model')
+const Product = require('../models/product.model')
 const Client = require('./../models/client.model')
 const User = require('./../models/user.model')
 
@@ -37,6 +37,53 @@ router.get('/orders', (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
 })
+
+router.get('/data', (req, res) => {
+    getOrders(res)
+
+})
+
+function getOrders(res) {
+    Order
+        .find()
+        .populate('products.product')
+        .populate('products.option')
+        .then(response => {
+            let dataArray = response.map(elm => elm.products.map(products => {
+                let name = products.product.name + " " + products.option.color
+                return {
+                    x: name,
+                    y: products.quantity
+                }
+            }))
+            return dataArray
+        })
+        .then(dataArray => {
+            res.json(dataArray.map((elm, index) => (
+                {
+                    "id": index,
+                    "color": "hsl(239, 70%, 50%)",
+                    'data': elm
+                })
+            ))
+        }
+        )
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
+}
+
+function getProducts() {
+
+    Product
+        .find()
+        .populate('options')
+        .then(response => {
+            response.map(elm => elm.options.length === 0 ? null : elm.options.map(conf =>
+                ({ name: elm.name, [conf.color]: conf.price })
+            ))
+        })
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
+
+}
 
 
 

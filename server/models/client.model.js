@@ -11,6 +11,9 @@ const clientSchema = new Schema({
     company: {
         type: String
     },
+    vatNumber: {
+        type: String
+    },
     address: {
         type: String
     },

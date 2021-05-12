@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
-// import MyProductCard from './MyProductCard'
+import MyProductCard from './MyProductsCard'
 
 import { Row } from 'react-bootstrap'
 
@@ -10,7 +10,6 @@ class MyProductList extends Component {
         super()
         this.state = {
             products: undefined
-            // showModal: false
         }
         this.productsService = new ProductsService()
     }
@@ -23,8 +22,11 @@ class MyProductList extends Component {
     loadProducts() {
 
         this.productsService
-            .getAllProducts()
-            .then(response => this.setState({ products: response.data }))
+            .getProductBySupplier(this.props.loggedUser._id)
+            .then(response => { 
+                this.setState({ products: response.data })
+                console.log(this.state.products)
+            })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
@@ -34,14 +36,13 @@ class MyProductList extends Component {
 
         return (
 
-            // !products
-            //     ?
-            //     <h1>CARGANDO</h1>
-            //     :
+            !products
+                ?
+                <h1>CARGANDO</h1>
+                :
                 <>
                     <Row>
-                        <h1>Lista de productos</h1>
-                        {/* {products.map(elm => <MyProductCard key={elm._id} {...elm} />)} */}
+                         {products.map(elm => <MyProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </>
 

@@ -9,9 +9,9 @@ class NewProduct extends Component {
         super(props)
         this.state = {
             product: {
-                // supplier: this.props.loggedUser._id,
+                supplier: this.props.loggedUser._id,
                 name: '',
-                description: 0,
+                description: '',
                 category: undefined
             },
             categorieOptions: undefined
@@ -23,6 +23,7 @@ class NewProduct extends Component {
 
     componentDidMount() {
         this.loadCategories()
+        console.log('SUPLIER', this.state.product.supplier)
     }
 
     loadCategories() {
@@ -43,13 +44,12 @@ class NewProduct extends Component {
         e.preventDefault()
 
         this.productService
-            .createProduct(this.state.product)
+            .createProduct(this.state.product, this.props.loggedUser._id)
             .then(response => console.log(response))
                 // this.props.closeModal()
                 // this.props.refreshCoasters()
             .catch(err => console.log(err))
     }
-
 
     render() {
 
@@ -57,7 +57,7 @@ class NewProduct extends Component {
 
         return (
 
-            !categorieOptions
+            !categorieOptions 
                 ?
                 <h1>Cargando...</h1>
                 :

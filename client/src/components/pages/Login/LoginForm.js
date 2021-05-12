@@ -34,6 +34,8 @@ class LoginForm extends Component {
                     console.log('pop up')
                     this.props.closeModal()
                     this.props.history.push(this.props.history.location.pathname)
+                } else if ((response.data.role === 'ADMIN') && !response.data.client) {
+                    this.props.history.push('/admin')
                 } else {
                     this.props.history.push('/')
                 }
