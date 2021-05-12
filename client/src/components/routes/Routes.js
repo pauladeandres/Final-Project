@@ -21,8 +21,8 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/signup" exact render={props => <InitialSignup history={props.history} />} />
             <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} />} />
 
-            <Route path="/product" render={() => <ProductList />} />
-            <Route path="/product/:id" render={props => <ProductDetails {...props} />} />
+            <Route path="/product" exact render={() => <ProductList />} />
+            <Route path="/product/:id" render={props => <ProductDetails {...props} loggedUser={loggedUser} storeUser={storeUser} history={props.history}/>} />
             <Route path="/product/:supplier_id" render={props => <SupplierPage {...props} />} />
 
             <Route path="/admin" exact render={props => <SupplierList />} />

@@ -21,7 +21,6 @@ class App extends Component {
       alertText: ''
     }
     this.authService = new AuthService()
-
   }
 
   handleAlert(alertText, showAlert = true) {
@@ -33,7 +32,7 @@ class App extends Component {
   fetchUser = () => {
     this.authService
       .isloggedin()
-      .then(response => this.setState({ loggedUser: response.data }))
+      .then(response => this.setState({loggedUser: response.data}))
       .catch(() => this.setState({ loggedUser: undefined }))
   }
 
@@ -52,6 +51,7 @@ class App extends Component {
           storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} />
 
         <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
+      
       </main >
     )
   }

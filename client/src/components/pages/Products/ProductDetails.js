@@ -6,17 +6,17 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 class ProductDetails extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             product: undefined,
             option: undefined,
             color: undefined,
             quantity: 0,
-            customer: '608bebd35c9f41166a3a4263'
+            customer: undefined
         }
         this.productService = new ProductsService()
-        
+
         this.orderService = new OrdersService()
         
     }
@@ -37,32 +37,44 @@ class ProductDetails extends Component {
     handleSubmit(e) {
         e.preventDefault()
 
-        console.log(this.state)
-        const customer = this.state.customer
-        const product = this.state.product._id
-        const quantity = this.state.quantity
-        const option = this.state.option._id
+        if (this.props.loggedUser) {
+            const customer = this.state.customer
+            const product = this.state.product._id
+            const quantity = this.state.quantity
+            const option = this.state.option._id
 
-        this.orderService
-            .createOrder({product, quantity, option, customer})
-            .then(response => {
-                console.log(response)
-                console.log(this.props)
-                this.props.handleAlert('Te has resgistrado correctamente', true)
-            })
-            .catch(err => console.log(err))
+            this.orderService
+                .createOrder({product, quantity, option, customer})
+                .then(response => {
+                    console.log(response)
+                    console.log(this.props)
+                    this.props.handleAlert('Te has resgistrado correctamente', true)
+                })
+                .catch(err => console.log(err))
+        } else {alert('Please log in')}
+        
     }
 
     componentDidMount() {
 
+        this.updateOption()
+        this.updateCustomer()
+    }
+    
+    updateOption() {
         const product_id = this.props.match.params.id
-
+        
         this.productService
-            .getOneProduct(product_id)
-            .then(response => {
-                this.setState({ product: response.data, option: response.data.options[0], color: response.data.options[0].color})
-            })
-            .catch(err => console.log(err))
+        .getOneProduct(product_id)
+        .then(response => {
+            this.setState({ product: response.data, option: response.data.options[0], color: response.data.options[0].color})
+        })
+        .catch(err => console.log(err))
+    }
+    
+    updateCustomer() {
+        console.log(this.props.loggedUser)
+        this.props.loggedUser && this.setState({customer: this.props.loggedUser._id})
     }
 
     render() {
