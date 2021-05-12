@@ -10,7 +10,7 @@ module.exports = app => {
             cookie: {
                 // sameSite: 'none',
                 httpOnly: true,
-                maxAge: 600000
+                maxAge: 6000000
             },
             store: MongoStore.create({
                 mongoUrl: process.env.DB_REMOTE || 'mongodb://localhost/basicAuth'

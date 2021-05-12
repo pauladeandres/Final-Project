@@ -43,8 +43,7 @@ class App extends Component {
         <Navigation handleAlert={alertText => this.handleAlert(alertText)}
           storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} />
 
-        <Routes handleAlert={alertText => this.handleAlert(alertText)}
-          storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} />
+        <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} />
 
         <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
       

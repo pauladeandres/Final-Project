@@ -14,7 +14,7 @@ import SupplierProfile from '../pages/SupplierArea/SupplierProfile'
 import NewOption from '../pages/NewProduct/NewOption'
 import MyProductCard from '../pages/SupplierArea/MyProductsCard'
 
-const Routes = ({ storeUser, loggedUser, handleAlert }) => {
+const Routes = ({ storeUser, loggedUser, history, handleAlert }) => {
     return (
         <Switch>
             <Route path="/" exact render={() => <Home />} />
@@ -22,7 +22,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} />} />
 
             <Route path="/product" exact render={() => <ProductList />} />
-            <Route path="/product/:id" render={props => <ProductDetails {...props} />} />
+            <Route path="/product/:id" render={props => <ProductDetails {...props} storeUser={storeUser} history={props.history} loggedUser={loggedUser}/>} />
             <Route path="/product/brand/:supplier_id" render={props => <SupplierPage {...props} />} />
 
             <Route path="/admin" exact render={() => <SupplierList loggedUser={loggedUser} />} />

@@ -1,0 +1,33 @@
+.cart-items {
+    display: flex;
+    border-bottom: 1px solid grey;
+    text-transform: uppercase;
+}
+
+.cart-items img {
+    width: 100%;
+    padding: 5px;
+}
+
+.cart-items h5 {
+    margin-top: 15px;
+}
+
+.cart-items a {
+    text-decoration: none;
+    color: black;
+}
+
+.edit-quantity-form {
+    display: flex;
+    align-items: flex-end;
+}
+
+.cart-items p {
+    margin-bottom: 0px;
+}
+
+.delete-btn {
+    display: inline;
+        float: right;
+}

@@ -2,7 +2,9 @@ import './ProductDetails.css'
 import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import OrdersService from '../../../service/order.service'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Modal, Col, Form, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import LoginForm from '../Login/LoginForm'
 
 class ProductDetails extends Component {
 
@@ -13,7 +15,8 @@ class ProductDetails extends Component {
             option: undefined,
             color: undefined,
             quantity: 0,
-            customer: undefined
+            customer: undefined,
+            showModal: false
         }
         this.productService = new ProductsService()
 
@@ -22,10 +25,11 @@ class ProductDetails extends Component {
     }
 
     handleInputChange(e) {
+        this.updateCustomer()
         const {name, value} = e.target
         this.setState({ [name]: value })
 
-        const { product_id } = this.props.match.params
+        const product_id = this.props.match.params.id
         
         this.productService
             .getOneProduct(product_id)
@@ -35,9 +39,9 @@ class ProductDetails extends Component {
     }
 
     handleSubmit(e) {
+        this.updateCustomer()
         e.preventDefault()
-
-        if (this.props.loggedUser) {
+        if (this.state.customer) {
             const customer = this.state.customer
             const product = this.state.product._id
             const quantity = this.state.quantity
@@ -47,11 +51,10 @@ class ProductDetails extends Component {
                 .createOrder({product, quantity, option, customer})
                 .then(response => {
                     console.log(response)
-                    console.log(this.props)
-                    this.props.handleAlert('Te has resgistrado correctamente', true)
+                    // this.props.handleAlert('Thank you for your order', true)
                 })
                 .catch(err => console.log(err))
-        } else {alert('Please log in')}
+        } else {this.setState({ showModal: true })}
         
     }
 
@@ -65,16 +68,16 @@ class ProductDetails extends Component {
         const product_id = this.props.match.params.id
         
         this.productService
-        .getOneProduct(product_id)
-        .then(response => {
-            this.setState({ product: response.data, option: response.data.options[0], color: response.data.options[0].color})
-        })
-        .catch(err => console.log(err))
+            .getOneProduct(product_id)
+            .then(response => {
+                this.setState({ product: response.data, option: response.data.options[0], color: response.data.options[0].color})
+            })
+            .catch(err => console.log(err))
     }
     
     updateCustomer() {
-        console.log(this.props.loggedUser)
-        this.props.loggedUser && this.setState({customer: this.props.loggedUser._id})
+        console.log('updating user:', this.props.loggedUser)
+        this.props.loggedUser? this.setState({customer: this.props.loggedUser._id}) : console.log('User not logged')
     }
 
     render() {
@@ -121,6 +124,13 @@ class ProductDetails extends Component {
                                     </Form.Row>
                                 </Form>
                                 
+                                <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
+                                    <Modal.Header> <Modal.Title>Please Log In</Modal.Title> </Modal.Header>
+                                    <Modal.Body>
+                                        <LoginForm storeUser={this.props.storeUser} history={this.props.history} closeModal={() => this.setState({ showModal: false })}/>
+                                    </Modal.Body>
+                                    <Link to="/signup">No account yet? Sign up</Link>
+                                </Modal>
                                 
                             </Col>
                         </Row>

@@ -25,10 +25,15 @@ class LoginForm extends Component {
         this.authService
             .login(this.state)
             .then(response => {
+
                 this.props.storeUser(response.data)
 
                 if ((response.data.role === 'SUPPLIER') && !response.data.client) {
                     this.props.history.push('/suppliers/signup')
+                } else if (this.props.history.location.pathname !== '/login'){
+                    console.log('pop up')
+                    this.props.closeModal()
+                    this.props.history.push(this.props.history.location.pathname)
                 } else {
                     this.props.history.push('/')
                 }

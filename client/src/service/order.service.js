@@ -3,13 +3,15 @@ import axios from 'axios'
 class OrdersService {
     constructor() {
         this.app = axios.create({
-            baseURL: 'http://localhost:5000/api',
+            baseURL: 'http://localhost:5000/api/order',
             withCredentials: true
         })
     }
 
-    createOrder = orderDetails => this.app.post('/order/new', orderDetails)
-    getUserOrder = () => this.app.get('/order/customer')
+    createOrder = orderDetails => this.app.post('/new', orderDetails)
+    getUserOrder = () => this.app.get('/customer')
+    deleteProduct = productId => this.app.post(`/remove/${productId}`)
+    editQuantity = (productId, quantity) => this.app.post(`edit/${productId}`, quantity)
 }
 
 export default OrdersService
