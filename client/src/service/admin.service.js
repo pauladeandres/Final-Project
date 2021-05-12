@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class AdminServices {
+class AdminService {
 
     constructor() {
         this.app = axios.create({
@@ -14,4 +14,4 @@ class AdminServices {
     getAllOrders = () => this.app.get(`/orders`)
 }
 
-export default AdminServices
+export default AdminService

@@ -22,10 +22,10 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} />} />
 
             <Route path="/product" exact render={() => <ProductList />} />
-            <Route path="/product/:product_id" render={props => <ProductDetails {...props} />} />
-            {/* <Route path="/product/:supplier_id" render={props => <SupplierPage {...props} />} /> */}
+            <Route path="/product/:id" render={props => <ProductDetails {...props} />} />
+            <Route path="/product/brand/:supplier_id" render={props => <SupplierPage {...props} />} />
 
-            <Route path="/admin" exact render={props => <SupplierList />} />
+            <Route path="/admin" exact render={() => <SupplierList loggedUser={loggedUser} />} />
             <Route path="/admin/clients" render={() => <ClientList />} />
             <Route path="/admin/suppliers" render={() => <SupplierList />} />
 

@@ -1,5 +1,6 @@
 import { Component } from "react"
 import { Container, Row } from "react-bootstrap"
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
 import AdminServices from '../../../service/admin.service'
 import ClientCard from "./ClientCard"
 
@@ -25,19 +26,21 @@ class ClientList extends Component {
     }
 
     render() {
+        console.log(this.props.loggedUser)
         const { clients } = this.state
         console.log(clients)
-        return (
-            <Container>
-                <Row>
-                    {clients
-                        ?
-                        clients.map(elm => <ClientCard key={elm.id} {...elm} />)
-                        :
-                        <h1>Cargando...</h1>
-                    }
-                </Row>
-            </Container>)
+        return (!this.props.loggedUser || this.props.loggedUser.role !== 'ADMIN') ? <Redirect to="/" /> :
+            (
+                <Container>
+                    <Row>
+                        {clients
+                            ?
+                            clients.map(elm => <ClientCard key={elm.id} {...elm} />)
+                            :
+                            <h1>Cargando...</h1>
+                        }
+                    </Row>
+                </Container>)
     }
 }
 
