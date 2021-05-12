@@ -25,10 +25,13 @@ class LoginForm extends Component {
         this.authService
             .login(this.state)
             .then(response => {
+                console.log(response)
                 this.props.storeUser(response.data)
 
                 if ((response.data.role === 'SUPPLIER') && !response.data.client) {
-                    this.props.history.push('/suppliers/signup')
+                    this.props.history.push('/supplier/signup')
+                } else if ((response.data.role === 'ADMIN') && !response.data.client) {
+                    this.props.history.push('/admin')
                 } else {
                     this.props.history.push('/')
                 }

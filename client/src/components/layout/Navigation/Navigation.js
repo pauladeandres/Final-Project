@@ -18,40 +18,41 @@ const Navigation = ({ loggedUser, storeUser }) => {
 
     return (
 
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/">HOME</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand as={Link} to="/">HOME</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <NavDropdown title="Products" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/">See All</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Sofas</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Chairs</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Tables</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Decoration</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Kitchen</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Garden</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Bedroom</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Bathroom</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/">See All</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Sofas</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Chairs</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Tables</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Decoration</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Kitchen</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Garden</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Bedroom</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Bathroom</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Our Brands" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.2">SKLUM</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Vitra</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">AYTM</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">MUJI</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Ferm Living</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Blu Dot</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.4">Umbra</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.2">SKLUM</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Vitra</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">AYTM</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">MUJI</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Ferm Living</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Blu Dot</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#action/3.4">Umbra</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="My Area" id="basic-nav-dropdown">
-                        { loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null }
-                        <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                        <NavDropdown.Item href="/signup">Sign up</NavDropdown.Item>
+                        {(loggedUser && loggedUser.role === 'ADMIN') ? <NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item> : null}
+                        {loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
+                        <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
                     </NavDropdown>
-                    
+
                 </Nav>
                 <Link to="/cart"><FontAwesomeIcon icon={faShoppingCart} /></Link>
                 {/* <Form inline>
@@ -59,7 +60,7 @@ const Navigation = ({ loggedUser, storeUser }) => {
                         <Button variant="outline-success">Search</Button>
                     </Form> */}
             </Navbar.Collapse>
-        </Navbar>
+        </Navbar >
     )
 }
 export default Navigation

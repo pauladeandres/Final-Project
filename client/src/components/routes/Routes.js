@@ -26,9 +26,9 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/product/:id" render={props => <ProductDetails {...props} />} />
             <Route path="/product/brand/:supplier_id" render={props => <SupplierPage {...props} />} />
 
-            <Route path="/admin" exact render={() => <SupplierList loggedUser={loggedUser} />} />
-            <Route path="/admin/clients" render={() => <ClientList />} />
-            <Route path="/admin/suppliers" render={() => <SupplierList />} />
+            <Route path="/admin" exact render={() => <Dashboard loggedUser={loggedUser} />} />
+            <Route path="/admin/clients" render={() => <ClientList loggedUser={loggedUser} />} />
+            <Route path="/admin/suppliers" render={() => <SupplierList loggedUser={loggedUser} />} />
 
             <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile storeUser={storeUser}  loggedUser={loggedUser} {...props}/> } />
             <Route path="/supplier/myarea/myproductdetails/:id" render={() => <MyProductDetails storeUser={storeUser} loggedUser={loggedUser} />} />
