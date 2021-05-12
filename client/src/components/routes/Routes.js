@@ -21,15 +21,15 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/signup" exact render={props => <InitialSignup history={props.history} />} />
             <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} />} />
 
-            <Route path="/product" render={() => <ProductList />} />
-            <Route path="/product/:id" render={props => <ProductDetails {...props} />} />
-            <Route path="/product/:supplier_id" render={props => <SupplierPage {...props} />} />
+            <Route path="/product" exact render={() => <ProductList />} />
+            <Route path="/product/:product_id" render={props => <ProductDetails {...props} />} />
+            {/* <Route path="/product/:supplier_id" render={props => <SupplierPage {...props} />} /> */}
 
             <Route path="/admin" exact render={props => <SupplierList />} />
             <Route path="/admin/clients" render={() => <ClientList />} />
             <Route path="/admin/suppliers" render={() => <SupplierList />} />
 
-            <Route path="/supplier" exact render={() => <SupplierProfile loggedUser={loggedUser} />} />
+            <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile loggedUser={loggedUser} {...props}/>} />
             <Route path="/suppliers/signup" render={props => <SignupForm history={props.history} />} />
             <Route path="/supplier/productdetails" render={() => <MyProductCard />} />
             <Route path="/supplier/options" render={() => <NewOption />} />

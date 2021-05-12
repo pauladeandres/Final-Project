@@ -25,7 +25,7 @@ class ProductDetails extends Component {
         const {name, value} = e.target
         this.setState({ [name]: value })
 
-        const product_id = this.props.match.params.id
+        const { product_id } = this.props.match.params
         
         this.productService
             .getOneProduct(product_id)
