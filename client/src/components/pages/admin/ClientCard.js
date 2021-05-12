@@ -1,5 +1,4 @@
 import { Card, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 const ClientCard = ({ email, _id }) => {
 

@@ -1,7 +1,7 @@
 import { Card, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const ProductCard = ({ name, description, _id, options }) => {
+const ProductCard = ({ name,  _id, options }) => {
 
     console.log(options)
 

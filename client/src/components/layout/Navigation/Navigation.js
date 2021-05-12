@@ -8,7 +8,6 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 const Navigation = ({ loggedUser, storeUser }) => {
 
     const logout = () => {
-
         const authService = new AuthService()
 
         authService
@@ -46,10 +45,11 @@ const Navigation = ({ loggedUser, storeUser }) => {
                         <NavDropdown.Item href="#action/3.4">Umbra</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="My Area" id="basic-nav-dropdown">
+                        { loggedUser ? <NavDropdown.Item href={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null }
                         <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                         <NavDropdown.Item href="/signup">Sign up</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="/logout">Log out</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
                     </NavDropdown>
                     
                 </Nav>

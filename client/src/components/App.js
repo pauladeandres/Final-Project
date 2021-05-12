@@ -1,11 +1,7 @@
 import { Component } from 'react'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-
 import Navigation from './layout/Navigation/Navigation'
-import AdminService from '../service/auth.service'
-
 import Routes from './routes/Routes'
 import AuthService from '../service/auth.service'
 import Alert from './shared/Alert/Alert'

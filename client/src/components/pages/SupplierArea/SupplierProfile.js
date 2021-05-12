@@ -6,15 +6,15 @@ import NewProduct from '../NewProduct/NewProduct'
 
 import { Row, Container, Card, Accordion, Button } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
+import MyDetails from './MyDetails'
 
 class SupplierProfile extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             products: undefined,
             openForm: false
-            // showModal: false
         }
         this.productsService = new ProductsService()
     }
@@ -39,11 +39,11 @@ class SupplierProfile extends Component {
                 <h1>My Area</h1>
                 
                 <Row>
-                    My details
+                    <MyDetails />
                 </Row>
         
                 <Row>
-                    My products
+                    <h1>My products</h1>
                   {/* <MyProductList loggedUser={loggedUser}/> */}
                 </Row>
 
