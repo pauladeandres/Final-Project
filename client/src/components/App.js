@@ -12,7 +12,7 @@ class App extends Component {
     super()
 
     this.state = {
-      loggedUser: undefined,
+      loggedUser: null,
       showAlert: false,
       alertText: ''
     }
@@ -28,7 +28,7 @@ class App extends Component {
   fetchUser = () => {
     this.authService
       .isloggedin()
-      .then(response => this.setState({loggedUser: response.data}))
+      .then(response => this.setState({loggedUser: response.data }))
       .catch(() => this.setState({ loggedUser: undefined }))
   }
 
@@ -39,6 +39,7 @@ class App extends Component {
   render() {
 
     return (
+      this.state.loggedUser === null ? "buscando user" :(
       <main>
         <Navigation handleAlert={alertText => this.handleAlert(alertText)}
           storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} />
@@ -48,7 +49,7 @@ class App extends Component {
 
         <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
       
-      </main >
+      </main >)
     )
   }
 }

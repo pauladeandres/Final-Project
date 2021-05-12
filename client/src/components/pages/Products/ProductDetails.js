@@ -31,7 +31,6 @@ class ProductDetails extends Component {
             .getOneProduct(product_id)
             .then(response => this.setState({option: response.data.options.find(option => option.color === this.state.color)}))
             .catch(err => console.log(err))
-
     }
 
     handleSubmit(e) {

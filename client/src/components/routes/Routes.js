@@ -13,6 +13,7 @@ import InitialSignup from '../pages/auth/InitialSignup'
 import SupplierProfile from '../pages/SupplierArea/SupplierProfile'
 import NewOption from '../pages/NewProduct/NewOption'
 import MyProductCard from '../pages/SupplierArea/MyProductsCard'
+import MyProductDetails from '../pages/SupplierArea/MyProductDetails'
 
 const Routes = ({ storeUser, loggedUser, handleAlert }) => {
     return (
@@ -29,8 +30,9 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/admin/clients" render={() => <ClientList />} />
             <Route path="/admin/suppliers" render={() => <SupplierList />} />
 
-            <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile loggedUser={loggedUser} {...props}/>} />
-            <Route path="/suppliers/signup" render={props => <SignupForm history={props.history} />} />
+            <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile storeUser={storeUser}  loggedUser={loggedUser} {...props}/> } />
+            <Route path="/supplier/myarea/myproductdetails/:id" render={() => <MyProductDetails storeUser={storeUser} loggedUser={loggedUser} />} />
+            <Route path="/supplier/signup" render={props => <SignupForm history={props.history} />} />
             <Route path="/supplier/productdetails" render={() => <MyProductCard />} />
             <Route path="/supplier/options" render={() => <NewOption />} />
 

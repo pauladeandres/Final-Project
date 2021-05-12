@@ -45,7 +45,7 @@ const Navigation = ({ loggedUser, storeUser }) => {
                         <NavDropdown.Item href="#action/3.4">Umbra</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="My Area" id="basic-nav-dropdown">
-                        { loggedUser ? <NavDropdown.Item href={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null }
+                        { loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null }
                         <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                         <NavDropdown.Item href="/signup">Sign up</NavDropdown.Item>
                         <NavDropdown.Divider />

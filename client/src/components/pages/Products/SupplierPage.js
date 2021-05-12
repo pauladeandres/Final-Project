@@ -21,7 +21,6 @@ class SupplierPage extends Component {
     }
 
     loadProducts() {
-
         this.productsService
             .getAllProducts()
             .then(response => this.setState({ products: response.data }))
