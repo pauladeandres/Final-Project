@@ -31,7 +31,7 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert }) => {
             <Route path="/admin/suppliers" render={() => <SupplierList loggedUser={loggedUser} />} />
 
             <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile storeUser={storeUser}  loggedUser={loggedUser} {...props}/> } />
-            <Route path="/supplier/myarea/myproductdetails/:id" render={() => <MyProductDetails storeUser={storeUser} loggedUser={loggedUser} />} />
+            <Route path="/supplier/myarea/myproductdetails/:id" render={props => <MyProductDetails storeUser={storeUser} loggedUser={loggedUser} {...props} />} />
             <Route path="/supplier/signup" render={props => <SignupForm history={props.history} />} />
             <Route path="/supplier/productdetails" render={() => <MyProductCard />} />
             <Route path="/supplier/options" render={() => <NewOption />} />
