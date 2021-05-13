@@ -14,6 +14,7 @@ class ProductsService {
     createProduct = (productDetails, id) => this.app.post(`/supplier/myarea/${id}`, productDetails)
     getProductBySupplier = supplier_id => this.app.get(`/supplier/myarea/myproducts/${supplier_id}`)
     getMyProductDetails = product_id => this.app.get(`/supplier/myarea/myproductdetails/${product_id}`)
+    createOption = optionDetails => this.app.post('/supplier/myarea/newoption', optionDetails)
 }
 
 export default ProductsService

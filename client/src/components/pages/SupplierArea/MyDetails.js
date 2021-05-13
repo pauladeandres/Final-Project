@@ -1,5 +1,7 @@
 import { Component } from 'react'
 
+import './MyDetails.css'
+
 import { Form, Col, Button, Row } from 'react-bootstrap'
 
 class MyDetails extends Component {
