@@ -1,12 +1,14 @@
+const { json } = require('express')
 const express = require('express')
 const router = express.Router()
 const Order = require('../models/order.model')
 const Product = require('../models/product.model')
 const Client = require('./../models/client.model')
 const User = require('./../models/user.model')
+const { isLoggedIn, checkRoles } = require('./../middlewares/index')
 
 // Endpoints
-router.get('/suppliers', (req, res) => {
+router.get('/suppliers', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     User
         .find({ role: 'SUPPLIER' })
@@ -15,7 +17,7 @@ router.get('/suppliers', (req, res) => {
 
 })
 
-router.get('/clients', (req, res) => {
+router.get('/clients', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     User
         .find({ role: 'CUSTOMER' })
@@ -24,32 +26,32 @@ router.get('/clients', (req, res) => {
 
 })
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
     User
         .find()
         .then(response => console.log(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching clients', err }))
 })
 
-router.get('/orders', (req, res) => {
+router.get('/orders', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
     Order
         .find()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
 })
 
-router.get('/data', (req, res) => {
-    let promise1 = getProducts()
-    let promise2 = getOrders()
+router.get('/data', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
+    let productPromise = getProducts()
+    let ordersPromise = getOrders()
 
-    Promise.all([promise1, promise2])
-        .then(response => console.log('respuesta de promesa', response))
-        .catch(err => console.log(err))
+    Promise.all([productPromise, ordersPromise])
+        .then(response => res.json({ products: response[0], orders: response[1] }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching data', err }))
 })
 
 
 function getOrders() {
-    Order
+    return Order
         .find()
         .populate('products.product')
         .populate('products.option')
@@ -73,12 +75,12 @@ function getOrders() {
             ))
         }
         )
-        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders data', err }))
 }
 
 function getProducts() {
 
-    Product
+    return Product
         .find()
         .populate('options')
         .then(response => {
@@ -86,15 +88,13 @@ function getProducts() {
             let dataArray = response.map(elm => {
                 let optArray = elm.options.length === 0 ? null :
                     elm.options.map(conf => ({ [conf.color]: conf.price }))
-
                 let optArrayRed = optArray ? optArray.reduce((result, current) => Object.assign(result, current)) : {}
-                console.log(Object.assign(optArrayRed, { name: elm.name }))
                 return optArrayRed
             })
             return dataArray
         })
         .then(response => response)
-        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching products data', err }))
 
 }
 
