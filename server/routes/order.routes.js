@@ -45,7 +45,7 @@ router.post('/remove/:id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any order', err }))
 })
 
-// EDIT PRODUCT QUANTITY FROM CART (POST)
+// // EDIT PRODUCT QUANTITY FROM CART (POST)
 router.post('/edit/:id', (req, res) => {
 
     const {quantity} = req.body
@@ -55,7 +55,10 @@ router.post('/edit/:id', (req, res) => {
     console.log('customer:', req.session.currentUser._id, 'product id:', req.params.id, 'quantity', quantity)
 
     Order
-        .findOneAndUpdate({$and: [{'customer': req.session.currentUser._id}, {'products._id': req.params.id}]}, {products: quantity})
+        .findOneAndUpdate({$and: [{'customer': req.session.currentUser._id}, {'products._id': req.params.id}]},  
+        { "$set": {'quantity.$': quantity}})
+        .then(response => console.log(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Could not update this order', err }))
 })
 
 

@@ -8,105 +8,93 @@ import LoginForm from '../Login/LoginForm'
 
 class ProductDetails extends Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
-            product: undefined,
-            option: undefined,
-            color: undefined,
-            quantity: 0,
-            customer: undefined,
-            showModal: false
+            order: {
+                product: undefined,
+                color: undefined,
+                quantity: 0,
+            },
+            showModal: false,
+            options: undefined
         }
         this.productService = new ProductsService()
-
         this.orderService = new OrdersService()
-        
     }
 
     handleInputChange(e) {
-        this.updateCustomer()
         const {name, value} = e.target
-        this.setState({ [name]: value })
-
-        const product_id = this.props.match.params.id
-        
-        this.productService
-            .getOneProduct(product_id)
-            .then(response => this.setState({option: response.data.options.find(option => option.color === this.state.color)}))
-            .catch(err => console.log(err))
+        this.setState({ order: { ...this.state.order, [name]: value }})
     }
 
     handleSubmit(e) {
-        this.updateCustomer()
         e.preventDefault()
-        if (this.state.customer) {
-            const customer = this.state.customer
-            const product = this.state.product._id
-            const quantity = this.state.quantity
-            const option = this.state.option._id
+        if (this.props.loggedUser) {
+            
+            const customer = this.props.loggedUser._id
+            const product = this.state.order.product._id
+            const quantity = this.state.order.quantity
+            const option = this.state.options.find(elm => elm.color === this.state.order.color)._id 
 
             this.orderService
                 .createOrder({product, quantity, option, customer})
                 .then(response => {
                     console.log(response)
+                    this.props.updateCartNumber() 
                     // this.props.handleAlert('Thank you for your order', true)
                 })
-                .catch(err => console.log(err))
-        } else {this.setState({ showModal: true })}
-        
+                .catch(err => console.log(err))  
+        } else {this.setState({ showModal: true })} 
     }
 
     componentDidMount() {
-
-        this.updateOption()
-        this.updateCustomer()
+        this.importProduct()
+        this.props.updateCartNumber() 
     }
     
-    updateOption() {
+    importProduct() {
         const product_id = this.props.match.params.id
         
         this.productService
             .getOneProduct(product_id)
             .then(response => {
-                this.setState({ product: response.data, option: response.data.options[0], color: response.data.options[0].color})
-            })
+                this.setState({ options: response.data.options, order: { ...this.state.order, product: response.data, option: response.data.options[0], color: response.data.options[0].color } })
+                console.log(this.state)
+                    })
             .catch(err => console.log(err))
-    }
-    
-    updateCustomer() {
-        console.log('updating user:', this.props.loggedUser)
-        this.props.loggedUser? this.setState({customer: this.props.loggedUser._id}) : console.log('User not logged')
     }
 
     render() {
 
-        const { product } = this.state
+        const product = this.state.order
+        const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
+        const price = this.state.options?.find(elm => elm.color === this.state.order.color).price || product.price
 
         return (
             <Container>
                 {
-                    !this.state.product ? <h1>Loading...</h1> :
-                        
+                    !this.state.options ? <h1>Loading...</h1> :
+
                         <Row>
                             <Col md={6}>
-                                <img src={this.state.option.image}></img>
+                                <img src={img}></img>
                             </Col>
                             <Col md={6}>
-                                <h1>{product.name}</h1>
+                                <h1>{product.product.name}</h1>
                                 <h3>Information</h3>
-                                <p>{product.description}</p>
-                                <p>Category: {product.category.name}</p>
-                                <p className="price-detail">$ {this.state.option.price}</p>
+                                <p>{product.product.description}</p>
+                                <p><b>Category:</b> {product.product.category.name}</p>
+                                <p className="price-detail">$ {price}</p>
                                 <hr />
                                 
                                 <Form onSubmit={e => this.handleSubmit(e)}>
-                                    <Form.Row className="add-cart-bar">
+                                   <Form.Row className="add-cart-bar">
                                         <Col xs={6}>
                                             <Form.Group controlId="option">
                                             <Form.Label>Color</Form.Label>
-                                            <Form.Control as="select" value={this.state.color} onChange={e => this.handleInputChange(e)} name="color">
-                                                {product.options.map(elm =>
+                                            <Form.Control as="select" value={product.color} onChange={e => this.handleInputChange(e)} name="color">
+                                                {this.state.options.map(elm =>
                                                 <option key={elm._id}>{elm.color} </option>)}
                                             </Form.Control>
                                             </Form.Group>
@@ -114,7 +102,7 @@ class ProductDetails extends Component {
                                         <Col xs={3}>
                                             <Form.Group controlId="quantity">
                                             <Form.Label>Quantity</Form.Label>
-                                            <Form.Control type="number" min="1" value={this.state.quantity} onChange={e => this.handleInputChange(e)} name="quantity" />
+                                            <Form.Control type="number" min="1" value={product.quantity} onChange={e => this.handleInputChange(e)} name="quantity" />
                                             </Form.Group>
                                         </Col>
                                         <Col xs={3}>
@@ -129,12 +117,10 @@ class ProductDetails extends Component {
                                         <LoginForm storeUser={this.props.storeUser} history={this.props.history} closeModal={() => this.setState({ showModal: false })}/>
                                     </Modal.Body>
                                     <Link to="/signup">No account yet? Sign up</Link>
-                                </Modal>
-                                
+                                </Modal> 
                             </Col>
                         </Row>
                 }
-
             </Container>
         )
     }

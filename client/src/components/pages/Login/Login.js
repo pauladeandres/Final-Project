@@ -2,7 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import LoginForm from './LoginForm'
 
-const Login = ({ storeUser, history }) => {
+const Login = ({ storeUser, history, updateCartNumber }) => {
 
     return (
 
@@ -16,7 +16,7 @@ const Login = ({ storeUser, history }) => {
 
                     <hr />
 
-                    <LoginForm storeUser={storeUser} history={history} />
+                    <LoginForm storeUser={storeUser} history={history} updateCartNumber={updateCartNumber}/>
 
                     <hr />
 

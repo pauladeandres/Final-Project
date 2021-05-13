@@ -25,6 +25,7 @@ class CartRow extends Component {
             .deleteProduct(id)
             .then(response => console.log(response))
             .catch(err => console.log(err))
+        this.props.fetchProducts()
     }
 
     handleInputChange(e) {
@@ -47,6 +48,7 @@ class CartRow extends Component {
             
             const product = this.state.products
             const totalPrice = product.quantity * product.option.price 
+            const link = `/product/${product.product._id}`
 
             return (
                 <div id={product._id} className="cart-items">
@@ -54,7 +56,7 @@ class CartRow extends Component {
                         <img src={product.option.image}></img>
                     </Col>
                     <Col md={9}>
-                        <Link to={product.product._id} ><h5>{product.product.name}</h5></Link>
+                        <Link to={link} ><h5>{product.product.name}</h5></Link>
                         <p>Color: {product.option.color}</p>
                         <p>Unit price: <b>${product.option.price}</b></p>
                         <p>Total price: <b>${totalPrice}</b></p>

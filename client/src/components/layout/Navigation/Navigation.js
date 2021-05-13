@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
-const Navigation = ({ loggedUser, storeUser }) => {
+const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
 
     const logout = () => {
         const authService = new AuthService()
@@ -55,6 +55,7 @@ const Navigation = ({ loggedUser, storeUser }) => {
 
                 </Nav>
                 <Link to="/cart"><FontAwesomeIcon icon={faShoppingCart} /></Link>
+                <span class="order-number">{orderNumber}</span>
                 {/* <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>
