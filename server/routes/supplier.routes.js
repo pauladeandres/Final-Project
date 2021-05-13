@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const { isLoggedIn, checkRoles } = require('../middlewares/index')
 const Product = require('../models/product.model')
 const User = require('../models/user.model')
 const Category = require('./../models/category.model')
@@ -8,7 +8,7 @@ const Option = require('./../models/option.model')
 
 // Endpoints
 
-router.get('/', (req, res) => {
+router.get('/', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     Category
         .find()
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading categories', err }))
 })
 
-router.post('/myarea/:supplier_id', (req, res) => {
+router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { supplier, name, description, category } = req.body
     console.log({ supplier, name, description, category })
@@ -27,7 +27,7 @@ router.post('/myarea/:supplier_id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 })
 
-router.get('/myarea/:supplier_id', (req, res) => {
+router.get('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { supplier_id } = req.params
 
@@ -39,12 +39,12 @@ router.get('/myarea/:supplier_id', (req, res) => {
 
 })
 
-router.get('/myarea/myproducts/:supplier_id', (req, res) => {
+router.get('/myarea/myproducts/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { supplier_id } = req.params
 
     Product
-        .find({supplier: supplier_id })
+        .find({ supplier: supplier_id })
         .populate('supplier')
         .populate('category')
         .populate('options')
@@ -53,7 +53,7 @@ router.get('/myarea/myproducts/:supplier_id', (req, res) => {
 
 })
 
-router.get('/myarea/myproductdetails/:product_id', (req, res) => {
+router.get('/myarea/myproductdetails/:product_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { product_id } = req.params
 
@@ -67,18 +67,19 @@ router.get('/myarea/myproductdetails/:product_id', (req, res) => {
 
 })
 
-router.post('/myarea/newoption/:product_id', (req, res) => { 
+router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
     
     const {product_id} = req.params
+
     const { price, color, stock, image } = req.body
 
     Option
         .create({ price, color, stock, image })
-        .then(option => Product.findByIdAndUpdate(product_id, {$push: { options: option._id}}))
+        .then(option => Product.findByIdAndUpdate(product_id, { $push: { options: option._id } }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 })
-
+// ELIMINAR!?
 // PARA CREAR CATEGORIAS DESDE POSTMAN
 // router.post('/products/createcategory', (req, res) => {
 
