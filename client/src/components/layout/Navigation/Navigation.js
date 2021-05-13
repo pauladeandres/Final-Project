@@ -45,7 +45,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
                         <NavDropdown.Item as={Link} to="#action/3.4">Umbra</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="My Area" id="basic-nav-dropdown">
-                        {(loggedUser && loggedUser.role === 'ADMIN') ? <NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item> : null}
+                        {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
                         {loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
                         <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>

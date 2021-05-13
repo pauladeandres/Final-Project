@@ -5,16 +5,18 @@ import Cart from '../pages/Cart/Cart'
 import Checkout from '../pages/Checkout/Checkout'
 import ProductList from '../pages/Products/ProductList'
 import SupplierPage from '../pages/Products/SupplierPage'
-import Dashboard from '../pages/admin/Dashboard'
-import ClientList from '../pages/admin/ClientList'
-import SupplierList from '../pages/admin/SupplierList'
+import Dashboard from '../pages/Admin/Dashboard'
+import ClientList from '../pages/Admin/ClientList'
+import SupplierList from '../pages/Admin/SupplierList'
 import Login from '../pages/Login/Login'
-import SignupForm from '../pages/auth/SignupForm'
-import InitialSignup from '../pages/auth/InitialSignup'
+import SignupForm from '../pages/Auth/SignupForm'
+import InitialSignup from '../pages/Auth/InitialSignup'
 import SupplierProfile from '../pages/SupplierArea/SupplierProfile'
 import NewOption from '../pages/NewProduct/NewOption'
 import MyProductCard from '../pages/SupplierArea/MyProductsCard'
 import MyProductDetails from '../pages/SupplierArea/MyProductDetails'
+import ProtectedRoute from '../pages/Auth/ProtectedRoute'
+import { isAccepted } from '../../utils/index'
 
 const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber }) => {
     return (
@@ -27,11 +29,11 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber 
             <Route path="/product/:id" render={props => <ProductDetails {...props} storeUser={storeUser} history={props.history} loggedUser={loggedUser} updateCartNumber={updateCartNumber}/>} />
             <Route path="/product/brand/:supplier_id" render={props => <SupplierPage {...props} />} />
 
-            <Route path="/admin" exact render={() => <Dashboard loggedUser={loggedUser} />} />
-            <Route path="/admin/clients" render={() => <ClientList loggedUser={loggedUser} />} />
-            <Route path="/admin/suppliers" render={() => <SupplierList loggedUser={loggedUser} />} />
+            <Route path="/admin" exact render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={Dashboard} />} />
+            <Route path="/admin/clients" render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={ClientList} />} />
+            <Route path="/admin/suppliers" render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={SupplierList} />} />
 
-            <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile storeUser={storeUser}  loggedUser={loggedUser} {...props}/> } />
+            <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile storeUser={storeUser} loggedUser={loggedUser} {...props} />} />
             <Route path="/supplier/myarea/myproductdetails/:id" render={props => <MyProductDetails storeUser={storeUser} loggedUser={loggedUser} {...props} />} />
             <Route path="/supplier/signup" render={props => <SignupForm history={props.history} />} />
             <Route path="/supplier/productdetails" render={() => <MyProductCard />} />

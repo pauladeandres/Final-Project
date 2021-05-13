@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
-
 const User = require('../models/user.model')
 const Client = require('../models/client.model')
+const { isLoggedIn, checkRoles } = require('./../middlewares/index')
 
 // SIGN UP (POST)
 router.post('/signup', (req, res) => {
@@ -64,12 +64,12 @@ router.get('/logout', (req, res) => {
 })
 
 // IS LOGGEDIN (POST)
-router.post('/isloggedin', (req, res) => {
+router.post('/isloggedin', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
     req.session.currentUser ? res.json(req.session.currentUser) : res.status(401).json({ code: 401, message: 'Unauthorized' })
 })
 
 // CREATE CLIENT (POST)
-router.post('/client/new', (req, res) => {
+router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
 
     const client = req.body
 
@@ -88,9 +88,9 @@ router.get('/client/:id', (req, res) => {
 })
 
 // CURRENT SUPPLIER DETAILS (GET)
-router.get('/supplier/new', (req, res) => { res.render('hola') })
+router.get('/supplier/new', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => { res.render('hola') })
 
-router.post('/supplier/new', (req, res) => {
+router.post('/supplier/new', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
     const _id = req.session.currentUser._id
     const { firstName, secondName, company, address, zipcode, city, country, phone } = req.body
 

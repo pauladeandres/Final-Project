@@ -1,8 +1,10 @@
 import './MyProductDetails.css'
 import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Table, Button, Accordion, Card, Modal } from 'react-bootstrap'
 import NewOption from '../NewProduct/NewOption'
+import OptionCard from '../SupplierArea/OptionCard'
+import EditProductModal from '../SupplierArea/EditProductModal'
 
 
 class MyProductDetails extends Component {
@@ -11,18 +13,20 @@ class MyProductDetails extends Component {
         super()
         this.state = {
             product: undefined,
+            showModal: false
         }
         this.productService = new ProductsService()
 
     }
 
     componentDidMount() {
-        this.findProduct()
+        this.fetchProducts()
     }
 
     findProduct() {
 
         const  product_id  = this.props.match.params.id
+
         console.log(product_id)
         this.productService
             .getMyProductDetails(product_id)
@@ -31,6 +35,10 @@ class MyProductDetails extends Component {
                 console.log(response)
             })
             .catch(err => console.log(err))
+    }
+
+    fetchProducts() {
+        this.findProduct()
     }
     
 
@@ -46,15 +54,16 @@ class MyProductDetails extends Component {
                 <Row>
                 <h1>{this.state.product.name}</h1>
                 </Row>
+
                 <Row>
                     <Col>
                         <Container className="img-box">
                         {
-                            !this.state.product.options === undefined
+                            this.state.product.options[0] === undefined
                             ?
-                            <img src="" />
+                            <h1>No hay Imagen</h1>
                             :
-                            <img src=""/>
+                            <img src={this.state.product.options[0].image}/>
                         }
                         </Container>
                     </Col>
@@ -63,30 +72,43 @@ class MyProductDetails extends Component {
                     <p> {this.state.product.description}</p>
                     <h2>Category:</h2>
                     <p> {this.state.product.category.name}</p>
+                                    <Button variant="outline-danger" onClick={() => this.setState({ showModal: true})}>Edit</Button>
+                                    <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
+                                        <EditProductModal />
+                                    </Modal>
                     </Col>
-                    <Row>
-                        <h1>Options</h1>
-                    <Row>
-                        <Col>
-                            <img src=""/>
-                        </Col>
-                         <Col>
-                             Price:
-                         </Col>
-                        <Col>
-                            Stock:
-                         </Col>
-                        <Col>
-                            Color:
-                         </Col>
                     </Row>
+
+                    <Row>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th> Image</th>
+                                    <th>Ref</th>
+                                    <th>Price</th>
+                                    <th>Color</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                        {this.state.product.options.map(elm => <OptionCard key={elm._id} {...elm} fetchProducts={() => this.fetchProducts() }/>)}
+                            </tbody>
+                        </Table>
                     </Row>
                     <Row>
                     <Col>
-                        <NewOption />
+                        <Accordion >
+                        <Card>
+                        <Accordion.Toggle as={Card.Header} eventKey="1">
+                            <Button className="addoption" variant="dark" style={{ width: '100%' }}>+</Button>
+                        </Accordion.Toggle>
+                                    <Accordion.Collapse eventKey="1">
+                                                <Card.Body><NewOption product_id={this.state.product._id} fetchProducts={() => this.fetchProducts()}/></Card.Body>
+                        </Accordion.Collapse>
+                        </Card>
+                        </Accordion >
                     </Col>
-                    </Row>                
-                </Row>
+                    </Row>               
                 </>
             }
             </Container>

@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Container } from "react-bootstrap"
+import { Col, Container, Row } from "react-bootstrap"
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
 import LineChart from "./LineChart"
 import BarChart from './BarChart'
@@ -10,23 +10,26 @@ class Dashboard extends Component {
     constructor() {
         super()
         this.state = {
-            data: undefined
+            orders: undefined,
+            products: undefined
         }
         this.adminService = new AdminService()
     }
 
     componentDidMount() {
+        this.getData()
+    }
+
+    getData() {
         this.adminService
             .getData()
             .then(response => {
                 console.log("the response from server:", response)
-                this.setState({ data: response.data })
+                const { orders, products } = response.data
+                console.log('orders:', orders, 'products', products)
+                this.setState({ orders, products })
             })
             .catch(err => console.log(err))
-    }
-
-    getData(data) {
-        console.log(data)
     }
 
     getDataClients() {
@@ -35,14 +38,35 @@ class Dashboard extends Component {
 
 
     render() {
-        console.log(this.state.data)
-        return (!this.props.loggedUser || this.props.loggedUser.role !== 'ADMIN') ? <Redirect to="/" /> :
+        console.log(this.state.products)
+        return !this.state.orders ? <h1>Fetching data...</h1> :
             (
-                <Container style={{ height: "300px" }}>
+                <Container >
                     <h1>Dashboard</h1>
-                    <BarChart data={this.state.data ? this.state.data : testData} />
-                    {/* <LineChart data={this.state.data ? this.state.data : testData} /> */}
-                </Container >)
+                    <Row>
+                        <Col md={3}>
+                            <h2>Products: {this.state.products.length}</h2>
+                        </Col>
+                        <Col md={3}>
+                            <h2>Clients: {this.state.products.length}</h2>
+                        </Col>
+                        <Col md={3}>
+                            <h2>Orders: {this.state.orders.length}</h2>
+                        </Col>
+
+                    </Row>
+                    <Row style={{ height: "300px" }}>
+                        <Col md={8}></Col>
+                        {!this.state.products ? <h2>Loading charts...</h2> : <BarChart data={this.state.products} />}
+                        <Col md={8}></Col>
+                    </Row>
+                    <Row style={{ height: "300px" }}>
+                        <Col md={8}></Col>
+                        {!this.state.orders ? <h2>Loading charts...</h2> : <LineChart data={this.state.orders} />}
+                        <Col md={8}></Col>
+                    </Row>
+                </Container >
+            )
     }
 }
 
