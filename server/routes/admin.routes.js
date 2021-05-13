@@ -39,11 +39,16 @@ router.get('/orders', (req, res) => {
 })
 
 router.get('/data', (req, res) => {
-    getOrders(res)
+    let promise1 = getProducts()
+    let promise2 = getOrders()
 
+    Promise.all([promise1, promise2])
+        .then(response => console.log('respuesta de promesa', response))
+        .catch(err => console.log(err))
 })
 
-function getOrders(res) {
+
+function getOrders() {
     Order
         .find()
         .populate('products.product')
@@ -59,7 +64,7 @@ function getOrders(res) {
             return dataArray
         })
         .then(dataArray => {
-            res.json(dataArray.map((elm, index) => (
+            return (dataArray.map((elm, index) => (
                 {
                     "id": index,
                     "color": "hsl(239, 70%, 50%)",
@@ -77,13 +82,23 @@ function getProducts() {
         .find()
         .populate('options')
         .then(response => {
-            response.map(elm => elm.options.length === 0 ? null : elm.options.map(conf =>
-                ({ name: elm.name, [conf.color]: conf.price })
-            ))
+            console.log(response)
+            let dataArray = response.map(elm => {
+                let optArray = elm.options.length === 0 ? null :
+                    elm.options.map(conf => ({ [conf.color]: conf.price }))
+
+                let optArrayRed = optArray ? optArray.reduce((result, current) => Object.assign(result, current)) : {}
+                console.log(Object.assign(optArrayRed, { name: elm.name }))
+                return optArrayRed
+            })
+            return dataArray
         })
+        .then(response => response)
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching orders', err }))
 
 }
+
+
 
 
 

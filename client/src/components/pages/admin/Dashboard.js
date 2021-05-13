@@ -2,6 +2,7 @@ import { Component } from "react"
 import { Container } from "react-bootstrap"
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
 import LineChart from "./LineChart"
+import BarChart from './BarChart'
 import testData from './data'
 import AdminService from "../../../service/admin.service"
 
@@ -16,9 +17,9 @@ class Dashboard extends Component {
 
     componentDidMount() {
         this.adminService
-            .getOrdersData()
+            .getData()
             .then(response => {
-                console.log("the response from server:", response.data)
+                console.log("the response from server:", response)
                 this.setState({ data: response.data })
             })
             .catch(err => console.log(err))
@@ -34,13 +35,13 @@ class Dashboard extends Component {
 
 
     render() {
-        //console.log(this.state.data)
-        //console.log(testData)
+        console.log(this.state.data)
         return (!this.props.loggedUser || this.props.loggedUser.role !== 'ADMIN') ? <Redirect to="/" /> :
             (
                 <Container style={{ height: "300px" }}>
                     <h1>Dashboard</h1>
-                    <LineChart data={this.state.data ? this.state.data : testData} />
+                    <BarChart data={this.state.data ? this.state.data : testData} />
+                    {/* <LineChart data={this.state.data ? this.state.data : testData} /> */}
                 </Container >)
     }
 }
