@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 router.post('/myarea/:supplier_id', (req, res) => {
 
     const { supplier, name, description, category } = req.body
+    console.log({ supplier, name, description, category })
 
     Product
         .create({ supplier, name, description, category })
@@ -46,6 +47,7 @@ router.get('/myarea/myproducts/:supplier_id', (req, res) => {
         .find({supplier: supplier_id })
         .populate('supplier')
         .populate('category')
+        .populate('options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 
@@ -65,8 +67,9 @@ router.get('/myarea/myproductdetails/:product_id', (req, res) => {
 
 })
 
-router.post('/myarea/newoption', (req, res) => { 
-
+router.post('/myarea/newoption/:product_id', (req, res) => { 
+    
+    const {product_id} = req.params
     const { price, color, stock, image } = req.body
 
     Option

@@ -29,12 +29,12 @@ class NewOption extends Component {
 
         e.preventDefault()
 
-        // this.productService
-        //     .createProduct(this.state.product)
-        //     .then(response => console.log(response))
-        //     // this.props.closeModal()
-        //     // this.props.refreshCoasters()
-        //     .catch(err => console.log(err))
+        this.productService
+            .createOption(this.props.product_id, this.state.option)
+            .then(response => {
+                this.props.fetchProducts()
+            })
+            .catch(err => console.log(err))
     }
 
     handleFileUpload(e) {
@@ -56,7 +56,6 @@ class NewOption extends Component {
         return (
 
                 <Container >
-                    <h1>Add Option</h1>
                     <Form onSubmit={e => this.handleSubmit(e)}>
                         <Form.Group controlId="price">
                             <Form.Label>Price:</Form.Label>

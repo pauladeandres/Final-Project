@@ -1,6 +1,5 @@
 import { Card, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import nophoto from '../../../assets/nophoto.png'
 
 const ProductCard = ({ name,  _id, options }) => {
 

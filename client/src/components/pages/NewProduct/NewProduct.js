@@ -23,14 +23,16 @@ class NewProduct extends Component {
 
     componentDidMount() {
         this.loadCategories()
-        console.log('SUPLIER', this.state.product.supplier)
     }
 
     loadCategories() {
 
         this.categoriesService
             .getAllCategories()
-            .then(response => this.setState({ categorieOptions: response.data }))
+            .then(response => {
+                console.log(response)
+                this.setState({ categorieOptions: response.data })
+            })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
@@ -42,11 +44,12 @@ class NewProduct extends Component {
     handleSubmit(e) {
 
         e.preventDefault()
-
+        console.log(this.state.product)
         this.productService
             .createProduct(this.state.product, this.props.loggedUser._id)
-            .then(response => console.log(response))
-                // this.props.refreshCoasters()
+            .then(response => {
+                this.props.fetchProducts()
+            })
             .catch(err => console.log(err))
 
         this.emptyForm()
@@ -58,11 +61,9 @@ class NewProduct extends Component {
 
     render() {
 
-        const { categorieOptions } = this.state
-
         return (
 
-                !categorieOptions 
+                !this.state.categorieOptions 
                 ?
                 <h1>Cargando...</h1>
                 :
@@ -81,8 +82,9 @@ class NewProduct extends Component {
 
                 <Form.Group controlId="category">
                     <Form.Label>Select Category</Form.Label>
-                            <Form.Control as="select" name="category">
-                        {categorieOptions.map(elm => <option key={elm._id} value={elm._id}> {elm.name}</option>)}
+                        <Form.Control as="select" defaultValue="Choose Category" onChange={e => this.handleInputChange(e)} name="category">
+                                <option>Choose category</option>
+                                {this.state.categorieOptions.map(elm => <option key={elm._id} value={elm._id} > {elm.name}</option>)}
                     </Form.Control>
                 </Form.Group>
 
