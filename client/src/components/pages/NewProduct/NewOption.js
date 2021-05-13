@@ -56,6 +56,7 @@ class NewOption extends Component {
         return (
 
                 <Container >
+                    <h1>Add Option</h1>
                     <Form onSubmit={e => this.handleSubmit(e)}>
                         <Form.Group controlId="price">
                             <Form.Label>Price:</Form.Label>

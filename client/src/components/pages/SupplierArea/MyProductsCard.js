@@ -15,7 +15,7 @@ const MyProductCard = ({ _id, name, description, category, options }) => {
 
                  <Col md={6}>
                      <Card.Text>
-                         Category: {category}
+                         Category: {category.name}
                      </Card.Text>
                 </Col>
 

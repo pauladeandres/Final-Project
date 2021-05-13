@@ -46,9 +46,14 @@ class NewProduct extends Component {
         this.productService
             .createProduct(this.state.product, this.props.loggedUser._id)
             .then(response => console.log(response))
-                // this.props.closeModal()
                 // this.props.refreshCoasters()
             .catch(err => console.log(err))
+
+        this.emptyForm()
+    }
+
+    emptyForm() {
+        this.setState({supplier: ' ', name: ' ', description: ' ', category: undefined})
     }
 
     render() {
@@ -57,12 +62,13 @@ class NewProduct extends Component {
 
         return (
 
-            !categorieOptions 
+                !categorieOptions 
                 ?
                 <h1>Cargando...</h1>
                 :
         <Container >
             <Form onSubmit={e => this.handleSubmit(e)}>
+                
                 <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="text" value={this.state.name} onChange={e => this.handleInputChange(e)} name="name" />

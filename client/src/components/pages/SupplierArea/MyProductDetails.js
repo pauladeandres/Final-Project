@@ -1,7 +1,9 @@
-
+import './MyProductDetails.css'
 import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import NewOption from '../NewProduct/NewOption'
+
 
 class MyProductDetails extends Component {
 
@@ -14,19 +16,22 @@ class MyProductDetails extends Component {
 
     }
 
-    // componentDidMount() {
-    //     this.findProduct()
-    // }
+    componentDidMount() {
+        this.findProduct()
+    }
 
-    // findProduct() {
+    findProduct() {
 
-    //     const {product_id} = this.props.match.params
-
-    //     this.productService
-    //         .getMyProductDetails(product_id)
-    //         .then(response => this.setState({ product: response.data }))
-    //         .catch(err => console.log(err))
-    // }
+        const  product_id  = this.props.match.params.id
+        console.log(product_id)
+        this.productService
+            .getMyProductDetails(product_id)
+            .then(response => {
+                this.setState({ product: response.data })
+                console.log(response)
+            })
+            .catch(err => console.log(err))
+    }
     
 
     render() {
@@ -35,7 +40,55 @@ class MyProductDetails extends Component {
 
         return (
             <Container>
-                <h1>product details</h1>
+            {
+                !this.state.product ? <h1>Cargando...</h1> :
+                <>
+                <Row>
+                <h1>{this.state.product.name}</h1>
+                </Row>
+                <Row>
+                    <Col>
+                        <Container className="img-box">
+                        {
+                            !this.state.product.options === undefined
+                            ?
+                            <img src="" />
+                            :
+                            <img src=""/>
+                        }
+                        </Container>
+                    </Col>
+                    <Col>
+                    <h2>Description:</h2>
+                    <p> {this.state.product.description}</p>
+                    <h2>Category:</h2>
+                    <p> {this.state.product.category.name}</p>
+                    </Col>
+                    <Row>
+                        <h1>Options</h1>
+                    <Row>
+                        <Col>
+                            <img src=""/>
+                        </Col>
+                         <Col>
+                             Price:
+                         </Col>
+                        <Col>
+                            Stock:
+                         </Col>
+                        <Col>
+                            Color:
+                         </Col>
+                    </Row>
+                    </Row>
+                    <Row>
+                    <Col>
+                        <NewOption />
+                    </Col>
+                    </Row>                
+                </Row>
+                </>
+            }
             </Container>
         )
     }
