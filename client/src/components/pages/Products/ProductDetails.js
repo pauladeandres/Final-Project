@@ -42,7 +42,7 @@ class ProductDetails extends Component {
                 .then(response => {
                     console.log(response)
                     this.props.updateCartNumber() 
-                    // this.props.handleAlert('Thank you for your order', true)
+                    this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
                 })
                 .catch(err => console.log(err))  
         } else {this.setState({ showModal: true })} 
@@ -114,9 +114,8 @@ class ProductDetails extends Component {
                                 <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
                                     <Modal.Header> <Modal.Title>Please Log In</Modal.Title> </Modal.Header>
                                     <Modal.Body>
-                                        <LoginForm storeUser={this.props.storeUser} history={this.props.history} closeModal={() => this.setState({ showModal: false })}/>
+                                        <LoginForm handleAlert={this.props.handleAlert} storeUser={this.props.storeUser} history={this.props.history} closeModal={() => this.setState({ showModal: false })}/>
                                     </Modal.Body>
-                                    <Link to="/signup">No account yet? Sign up</Link>
                                 </Modal> 
                             </Col>
                         </Row>

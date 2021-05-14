@@ -25,6 +25,7 @@ class CartRow extends Component {
             .deleteProduct(id)
             .then(()=> this.props.fetchProducts())
             .catch(err => console.log(err))
+        this.props.handleAlert(`${this.state.products.product.name} was removed from your Cart`)  
     }
 
     handleInputChange(e) {
@@ -38,7 +39,8 @@ class CartRow extends Component {
         this.orderService
             .editQuantity(id, {quantity})
             .then(() => this.props.fetchProducts())
-            .catch(err => console.log(err))
+            .catch(err => console.log(err))  
+        this.props.handleAlert(`${this.state.products.product.name} quantity was update to ${this.state.quantity} items.`) 
     }
 
     render() {

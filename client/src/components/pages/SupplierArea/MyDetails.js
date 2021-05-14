@@ -1,10 +1,8 @@
 import { Component } from 'react'
-
 import './MyDetails.css'
-
 import AuthService from '../../../service/auth.service'
-
 import { Form, Col, Button, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 class MyDetails extends Component {
 
@@ -32,22 +30,21 @@ class MyDetails extends Component {
     }
 
     loadClient() {
-        console.log(this.props.loggedUser.client._id)
+
         this.authService
             .getAssignedClient(this.props.loggedUser.client)
             .then(response => {
                 console.log(response)
                 this.setState({client: response.data})
+                this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
             .catch(err => console.log(err))
     }
 
     handleSubmitForm(e) {
         e.preventDefault()
-        console.log(this.props.loggedUser.client._id)
-        console.log(this.state.client)
         this.authService
-            .editClient(this.props.loggedUser.client._id, this.state.client)
+            .editClient(this.props.loggedUser.client, this.state.client)
             .then(response => {
                 console.log(response)
                 this.loadClient()
@@ -63,8 +60,6 @@ class MyDetails extends Component {
 
     render() {
 
-        console.log(this.props)
-
         return (
             
             !this.props.loggedUser
@@ -72,7 +67,6 @@ class MyDetails extends Component {
             <h1>Loadin data...</h1>
             :
                <>
-                    <h3>My info</h3>
                     <Form onSubmit={e => this.handleSubmitForm(e)}>
 
                     <Form.Row as={Row}>
@@ -129,20 +123,20 @@ class MyDetails extends Component {
                         this.state.disableForm === false
                          ?
                     <Form.Row>
-                    <Button className="save-changes" variant="outline-dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
+                    <Button variant="dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
                         Save Changes
                     </Button>
                     </Form.Row>
                     :
                     
-                    <Button className="save-changes" variant="danger" onClick={() => this.setState({ disableForm: false })}>
+                    <Button variant="dark" onClick={() => this.setState({ disableForm: false })}>
                         Edit Profile
                     </Button>
                     
                     }
-
                 </Form>
 
+                {this.props.loggedUser.role === "CUSTOMER" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn">Continue to payment</Link> }
                
             </>
 

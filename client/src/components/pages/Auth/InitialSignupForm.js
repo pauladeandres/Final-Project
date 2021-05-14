@@ -4,13 +4,15 @@ import AuthService from '../../../service/auth.service'
 
 class InitialSignupForm extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             email: '',
             password: ''
         }
         this.authService = new AuthService()
+
+        console.log(this.props)
     }
 
 
@@ -26,6 +28,7 @@ class InitialSignupForm extends Component {
             .signup(this.state)
             .then(response => {
                 this.props.history.push('/login')
+                this.props.handleAlert(`Welcome ${this.state.email}`)
             })
             .catch(err => console.log(err))
     }
