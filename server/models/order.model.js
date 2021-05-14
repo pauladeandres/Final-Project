@@ -6,16 +6,17 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    products: [{ product: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
+    products: [{
+        product: {
+            type: Schema.Types.ObjectId,
+            ref: 'Product'
         },
         quantity: {
             type: Number
         },
         option: {
-        type: Schema.Types.ObjectId,
-        ref: 'Option'
+            type: Schema.Types.ObjectId,
+            ref: 'Option'
         }
     }],
     paid: {
@@ -29,6 +30,10 @@ const orderSchema = new Schema({
 }, {
     timestamps: true
 })
+
+orderSchema.statics.populateOrder = function () {
+    return this.find().populate('products.product').populate('products.option')
+}
 
 const Order = mongoose.model("Order", orderSchema)
 

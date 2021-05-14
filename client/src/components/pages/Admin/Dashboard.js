@@ -6,15 +6,18 @@ import BarChart from './BarChart'
 import testData from './data'
 import AdminService from "../../../service/admin.service"
 import TreeChart from "./TreeChart"
-import TreeData from './TreeData'
+import FunnelChart from './FunnelChart'
 
 class Dashboard extends Component {
     constructor() {
         super()
         this.state = {
-            orders: undefined,
-            products: undefined,
-            categories: undefined,
+            data: {
+                orders: undefined,
+                products: undefined,
+                categories: undefined,
+                orderPyramid: undefined
+            },
             clients: {
                 customers: undefined,
                 suppliers: undefined
@@ -32,10 +35,8 @@ class Dashboard extends Component {
         this.adminService
             .getData()
             .then(response => {
-                console.log("the response from server:", response)
-                const { orders, products, categories } = response.data
-                console.log('orders:', orders, 'categories', categories)
-                this.setState({ orders, products, categories })
+                console.log("the response from server:", response.data)
+                this.setState({ ...this.state.data = response.data })
             })
             .catch(err => console.log(err))
     }
@@ -87,17 +88,22 @@ class Dashboard extends Component {
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.products ? <h2>Loading charts...</h2> : <BarChart data={this.state.products} />}
+                        {!this.state.data.products ? <h2>Loading charts...</h2> : <BarChart data={this.state.data.products} />}
                         <Col md={8}></Col>
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.orders ? <h2>Loading charts...</h2> : <LineChart data={this.state.orders} />}
+                        {!this.state.data.orders ? <h2>Loading charts...</h2> : <LineChart data={this.state.data.orders} />}
                         <Col md={8}></Col>
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.categories ? <h2>Loading charts...</h2> : <TreeChart data={this.state.categories} />}
+                        {!this.state.data.categories ? <h2>Loading charts...</h2> : <TreeChart data={this.state.data.categories} />}
+                        <Col md={8}></Col>
+                    </Row>
+                    <Row style={{ height: "300px" }}>
+                        <Col md={8}></Col>
+                        {!this.state.data.categories ? <h2>Loading charts...</h2> : <FunnelChart data={this.state.data.orderPyramid} />}
                         <Col md={8}></Col>
                     </Row>
                 </Container >

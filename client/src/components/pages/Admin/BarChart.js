@@ -11,7 +11,7 @@ const BarChart = ({ data }) => (
         groupMode="stacked"
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'nivo' }}
+        colors={{ scheme: 'yellow_green' }}
         defs={[
             {
                 id: 'dots',

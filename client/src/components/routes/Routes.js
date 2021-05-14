@@ -23,10 +23,10 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
         <Switch>
             <Route path="/" exact render={() => <Home />} />
             <Route path="/signup" exact render={props => <InitialSignup history={props.history} />} />
-            <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} updateCartNumber={updateCartNumber}/>} />
+            <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} updateCartNumber={updateCartNumber} />} />
 
             <Route path="/product" exact render={() => <ProductList />} />
-            <Route path="/product/:id" render={props => <ProductDetails {...props} storeUser={storeUser} history={props.history} loggedUser={loggedUser} updateCartNumber={updateCartNumber}/>} />
+            <Route path="/product/:id" render={props => <ProductDetails {...props} storeUser={storeUser} history={props.history} loggedUser={loggedUser} updateCartNumber={updateCartNumber} />} />
             <Route path="/product/brand/:supplier_id" render={props => <SupplierPage {...props} />} />
 
             <Route path="/admin" exact render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={Dashboard} />} />
@@ -39,8 +39,8 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
             <Route path="/supplier/productdetails" render={() => <MyProductCard />} />
             <Route path="/supplier/options" render={() => <NewOption />} />
 
-            <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber}/>} />
-            <Route path="/checkout" render={() => <Checkout updateCurrentUser={updateCurrentUser} loggedUser={loggedUser}/>} />
+            <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber} />} />
+            <Route path="/checkout" render={() => <Checkout updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} />} />
         </Switch>
     )
 }

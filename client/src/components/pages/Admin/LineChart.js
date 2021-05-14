@@ -28,6 +28,10 @@ const LineChart = ({ data }) => (
             legendOffset: -40,
             legendPosition: 'middle'
         }}
+        colors={{ scheme: 'brown_blueGreen' }}
+        enableArea={true}
+        areaOpacity={0.3}
+        enableGridX={false}
         enableGridY={false}
         pointSize={5}
         pointColor={{ theme: 'background' }}

@@ -46,21 +46,27 @@ router.get('/data', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
     let productPromise = getProducts()
     let ordersPromise = getOrders()
     let categoryPromise = getProductCategories()
+    let pyramidPromise = getPyramid()
 
-    Promise.all([productPromise, ordersPromise, categoryPromise])
-        .then(response => res.json({ products: response[0], orders: response[1], categories: response[2] }))
+    Promise.all([productPromise, ordersPromise, categoryPromise, pyramidPromise])
+        .then(response => {
+            console.log(response)
+            return res.json({
+                products: response[0], orders: response[1],
+                categories: response[2], orderPyramid: response[3]
+            })
+        })
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching data', err }))
 })
 
 
 function getOrders() {
     return Order
-        .find()
-        .populate('products.product')
-        .populate('products.option')
+        .populateOrder()
         .then(response => {
             let dataArray = response.map(elm => elm.products.map(products => {
                 let name = products.product.name + " " + products.option.color
+                console.log(name)
                 return {
                     x: name,
                     y: products.quantity
@@ -148,8 +154,48 @@ function getObjectData(product) {
 }
 
 
-function pyramidDataStructure() {
+function getPyramid() {
+    return Order
+        .populateOrder()
+        .then(response => {
+            let productsArray = response.map(order => order.products)
 
+            let numProducts = productsArray.reduce((acc, element) => acc + element.length, 0)
+            let totalQuantity = productsArray.flat().reduce((acc, element) => acc + element.quantity, 0)
+            let totalCost = productsArray.flat().reduce((acc, element) => acc + element.quantity * element.option.price, 0)
+
+            return pyramidDataStructure(totalCost, totalQuantity, numProducts, response.length)
+
+        })
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching products data', err }))
+
+}
+
+
+function pyramidDataStructure(cost, quantity, productNum, orders) {
+    return (
+        [
+            {
+                id: 0,
+                label: '€ Sold * 100',
+                value: cost / 100
+            },
+            {
+                id: 1,
+                label: 'Quantity Sold',
+                value: quantity
+            },
+            {
+                id: 2,
+                label: 'Number of products',
+                value: productNum
+            },
+            {
+                id: 3,
+                label: 'Orders',
+                value: orders
+            }]
+    )
 }
 
 module.exports = router
