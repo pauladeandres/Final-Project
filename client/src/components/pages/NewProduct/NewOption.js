@@ -32,13 +32,12 @@ class NewOption extends Component {
         this.productService
             .createOption(this.props.product_id, this.state.option)
             .then(response => {
-                this.props.fetchProducts()
+                this.props.fetchProduct()
             })
             .catch(err => console.log(err))
     }
 
     handleFileUpload(e) {
-
         this.setState({ isUploading: true })
 
         const uploadData = new FormData()

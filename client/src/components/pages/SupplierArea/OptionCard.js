@@ -15,7 +15,7 @@ const OptionCard = ({_id, image, price, stock, color, fetchProducts}) => {
         productService
             .deleteOption(_id)
             .then(response => {
-                fetchProducts()
+                this.props.fetchProduct()
             })
             .catch(err => console.log(err))
     }

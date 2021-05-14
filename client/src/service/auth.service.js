@@ -14,6 +14,8 @@ class AuthService {
     logout = () => this.app.get('/logout')
     isloggedin = () => this.app.post('/isloggedin')
     createUser = () => this.app.post('/supplier/new')
+    editClient = (client_id, clientDetails) => this.app.put(`/client/${client_id}`, clientDetails)
+    getAssignedClient = client_id => this.app.get(`/clientdetails/${client_id}`)
 }
 
 export default AuthService

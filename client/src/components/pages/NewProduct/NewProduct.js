@@ -44,7 +44,7 @@ class NewProduct extends Component {
     handleSubmit(e) {
 
         e.preventDefault()
-        console.log(this.state.product)
+       
         this.productService
             .createProduct(this.state.product, this.props.loggedUser._id)
             .then(response => {

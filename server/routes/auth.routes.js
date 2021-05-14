@@ -87,6 +87,31 @@ router.get('/client/:id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
 
+router.get('/clientdetails/:id', (req, res) => {
+
+    const client_id = req.params.id
+    console.log(client_id)
+
+    Client
+        .findById(client_id)
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
+})
+
+router.put('/client/:id', (req, res) => {
+
+    console.log('El cambio es', req.body)
+    const client  = req.body
+    const client_id = req.params.id
+
+    Client
+        .findByIdAndUpdate(client_id,  client , { new: true } )
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
+})
+
+
+
 // CURRENT SUPPLIER DETAILS (GET)
 router.get('/supplier/new', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => { res.render('hola') })
 

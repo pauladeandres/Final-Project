@@ -20,7 +20,7 @@ class MyProductDetails extends Component {
     }
 
     componentDidMount() {
-        this.fetchProducts()
+        this.fetchProduct()
     }
 
     findProduct() {
@@ -37,7 +37,7 @@ class MyProductDetails extends Component {
             .catch(err => console.log(err))
     }
 
-    fetchProducts() {
+    fetchProduct() {
         this.findProduct()
     }
     
@@ -73,8 +73,8 @@ class MyProductDetails extends Component {
                     <h2>Category:</h2>
                     <p> {this.state.product.category.name}</p>
                                     <Button variant="outline-danger" onClick={() => this.setState({ showModal: true})}>Edit</Button>
-                                    <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
-                                        <EditProductModal />
+                                    <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
+                                        <EditProductModal product={this.state.product} fetchProduct={() => this.fetchProduct()} closeModal={() => this.setState({ showModal: false })}/>
                                     </Modal>
                     </Col>
                     </Row>
@@ -91,7 +91,7 @@ class MyProductDetails extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                        {this.state.product.options.map(elm => <OptionCard key={elm._id} {...elm} fetchProducts={() => this.fetchProducts() }/>)}
+                                        {this.state.product.options.map(elm => <OptionCard key={elm._id} {...elm} fetchProduct={() => this.fetchProduct() }/>)}
                             </tbody>
                         </Table>
                     </Row>
@@ -103,7 +103,7 @@ class MyProductDetails extends Component {
                             <Button className="addoption" variant="dark" style={{ width: '100%' }}>+</Button>
                         </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="1">
-                                                <Card.Body><NewOption product_id={this.state.product._id} fetchProducts={() => this.fetchProducts()}/></Card.Body>
+                                                <Card.Body><NewOption product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()}/></Card.Body>
                         </Accordion.Collapse>
                         </Card>
                         </Accordion >

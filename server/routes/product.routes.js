@@ -29,7 +29,18 @@ router.delete('/delete/:product_id', (req, res) => {
     Product
         .findByIdAndDelete(req.params.product_id)
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error loading product', err }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error deleting product', err }))
+})
+
+router.put('/edit/:product_id', (req, res) => {
+
+    const { product_id } = req.params
+    const {name, description, category} = req.body
+
+    Product
+        .findByIdAndUpdate(product_id, { name, description, category })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error editing product', err }))
 })
 
 router.get('/:category', (req, res) => {
