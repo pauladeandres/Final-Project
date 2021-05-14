@@ -18,7 +18,7 @@ import MyProductDetails from '../pages/SupplierArea/MyProductDetails'
 import ProtectedRoute from '../pages/Auth/ProtectedRoute'
 import { isAccepted } from '../../utils/index'
 
-const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber }) => {
+const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber, updateCurrentUser }) => {
     return (
         <Switch>
             <Route path="/" exact render={() => <Home />} />
@@ -35,12 +35,12 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber 
 
             <Route path="/supplier/myarea/:id" exact render={props => <SupplierProfile storeUser={storeUser} loggedUser={loggedUser} {...props} />} />
             <Route path="/supplier/myarea/myproductdetails/:id" render={props => <MyProductDetails storeUser={storeUser} loggedUser={loggedUser} {...props} />} />
-            <Route path="/supplier/signup" render={props => <SignupForm history={props.history} />} />
+            <Route path="/supplier/signup" render={props => <SignupForm updateCurrentUser={updateCurrentUser} history={props.history} />} />
             <Route path="/supplier/productdetails" render={() => <MyProductCard />} />
             <Route path="/supplier/options" render={() => <NewOption />} />
 
             <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber}/>} />
-            <Route path="/checkout" render={() => <Checkout />} />
+            <Route path="/checkout" render={() => <Checkout updateCurrentUser={updateCurrentUser} loggedUser={loggedUser}/>} />
         </Switch>
     )
 }

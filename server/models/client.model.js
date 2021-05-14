@@ -41,6 +41,8 @@ const clientSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Product'
     }]
+}, {
+    timestamps: true
 })
 
 const Client = mongoose.model("Client", clientSchema)

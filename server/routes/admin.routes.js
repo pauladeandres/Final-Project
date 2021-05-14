@@ -3,6 +3,8 @@ const express = require('express')
 const router = express.Router()
 const Order = require('../models/order.model')
 const Product = require('../models/product.model')
+const Option = require('../models/option.model')
+const Category = require('../models/category.model')
 const Client = require('./../models/client.model')
 const User = require('./../models/user.model')
 const { isLoggedIn, checkRoles } = require('./../middlewares/index')
@@ -43,9 +45,10 @@ router.get('/orders', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 router.get('/data', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
     let productPromise = getProducts()
     let ordersPromise = getOrders()
+    let categoryPromise = getProductCategories()
 
-    Promise.all([productPromise, ordersPromise])
-        .then(response => res.json({ products: response[0], orders: response[1] }))
+    Promise.all([productPromise, ordersPromise, categoryPromise])
+        .then(response => res.json({ products: response[0], orders: response[1], categories: response[2] }))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching data', err }))
 })
 
@@ -84,12 +87,13 @@ function getProducts() {
         .find()
         .populate('options')
         .then(response => {
-            console.log(response)
             let dataArray = response.map(elm => {
                 let optArray = elm.options.length === 0 ? null :
-                    elm.options.map(conf => ({ [conf.color]: conf.price }))
+                    elm.options.map(conf => ({ [conf.color]: conf.stock }))
+
                 let optArrayRed = optArray ? optArray.reduce((result, current) => Object.assign(result, current)) : {}
-                return optArrayRed
+
+                return Object.assign(optArrayRed, { name: elm.name })
             })
             return dataArray
         })
@@ -98,8 +102,54 @@ function getProducts() {
 
 }
 
+function getProductCategories() {
+    return Category
+        .find()
+        .then(categories => {
+            const manyProducts = categories.map(cat =>
+                Product
+                    .find({ category: cat._id })
+                    .populate('options')
+                    .populate('category')
+            )
+            return Promise.all(manyProducts)
+        }
+        )
+        .then(resp => {
+            return (
+                {
+                    name: 'products',
+                    children: resp.map(productsArray =>
+                        productsArray.length === 0 ? null :
+                            {
+                                name: productsArray[0].category.name,
+                                children: productsArray.map(product => getObjectData(product))
+                            })
+                        .filter(elm => elm !== null)
+                }
+            )
+        })
+        .then(response => response)
+        .catch(err => res.status(500).json({ code: 500, message: 'Error fetching products data', err }))
+}
+
+function getObjectData(product) {
+    const objectData = (
+        {
+            name: product.name,
+            children: product.options.map(opt => ({
+                name: opt.color,
+                price: opt.price
+            }))
+        }
+    )
+
+    return objectData
+}
 
 
+function pyramidDataStructure() {
 
+}
 
 module.exports = router
