@@ -4,7 +4,7 @@ import { ResponsiveBar } from '@nivo/bar'
 const BarChart = ({ data }) => (
     <ResponsiveBar
         data={data}
-        keys={['white', 'red', 'black', 'beige', 'brown']}
+        keys={['black', 'white', 'red', 'blue', 'green', 'brown', 'beige', 'yellow', 'orange']}
         indexBy="name"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
@@ -62,7 +62,7 @@ const BarChart = ({ data }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'price',
+            legend: 'stock',
             legendPosition: 'middle',
             legendOffset: -40
         }}
