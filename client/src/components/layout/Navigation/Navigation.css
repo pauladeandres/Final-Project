@@ -12,4 +12,15 @@
     color: rgb(255, 255, 255);
     text-align: center;
     margin-left: 5px;
+    margin-right: 5px;
+}
+#basic-navbar-nav {
+    justify-content: space-between;
+}
+
+.searchBar {
+    display: flex;
+    flex-direction: row;
+    margin-right: 0px;
+    align-content: center;
 }

@@ -67,18 +67,7 @@ router.get('/myarea/myproductdetails/:product_id', isLoggedIn, checkRoles('ADMIN
 
 })
 
-router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
-    
-    const {product_id} = req.params
 
-    const { price, color, stock, image } = req.body
-
-    Option
-        .create({ price, color, stock, image })
-        .then(option => Product.findByIdAndUpdate(product_id, { $push: { options: option._id } }))
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
-})
 // ELIMINAR!?
 // PARA CREAR CATEGORIAS DESDE POSTMAN
 // router.post('/products/createcategory', (req, res) => {

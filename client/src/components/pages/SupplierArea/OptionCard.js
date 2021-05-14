@@ -1,21 +1,25 @@
 import { Component } from 'react'
 
-import ProductsService from '../../../service/products.service'
+import OptionService from '../../../service/option.service'
 
 import trash from './trash.jpg'
 
 import { Button } from 'react-bootstrap'
 
-const OptionCard = ({_id, image, price, stock, color, fetchProducts}) => {
+const OptionCard = ({_id, image, price, stock, color, fetchProduct}) => {
 
     function deleteProductOption(e) {
-        const productService = new ProductsService()
-        e.preventDefault()
 
-        productService
+        const optionService = new OptionService()
+
+        e.preventDefault()
+        console.log(_id)
+
+        optionService
             .deleteOption(_id)
             .then(response => {
-                this.props.fetchProduct()
+                console.log(response)
+                fetchProduct()
             })
             .catch(err => console.log(err))
     }

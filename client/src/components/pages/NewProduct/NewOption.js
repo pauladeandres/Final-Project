@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
-import ProductsService from '../../../service/products.service'
+import OptionService from '../../../service/option.service'
 import UploadsService from '../../../service/uploads.service'
 
 class NewOption extends Component {
@@ -16,7 +16,7 @@ class NewOption extends Component {
             },
             isUploading: false
         }
-        this.productService = new ProductsService()
+        this.productService = new OptionService()
         this.uploadsService = new UploadsService()
     }
 
@@ -29,7 +29,7 @@ class NewOption extends Component {
 
         e.preventDefault()
 
-        this.productService
+        this.optionService
             .createOption(this.props.product_id, this.state.option)
             .then(response => {
                 this.props.fetchProduct()
