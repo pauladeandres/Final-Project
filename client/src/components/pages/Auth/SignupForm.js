@@ -31,12 +31,12 @@ class SignupForm extends Component {
         e.preventDefault()
         this.authService
             .createUser(this.state)
-            .then(response => {
-                console.log(response)
-                this.props.history.push('/')
+            .then(() => {
+                this.props.history.push('/payment')
             })
             .catch(err => console.log(err))
         this.props.updateCurrentUser()
+        this.props.handleAlert(`Your datas have been saved ${this.state.firstName}`)
     }
 
     render() {
@@ -57,7 +57,7 @@ class SignupForm extends Component {
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row>
+                {this.props.loggedUser.role != "CUSTOMER" && <Row>
                     <Col>
                         <Form.Group controlId="company">
                             <Form.Label>Company</Form.Label>
@@ -70,7 +70,7 @@ class SignupForm extends Component {
                             <Form.Control type="text" value={this.state.vatNumber} onChange={e => this.handleInputChange(e)} name="vatNumber" />
                         </Form.Group>
                     </Col>
-                </Row>
+                </Row>}
                 <Form.Group controlId="address">
                     <Form.Label>Address</Form.Label>
                     <Form.Control type="text" value={this.state.address} onChange={e => this.handleInputChange(e)} name="address" />
@@ -100,7 +100,7 @@ class SignupForm extends Component {
                     <Form.Control type="number" value={this.state.phone} onChange={e => this.handleInputChange(e)} name="phone" />
                 </Form.Group>
 
-                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Registro</Button>
+                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">{this.props.loggedUser.role === "CUSTOMER"? 'Continue to payment' : 'Register'}</Button>
             </Form>
         )
     }

@@ -47,7 +47,7 @@ class MyProductList extends Component {
                 :
                 <Container>
                     <Row>
-                        {products.map(elm => <MyProductCard key={elm._id} {...elm} fetchProducts={() => this.fetchProducts()}/>)}
+                        {products.map(elm => <MyProductCard key={elm._id} handleAlert={this.props.handleAlert} {...elm} fetchProducts={() => this.fetchProducts()}/>)}
                     </Row>
                     <Row>
                         <Container>
@@ -57,7 +57,7 @@ class MyProductList extends Component {
                                         <Button variant="dark" style={{ width: '100%' }}>Create Product</Button>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="0">
-                                        <Card.Body><NewProduct loggedUser={this.props.loggedUser} fetchProducts={() => this.fetchProducts()}/></Card.Body>
+                                        <Card.Body><NewProduct handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} fetchProducts={() => this.fetchProducts()}/></Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
                             </Accordion>
