@@ -18,7 +18,7 @@ const Home = () => {
             <Row>
                 <section className="searchByCategory">
                     <Container>
-                        <CategoriesList />
+                        {/* <CategoriesList /> */}
                     </Container>
                 </section>
             </Row>

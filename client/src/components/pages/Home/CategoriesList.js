@@ -62,4 +62,4 @@
 //     }
 // }
 
-export default CategoriesList
+// export default CategoriesList
