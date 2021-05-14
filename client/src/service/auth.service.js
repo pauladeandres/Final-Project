@@ -13,7 +13,8 @@ class AuthService {
     signup = userDetails => this.app.post('/signup', userDetails)
     logout = () => this.app.get('/logout')
     isloggedin = () => this.app.post('/isloggedin')
-    createUser = () => this.app.post('/supplier/new')
+    createUser = clientDetails => this.app.post('/supplier/new', clientDetails)
+    updateUser = () => this.app.get('/client/update')
 }
 
 export default AuthService

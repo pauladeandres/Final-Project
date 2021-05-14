@@ -35,8 +35,17 @@ class App extends Component {
       .catch(() => this.setState({ loggedUser: undefined }))
   }
 
+  updateCurrentUser = () => {
+    this.authService
+      .updateUser()
+      .then(response => {
+        this.setState({loggedUser: response.data })})
+      .catch(() => this.setState({ loggedUser: undefined }))
+  }
+
   componentDidMount() {
     this.fetchUser()
+    this.updateCurrentUser()
   }
 
   updateCartNumber() {
@@ -54,7 +63,7 @@ class App extends Component {
         <Navigation handleAlert={alertText => this.handleAlert(alertText)}
           storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber}/>
 
-        <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()}/>
+        <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()}/>
 
         <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
       

@@ -23,9 +23,8 @@ class CartRow extends Component {
         e.preventDefault()
         this.orderService 
             .deleteProduct(id)
-            .then(response => console.log(response))
+            .then(()=> this.props.fetchProducts())
             .catch(err => console.log(err))
-        this.props.fetchProducts()
     }
 
     handleInputChange(e) {
@@ -38,7 +37,7 @@ class CartRow extends Component {
         const quantity = this.state.quantity
         this.orderService
             .editQuantity(id, {quantity})
-            .then(response => console.log(response))
+            .then(() => this.props.fetchProducts())
             .catch(err => console.log(err))
     }
 

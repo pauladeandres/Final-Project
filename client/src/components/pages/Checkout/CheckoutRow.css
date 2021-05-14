@@ -1,0 +1,8 @@
+.checkout-row p {
+    margin-bottom: 0;
+}
+
+.checkout-row {
+    border-bottom: 1px solid grey;
+    padding: 15px 0;
+}
