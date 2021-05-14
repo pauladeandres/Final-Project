@@ -7,4 +7,5 @@ module.exports = app => {
     app.use('/api/supplier', require('./supplier.routes.js'))
     app.use('/api/auth', require('./auth.routes.js'))
     app.use('/api/uploads', require('./uploads.routes'))
+    app.use('/api/option', require('./option.routes'))
 }

@@ -1,6 +1,6 @@
 import { Toast } from "react-bootstrap"
 
-import logo from './logo.svg'
+import logo from './home-logo.svg'
 
 const Alert = ({ handleAlert, show, text }) => {
 
@@ -11,9 +11,9 @@ const Alert = ({ handleAlert, show, text }) => {
                     src={logo}
                     className="rounded mr-2"
                     alt="Logotipo"
-                    style={{ width: 20, height: 20 }}
+                    style={{ width: 20, height: 20, marginRight: 20, }}
                 />
-                <strong className="mr-auto">Mensaje del sistema</strong>
+                <b className="mr-auto"> HOME - LUXURY LIFESTYLE</b>
             </Toast.Header>
             <Toast.Body>{text}</Toast.Body>
         </Toast>

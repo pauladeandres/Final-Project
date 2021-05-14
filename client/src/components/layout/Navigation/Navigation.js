@@ -1,6 +1,6 @@
 import './Navigation.css'
 import AuthService from '../../../service/auth.service'
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Container, Form, Button, FormControl, FormGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
@@ -17,15 +17,15 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
     }
 
     return (
-
-        <Navbar bg="light" expand="lg">
+        <Container>
+        <Navbar bg="light" expand="lg" className="fullNavBar">
             <Navbar.Brand as={Link} to="/">HOME</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <NavDropdown title="Products" id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="/">See All</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/product">See All</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="#action/3.4">Sofas</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="#action/3.4">Chairs</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="#action/3.4">Tables</NavDropdown.Item>
@@ -52,16 +52,18 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
                     </NavDropdown>
-
                 </Nav>
-                <Link to="/cart"><FontAwesomeIcon icon={faShoppingCart} /></Link>
-                <span class="order-number">{orderNumber}</span>
-                {/* <Form inline>
+                <div className="searchBar">
+                <Link to="/cart" ><FontAwesomeIcon icon={faShoppingCart} /></Link>
+                        <span class="order-number">{orderNumber}</span>
+                <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
-                    </Form> */}
+                    </Form>
+                    <Button type="submit" variant="outline-dark">Search</Button>
+                </div>
             </Navbar.Collapse>
         </Navbar >
+        </Container>
     )
 }
 export default Navigation

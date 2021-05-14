@@ -2,3 +2,8 @@
     display: block;
     margin: 20px 0px;
 }
+
+.payment-btn {
+    width: 100%;
+    margin-top: 15px;
+}

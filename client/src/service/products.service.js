@@ -17,10 +17,6 @@ class ProductsService {
     createProduct = (productDetails, id) => this.app.post(`/supplier/myarea/${id}`, productDetails)
     getProductBySupplier = supplier_id => this.app.get(`/supplier/myarea/myproducts/${supplier_id}`)
     getMyProductDetails = product_id => this.app.get(`/supplier/myarea/myproductdetails/${product_id}`)
-
-    createOption = (product_id, optionDetails) => this.app.post(`/supplier/myarea/newoption/${product_id}`, optionDetails)
-    getOption = option_id => this.app.get(`/product/option/${option_id}`)
-    deleteOption = option_id => this.app.delete(`/product/delete/${option_id}`)
     
 }
 

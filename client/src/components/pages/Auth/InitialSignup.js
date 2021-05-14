@@ -2,7 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import InitialSignupForm from './InitialSignupForm'
 
-const InitialSignup = ({ history }) => {
+const InitialSignup = ({ history, handleAlert }) => {
 
     return (
 
@@ -16,7 +16,7 @@ const InitialSignup = ({ history }) => {
 
                     <hr />
 
-                    <InitialSignupForm history={history} />
+                    <InitialSignupForm history={history} handleAlert={handleAlert}/>
 
                     <hr />
 
