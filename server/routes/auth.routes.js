@@ -80,29 +80,31 @@ router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
 })
 
 // CURRENT USER CLIENT DETAILS (GET)
-router.get('/client/:id', (req, res) => {
-    Client
-        .find({ user: req.session.currentUser })
+router.get('/client/update', (req, res) => {
+    User
+        .findById(req.session.currentUser._id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
 
-// CURRENT SUPPLIER DETAILS (GET)
-router.get('/supplier/new', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => { res.render('hola') })
 
-router.post('/supplier/new', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
+// CREATE NEW CLIENT (POST)
+router.post('/supplier/new', isLoggedIn, (req, res) => {
     const _id = req.session.currentUser._id
+    
+    console.log(_id)
+
     const { firstName, secondName, company, address, zipcode, city, country, phone } = req.body
 
     Client
         .create({ firstName, secondName, company, address, zipcode, city, country, phone })
-        .then(response => {
-
+        .then(response => {   
             User
-                .findByIdAndUpdate(_id, { client: response._id }, { new: true })
-                .then(user => console.log(user))
-                .catch(err => console.log(err))
+            .findByIdAndUpdate(_id, { client: response._id }, { new: true })
+            .then(user => console.log(user))
+            .catch(err => console.log(err))
         })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
 

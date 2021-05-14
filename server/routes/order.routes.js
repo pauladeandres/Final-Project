@@ -49,15 +49,14 @@ router.post('/remove/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
 router.post('/edit/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
 
     const { quantity } = req.body
-    console.log(req.body)
-    console.log('customer:', req.session.currentUser._id, 'product id:', req.params.id, 'quantity', quantity)
 
     Order
         .findOneAndUpdate({$and: [{'customer': req.session.currentUser._id}, {'products._id': req.params.id}]},  
-        { "$set": {'quantity.$': quantity}})
-        .then(response => console.log(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Could not update this order', err }))
-})
+        { "$set": {'products.$.quantity': quantity}}, {new: true})
+        .then(response => res.json(response))
+        .catch(err => {
+            res.status(500).json({ code: 500, message: 'Could not update this order', err })})
+        })
 
 
 module.exports = router
