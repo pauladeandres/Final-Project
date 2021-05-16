@@ -6,7 +6,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@glidejs/glide": "^3.4.1",
     "@nivo/bar": "^0.69.1",
     "@nivo/core": "^0.69.0",
     "@nivo/funnel": "^0.69.0",
@@ -21,7 +20,6 @@
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
-    "react-glide": "^3.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
