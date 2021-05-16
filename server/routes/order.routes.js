@@ -26,13 +26,26 @@ router.post('/new', isLoggedIn, (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error with order', err }))
 })
 
-// CUSTOMER ORDER (GET)
+// UNPAID CUSTOMER ORDER (GET)
 router.get('/customer', (req, res) => {
     Order
-        .find({ 'customer': req.session.currentUser._id })
+        .find({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false }] })
         .populate('customer')
         .populate('products.product')
         .populate('products.option')
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
+})
+
+// PAID CUSTOMER ORDER (GET)
+router.get('/customer/paid', (req, res) => {
+    Order
+        .find({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': true }] })
+        .populate('customer')
+        .populate('products.product')
+        .populate('products.option')
+        .sort({ createdAt: -1 })
+        .limit(20)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
 })
