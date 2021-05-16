@@ -1,10 +1,14 @@
 const express = require('express')
 const router = express.Router()
+
 const { isLoggedIn, checkRoles } = require('../middlewares/index')
 const Product = require('../models/product.model')
 const User = require('../models/user.model')
 const Category = require('./../models/category.model')
 const Option = require('./../models/option.model')
+
+const mongoose = require('mongoose')
+const { checkMongooseError } = require('./../utils')
 
 // Endpoints
 
@@ -23,8 +27,11 @@ router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'),
 
     Product
         .create({ supplier, name, description, category })
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
+        .then(response => res.json('Product created'))
+        .catch(err => {
+            console.log(checkMongooseError(err))
+            res.status(400).json({code: 400, errorMessage: checkMongooseError(err)})
+        })
 })
 
 router.get('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {

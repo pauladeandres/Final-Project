@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
+import { Form, Button, Container, Alert } from 'react-bootstrap'
 import ProductsService from '../../../service/products.service'
 import CategoryService from '../../../service/category.service'
 
@@ -13,6 +13,10 @@ class NewProduct extends Component {
                 name: '',
                 description: '',
                 category: undefined
+            },
+            alert: {
+                show: false,
+                text: ' '
             },
             categorieOptions: undefined
         }
@@ -50,7 +54,10 @@ class NewProduct extends Component {
             .then(response => {
                 this.props.fetchProducts()
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ alert: {show: true, text: err.response.data.errorMessage}})
+                console.log(err.response.data.errorMessage)
+            })
 
         this.emptyForm()
     }
@@ -68,6 +75,7 @@ class NewProduct extends Component {
                 <h1>Cargando...</h1>
                 :
         <Container >
+            <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
             <Form onSubmit={e => this.handleSubmit(e)}>
                 
                 <Form.Group controlId="name">
