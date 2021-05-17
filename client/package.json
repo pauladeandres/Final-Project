@@ -11,6 +11,8 @@
     "@nivo/funnel": "^0.69.0",
     "@nivo/line": "^0.69.1",
     "@nivo/treemap": "^0.69.0",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.14.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",

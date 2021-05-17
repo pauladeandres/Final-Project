@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../Sidebar/Sidebar'
 
-const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
+const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
 
     const logout = () => {
         const authService = new AuthService()
@@ -17,6 +17,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
             .catch(err => console.log(err))
     }
 
+
     return (
         // (
         // loggedUser && loggedUser.role === 'ADMIN') ? null
@@ -26,27 +27,16 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                    <NavDropdown title="Products" id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="/product">See All</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Sofas</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Chairs</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Tables</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Decoration</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Kitchen</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Garden</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Bedroom</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Bathroom</NavDropdown.Item>
-                    </NavDropdown>
-                    <NavDropdown title="Our Brands" id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="#action/3.2">SKLUM</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Vitra</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">AYTM</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">MUJI</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Ferm Living</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Blu Dot</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#action/3.4">Umbra</NavDropdown.Item>
-                    </NavDropdown>
+                    {
+                        !categoryList
+                            ?
+                            <h1>Loading categories...</h1>
+                            :
+                            <NavDropdown title="Products" id="basic-nav-dropdown">
+                                <NavDropdown.Item as={Link} to="/product">See All</NavDropdown.Item>
+                                {categoryList.map(elm => <NavDropdown.Item key={elm._id} as={Link} to={`/category/${elm._id}`}>{elm.name}</NavDropdown.Item>)}
+                            </NavDropdown>
+                    }
                     <NavDropdown title="My Area" id="basic-nav-dropdown">
                         {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
                         {loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
@@ -57,13 +47,13 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
                         <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-                <div className="searchBar">
+                <div className="shopping-icons">
                     <Link to="/cart" ><FontAwesomeIcon icon={faShoppingCart} /></Link>
                     <span class="order-number">{orderNumber}</span>
                     <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+
                     </Form>
-                    <Button type="submit" variant="outline-dark">Search</Button>
+
                 </div>
             </Navbar.Collapse>
         </Navbar >

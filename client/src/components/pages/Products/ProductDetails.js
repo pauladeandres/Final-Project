@@ -2,6 +2,7 @@ import './ProductDetails.css'
 import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import OrdersService from '../../../service/order.service'
+import OptionsService from '../../../service/option.service'
 import { Container, Row, Modal, Col, Form, Button } from 'react-bootstrap'
 import LoginForm from '../Login/LoginForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,42 +20,59 @@ class ProductDetails extends Component {
             },
             showModal: false,
             options: undefined,
-            favorite: false
+            favorite: false,
         }
         this.productService = new ProductsService()
         this.orderService = new OrdersService()
+        this.optionService = new OptionsService()
     }
 
     handleInputChange(e) {
         const {name, value} = e.target
         this.setState({ order: { ...this.state.order, [name]: value }})
     }
-
+    
     handleSubmit(e) {
         e.preventDefault()
-        if (this.props.loggedUser) {
+        const selectedOption = this.state.options.find(elm => elm.color === this.state.order.color)
+        
+        if (this.props.loggedUser && this.state.order.quantity <= selectedOption.stock) {
             
             const customer = this.props.loggedUser._id
             const product = this.state.order.product._id
             const quantity = this.state.order.quantity
-            const option = this.state.options.find(elm => elm.color === this.state.order.color)._id 
-
+            const option = selectedOption._id
+            
             this.orderService
-                .createOrder({product, quantity, option, customer})
-                .then(response => {
-                    this.props.updateCartNumber() 
-                    this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
-                })
-                .catch(err => console.log(err))  
+            .createOrder({product, quantity, option, customer})
+            .then(response => {
+                this.props.updateCartNumber() 
+                this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
+            })
+            .catch(err => console.log(err))  
+            this.updateStock(selectedOption)
+        } else if (this.props.loggedUser && this.state.order.quantity > selectedOption.stock) {
+            this.props.handleAlert('Not enough items available.') 
         } else {this.setState({ showModal: true })} 
     }
 
+    handleFavorite(e, product_id) {
+        e.preventDefault()
+        if (this.props.loggedUser) {
+            this.productService
+                .addFavorite({product_id})
+                .then(()=> this.setState({favorite: true}) )
+                .catch(err => console.log(err))  
+        this.props.handleAlert(`You added ${this.state.order.product.name} to your favorites`)
+        } else {this.setState({ showModal: true })} 
+    }
+    
     componentDidMount() {
-        this.importProduct()
+        this.importOptions()
         this.props.updateCartNumber() 
     }
     
-    importProduct() {
+    importOptions() {
         const product_id = this.props.match.params.id
         
         this.productService
@@ -70,19 +88,19 @@ class ProductDetails extends Component {
         this.props.loggedUser.favoriteProducts.includes(this.state.order.product._id)? this.setState({favorite: true}) : this.setState({favorite: false})
     }
 
-    handleFavorite(e, product_id) {
-        e.preventDefault()
-        if (this.props.loggedUser) {
-            this.productService
-                .addFavorite({product_id})
-                .then(()=> this.setState({favorite: true}) )
-                .catch(err => console.log(err))  
-        this.props.handleAlert(`You added ${this.state.order.product.name} to your favorites`)
-        } else {this.setState({ showModal: true })} 
+    updateStock(selectedOption) {
+        const previousStock = selectedOption.stock
+        const stock = previousStock - this.state.order.quantity
+        const optionId = selectedOption._id
+        this.optionService
+            .updateStock(optionId, {stock: stock})
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+        this.importOptions()
     }
 
+
     render() {
-        console.log("rerendering")
         const product = this.state.order
         const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
         const price = this.state.options?.find(elm => elm.color === this.state.order.color).price || product.price
@@ -104,7 +122,7 @@ class ProductDetails extends Component {
                                 <h3>Information</h3>
                                 <p>{product.product.description}</p>
                                 <p><b>Category:</b> {product.product.category.name}</p>
-                                <p><b>Available items:</b> {stock}</p>
+                                <p><b>Available items:</b> {stock} {stock === undefined && <span className="red-text">OUT OF STOCK</span>}</p>
                                 <p className="price-detail">$ {price}</p>
                                 <hr />
                                 

@@ -9,7 +9,7 @@ class CategoryService {
         })
     }
 
-    getAllCategories = () => this.app.get('/supplier')
+    getAllCategories = () => this.app.get('/client/')
 }
 
 export default CategoryService

@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
+<<<<<<< HEAD
 import { Link } from 'react-router-dom'
 import sofas from './Sofas.webp'
 import bedroom from './Bedroom.webp'
@@ -9,7 +10,11 @@ import garden from './Garden.jpg'
 import decoration from './Decoration.webp'
 import kitchen from './Kitchen.jpg'
 import bathroom from './Bathroom.jpg'
+=======
+
+>>>>>>> bf65b170d409766d70065ff04fcdebeca540eb0d
 import CategoryService from '../../../service/category.service'
+import CategoryCard from './CategoryCard'
 
 import './CategoriesList.css'
 
@@ -32,16 +37,15 @@ class CategoriesList extends Component {
         this.categoriesService
             .getAllCategories()
             .then(response => {
-                console.log(response)
-                this.setState({ categorieOptions: response.data })
+                console.log(response.data)
+                this.setState({ categoryOptions: response.data })
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
-
-
     render() {
 
+<<<<<<< HEAD
         return (
             <Carousel fade className="carousel">
                 <Carousel.Item>
@@ -150,7 +154,18 @@ class CategoriesList extends Component {
 
             </Carousel>
         )
+=======
+    return(
+        !this.state.categoryOptions
+        ?
+        <h1>Loading....</h1>
+        :
+        <Carousel fade className="carousel">
+                {this.state.categoryOptions.map(elm => <Carousel.Item><CategoryCard key={elm._id} {...elm}/></Carousel.Item>)}
+        </Carousel>
+        ) 
+>>>>>>> bf65b170d409766d70065ff04fcdebeca540eb0d
     }
 }
-
+                
 export default CategoriesList

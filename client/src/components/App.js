@@ -7,6 +7,9 @@ import AuthService from '../service/auth.service'
 import Alert from './shared/Alert/Alert'
 import OrdersService from '../service/order.service'
 import SpinnerRoll from './shared/Spinner/SpinnnerRoll'
+import CategoryService from '../service/category.service'
+
+import { Container } from 'react-bootstrap'
 
 class App extends Component {
 
@@ -17,10 +20,12 @@ class App extends Component {
       loggedUser: null,
       showAlert: false,
       alertText: '',
-      orderNumber: 0
+      orderNumber: 0,
+      categoryList: undefined
     }
     this.authService = new AuthService()
     this.orderNumber = new OrdersService()
+    this.categoryService = new CategoryService()
   }
 
   handleAlert(alertText, showAlert = true) {
@@ -48,6 +53,7 @@ class App extends Component {
   componentDidMount() {
     this.fetchUser()
     this.updateCurrentUser()
+    this.loadCategories()
   }
 
   updateCartNumber() {
@@ -57,7 +63,15 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  updateCurr
+  loadCategories() {
+    console.log("mira como pido las categorias")
+    this.categoryService
+      .getAllCategories()
+      .then(response => this.setState({ categoryList: response.data }))
+      .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+  }
+
+
 
   render() {
 

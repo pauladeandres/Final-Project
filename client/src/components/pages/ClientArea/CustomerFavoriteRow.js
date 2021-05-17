@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import ProductsService from '../../../service/products.service'
 
 
-const CustomerFavoriteRow = ( {_id, name, updateFavoriteProducts} ) => {
+const CustomerFavoriteRow = ( {_id, name, updateFavoriteProducts, handleAlert} ) => {
 
     const link = `/product/${_id}`
 
@@ -13,10 +13,10 @@ const CustomerFavoriteRow = ( {_id, name, updateFavoriteProducts} ) => {
         e.preventDefault()
         productService
             .removeFavorite(product_id)
-            .then(response => { console.log(response)
-            })
+            .then(response => console.log(response))
             .catch(err => console.log(err))
         updateFavoriteProducts()
+        handleAlert(`${name} was removed from your favorites`)
     }
 
     return(

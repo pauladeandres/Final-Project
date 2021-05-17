@@ -97,18 +97,18 @@ class MyProductDetails extends Component {
                         </Table>
                     </Row>
                     <Row>
-                    <Col>
-                        <Accordion >
-                        <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="1">
-                            <Button className="addoption" variant="dark" style={{ width: '100%' }}>+</Button>
-                        </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="1">
-                                                <Card.Body><NewOption product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()}/></Card.Body>
-                        </Accordion.Collapse>
-                        </Card>
-                        </Accordion >
-                    </Col>
+                        <Col>
+                            <Accordion >
+                                <Card>
+                                <Accordion.Toggle as={Card.Header} eventKey="1">
+                                    <Button className="addoption" variant="dark" style={{ width: '100%' }}>+</Button>
+                                </Accordion.Toggle>
+                                            <Accordion.Collapse eventKey="1">
+                                                        <Card.Body><NewOption product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()}/></Card.Body>
+                                </Accordion.Collapse>
+                                </Card>
+                            </Accordion >
+                        </Col>
                     </Row>               
                 </>
             }

@@ -44,14 +44,14 @@ router.put('/edit/:product_id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing product', err }))
 })
 
-router.get('/:category', (req, res) => {
+router.get('/category/:category', (req, res) => {
 
     Product
         .find({ category: req.params.category })
         .select('name supplier category options')
-        // .populate('category')
+        .populate('category')
         // .populate('supplier')
-        // .populate('options')
+        .populate('options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 

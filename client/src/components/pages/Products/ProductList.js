@@ -9,37 +9,20 @@ class ProductList extends Component {
     constructor() {
         super()
         this.state = {
-            products: undefined
-            // showModal: false
         }
-        this.productsService = new ProductsService()
-    }
-
-
-    componentDidMount() {
-        this.loadProducts()
-    }
-
-    loadProducts() {
-        this.productsService
-            .getAllProducts()
-            .then(response => this.setState({ products: response.data }))
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
     render() {
 
-        const { products } = this.state
-
         return (
 
-            !products
+            !this.props.products
                 ?
-                <h1>CARGANDO</h1>
+                <h1>Loading...</h1>
                 :
                 <>
                     <Row>
-                        {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
+                        {this.props.products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </>
 

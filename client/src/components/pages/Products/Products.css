@@ -1,0 +1,14 @@
+.btn-group-vertical>.btn, .btn-group>.btn {
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.sortby {
+    border-radius: 25px;
+    margin: 5px;
+}
+
+.filterButtons {
+    display: flex;
+    justify-content: center;
+}

@@ -15,7 +15,7 @@ const { checkMongooseError } = require('./../utils')
 
 
 // GET ALL CATEGORIES
-router.get('/', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
+router.get('/', (req, res) => {
 
     Category
         .find()
