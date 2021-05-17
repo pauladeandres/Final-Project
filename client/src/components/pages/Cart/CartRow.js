@@ -57,6 +57,9 @@ class CartRow extends Component {
                         <img src={product.option.image}></img>
                     </Col>
                     <Col md={9}>
+                        <Form className="delete-btn" onSubmit={e => this.handleDelete(e, product._id)}>
+                            <Button className="btn-dark" type="submit"><FontAwesomeIcon icon={faTrashAlt}/></Button>
+                        </Form>  
                         <Link to={link} ><h5>{product.product.name}</h5></Link>
                         <p>Color: {product.option.color}</p>
                         <p>Unit price: <b>${product.option.price}</b></p>
@@ -71,10 +74,7 @@ class CartRow extends Component {
                             <Col xs={3}>
                                 <Button variant="dark" type="submit">Update</Button>
                             </Col>
-                        </Form>
-                        <Form className="delete-btn" onSubmit={e => this.handleDelete(e, product._id)}>
-                            <Button type="submit"><FontAwesomeIcon icon={faTrashAlt}/></Button>
-                        </Form>    
+                        </Form>  
                     </Col> 
                 </div>
                     )

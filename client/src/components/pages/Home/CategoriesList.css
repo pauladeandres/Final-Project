@@ -1,4 +1,37 @@
-.category-section h1{
-    text-align: center;
-    margin-top: 20px;
+.glide--item, .glide--item.current {
+    width: 100%;
+}
+
+.carousel {
+    height: 400px;
+    display: flex;
+}
+
+.carousel-fade .carousel-item-next.carousel-item-start, .carousel-fade .carousel-item-prev.carousel-item-end, .carousel-fade .carousel-item.active {
+    margin: 50px 0px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.carousel-item img{
+    width: 400px;
+    opacity: 60%;
+}
+
+.carousel-control-next {
+
+}
+
+.carousel-control-next-icon  {
+     background-image: url('./arrownext.png')
+}
+
+.carousel-control-prev-icon {
+    background-image: url('./arrowprev.png')
+}
+
+.carousel-caption {
+    color: black;
 }

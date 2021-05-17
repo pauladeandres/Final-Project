@@ -5,6 +5,8 @@ const Product = require('../models/product.model')
 const Option = require('../models/option.model')
 
 const { isLoggedIn, checkRoles } = require('../middlewares/index')
+const mongoose = require('mongoose')
+const { checkMongooseError } = require('./../utils')
 
 router.get('/option/:option_id', (req, res) => {
 
@@ -36,7 +38,10 @@ router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SU
         .create({ price, color, stock, image })
         .then(option => Product.findByIdAndUpdate(product_id, { $push: { options: option._id } }))
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
+        .catch(err => {
+            console.log(checkMongooseError(err))
+            res.status(400).json({ code: 400, errorMessage: checkMongooseError(err) })
+        })
 })
 
 module.exports = router

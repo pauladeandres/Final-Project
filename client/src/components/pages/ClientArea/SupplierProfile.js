@@ -41,7 +41,7 @@ class SupplierProfile extends Component {
                 <h1>My Area</h1>
                 
                 <Row>
-                    <MyDetails handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser}/>
+                    <MyDetails handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} history={this.props.history}/>
                 </Row>
         
                 <Row>

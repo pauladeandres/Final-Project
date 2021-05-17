@@ -29,14 +29,6 @@ const clientSchema = new Schema({
     phone: {
         type: Number
     },
-    order: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Order'
-    }],
-    favoriteProducts: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
-    }],
     products: [{
         type: Schema.Types.ObjectId,
         ref: 'Product'

@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
+import { Form, Button, Container, Alert } from 'react-bootstrap'
 import OptionService from '../../../service/option.service'
 import UploadsService from '../../../service/uploads.service'
 
@@ -14,9 +14,13 @@ class NewOption extends Component {
                 stock: 0,
                 image: ''
             },
+            alert: {
+                show: false,
+                text: ' '
+            },
             isUploading: false
         }
-        this.productService = new OptionService()
+        this.optionService = new OptionService()
         this.uploadsService = new UploadsService()
     }
 
@@ -34,7 +38,7 @@ class NewOption extends Component {
             .then(response => {
                 this.props.fetchProduct()
             })
-            .catch(err => console.log(err))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.errorMessage } }))
     }
 
     handleFileUpload(e) {
@@ -55,6 +59,7 @@ class NewOption extends Component {
         return (
 
                 <Container >
+                <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                     <Form onSubmit={e => this.handleSubmit(e)}>
                         <Form.Group controlId="price">
                             <Form.Label>Price:</Form.Label>

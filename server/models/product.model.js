@@ -8,16 +8,17 @@ const productSchema = new Schema({
     },
     name: {
         type: String,
-        required: true
+        required: [true, 'The name of the product is required']
     },
     description: {
         type: String,
-        // required: true,
+        required: [true, 'You need to add a description']
         // minlength: 50
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'Category',
+        required: [true, 'Select a category to continue']
     },
     options: [{
         type: Schema.Types.ObjectId,

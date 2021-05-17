@@ -17,7 +17,6 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
     }
 
     return (
-        <Container>
         <Navbar bg="light" expand="lg" className="fullNavBar">
             <Navbar.Brand as={Link} to="/">HOME</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -47,6 +46,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
                     <NavDropdown title="My Area" id="basic-nav-dropdown">
                         {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
                         {loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
+                        <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                         <NavDropdown.Divider />
@@ -63,7 +63,6 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
                 </div>
             </Navbar.Collapse>
         </Navbar >
-        </Container>
     )
 }
 export default Navigation

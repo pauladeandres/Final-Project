@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@nivo/funnel": "^0.69.0"
+  }
+}
