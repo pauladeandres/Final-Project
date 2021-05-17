@@ -1,12 +1,23 @@
 import { Component } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    CardTitle
+} from "reactstrap"
 import LineChart from "./LineChart"
 import BarChart from './BarChart'
-import testData from './data'
 import AdminService from "../../../service/admin.service"
 import TreeChart from "./TreeChart"
 import FunnelChart from './FunnelChart'
+import SpinnerRoll from '../../layout/Spinner/SpinnnerRoll'
+import ordersImage from './ordersbw.png'
+import productsImage from './products.png'
+import globeImage from './earth_globe.png'
+import clientImage from './client.png'
+
 
 class Dashboard extends Component {
     constructor() {
@@ -67,19 +78,54 @@ class Dashboard extends Component {
 
     render() {
         console.log(this.state.clients)
-        return !this.state.orders ? <h1>Fetching data...</h1> :
+        return !this.state.orders ? <SpinnerRoll /> :
             (
                 <Container >
                     <h1>Dashboard</h1>
                     <Row>
-                        <Col md={3}>
-                            <h2>Products: {this.state.products.length}</h2>
+                        <Col lg="3" md="6" sm="6">
+                            <Card className="card-stats">
+                                <CardBody>
+                                    <Row>
+                                        <Col md="4" xs="5">
+                                            <div className="icon-big text-center icon-warning">
+                                                <img src={productsImage} alt="orders image" style={{ width: '100%' }} />
+                                            </div>
+                                        </Col>
+                                        <Col md="8" xs="7">
+                                            <div className="numbers">
+                                                <p className="card-category">Products</p>
+                                                <CardTitle tag="p">{this.state.products.length}</CardTitle>
+                                                <p />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </CardBody>
+                            </Card>
                         </Col>
-                        <Col md={3}>
-                            <h2>Clients: {this.state.clients.customers ? this.state.clients.customers.length : <h2>...</h2>}</h2>
+                        <Col lg="3" md="6" sm="6">
+                            <Card className="card-stats">
+                                <CardBody>
+                                    <Row>
+                                        <Col md="4" xs="5">
+                                            <div className="icon-big text-center icon-warning">
+                                                <img src={ordersImage} alt="orders image" style={{ width: '100%' }} />
+                                            </div>
+                                        </Col>
+                                        <Col md="8" xs="7">
+                                            <div className="numbers">
+                                                <p className="card-category">Clients</p>
+                                                <CardTitle tag="p">{this.state.clients.customers ? this.state.clients.customers.length : <SpinnerRoll />}</CardTitle>
+                                                <p />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </CardBody>
+                            </Card>
                         </Col>
+
                         <Col md={3}>
-                            <h2>Suppliers: {this.state.clients.customers ? this.state.clients.suppliers.length : <h2>...</h2>}</h2>
+                            <h2>Suppliers: {this.state.clients.customers ? this.state.clients.suppliers.length : <SpinnerRoll />}</h2>
                         </Col>
                         <Col md={3}>
                             <h2>Orders: {this.state.orders.length}</h2>
@@ -88,22 +134,22 @@ class Dashboard extends Component {
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.data.products ? <h2>Loading charts...</h2> : <BarChart data={this.state.data.products} />}
+                        {!this.state.data.products ? <SpinnerRoll /> : <BarChart data={this.state.data.products} />}
                         <Col md={8}></Col>
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.data.orders ? <h2>Loading charts...</h2> : <LineChart data={this.state.data.orders} />}
+                        {!this.state.data.orders ? <SpinnerRoll /> : <LineChart data={this.state.data.orders} />}
                         <Col md={8}></Col>
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.data.categories ? <h2>Loading charts...</h2> : <TreeChart data={this.state.data.categories} />}
+                        {!this.state.data.categories ? <SpinnerRoll /> : <TreeChart data={this.state.data.categories} />}
                         <Col md={8}></Col>
                     </Row>
                     <Row style={{ height: "300px" }}>
                         <Col md={8}></Col>
-                        {!this.state.data.categories ? <h2>Loading charts...</h2> : <FunnelChart data={this.state.data.orderPyramid} />}
+                        {!this.state.data.categories ? <SpinnerRoll /> : <FunnelChart data={this.state.data.orderPyramid} />}
                         <Col md={8}></Col>
                     </Row>
                 </Container >
