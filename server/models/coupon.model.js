@@ -8,18 +8,8 @@ const couponSchema = new Schema({
     value: {
         type: Number
     },
-    used: {
-        type: Boolean
-    },
-    customer: {
-        type: Schema.Types.ObjectId,
-        ref: 'Customer'
-    },
-    product: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
-    }]
-}, {
+},
+{
     timestamps: true
 })
 

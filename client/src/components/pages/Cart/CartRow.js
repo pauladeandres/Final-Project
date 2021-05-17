@@ -4,6 +4,7 @@ import { Col, Form, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import OrdersService from '../../../service/order.service'
+import OptionsService from '../../../service/option.service'
 import { Link } from 'react-router-dom'
 
 
@@ -17,6 +18,7 @@ class CartRow extends Component {
         }
 
         this.orderService = new OrdersService()
+        this.optionService = new OptionsService()
     }
 
     handleDelete(e, id) {
@@ -25,6 +27,7 @@ class CartRow extends Component {
             .deleteProduct(id)
             .then(()=> this.props.fetchProducts())
             .catch(err => console.log(err))
+        this.updateStock()
         this.props.handleAlert(`${this.state.products.product.name} was removed from your Cart`)  
     }
 
@@ -41,6 +44,17 @@ class CartRow extends Component {
             .then(() => this.props.fetchProducts())
             .catch(err => console.log(err))  
         this.props.handleAlert(`${this.state.products.product.name} quantity was update to ${this.state.quantity} items.`) 
+    }
+
+    updateStock() {
+        const currentStock = this.props.option.stock
+        const newStock = currentStock + this.state.quantity
+        const optionId = this.props.option._id
+        console.log('currentStock:', currentStock, 'newStock:', newStock, 'optionId:', optionId)
+        this.optionService
+            .updateStock(optionId, {stock: newStock})
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
     }
 
     render() {

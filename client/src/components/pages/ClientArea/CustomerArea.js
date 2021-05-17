@@ -39,11 +39,6 @@ class CustomerArea extends Component {
             .catch(err => console.log(err)) 
     }
 
-    updateFavoriteProducts() {
-        console.log('remove')
-        this.getFavoriteProducts()
-    }
-
     render() {
         return (
             <Container>
@@ -63,7 +58,7 @@ class CustomerArea extends Component {
                         </div>
                         <div className="customer-box">
                             <h3>My favorites</h3>
-                            {this.state.favorites.map(elm => <CustomerFavoriteRow key={elm._id} updateFavoriteProducts={() => this.updateFavoriteProducts()} {...elm}/>)}
+                            {this.state.favorites.map(elm => <CustomerFavoriteRow key={elm._id} handleAlert={this.props.handleAlert} updateFavoriteProducts={() => this.getFavoriteProducts()} {...elm}/>)}
                         </div>
                     </Col>
                 </Row>

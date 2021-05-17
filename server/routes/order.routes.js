@@ -33,6 +33,7 @@ router.get('/customer', (req, res) => {
         .populate('customer')
         .populate('products.product')
         .populate('products.option')
+        .populate('coupon')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
 })
@@ -44,6 +45,7 @@ router.get('/customer/paid', (req, res) => {
         .populate('customer')
         .populate('products.product')
         .populate('products.option')
+        .populate('coupon')
         .sort({ createdAt: -1 })
         .limit(20)
         .then(response => res.json(response))
@@ -69,7 +71,7 @@ router.post('/edit/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res)
         .then(response => res.json(response))
         .catch(err => {
             res.status(500).json({ code: 500, message: 'Could not update this order', err })})
-        })
+})
 
 
 module.exports = router
