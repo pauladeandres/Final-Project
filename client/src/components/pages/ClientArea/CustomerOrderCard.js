@@ -8,23 +8,29 @@ class CustomerOrderCard extends Component {
     constructor() {
         super()
         this.state = {
-            products: undefined
+            products: undefined,
+            total: 0
         }
     }
 
     componentDidMount() {
         this.updateProducts()
+        this.updateTotal()
     }
 
     updateProducts() {
         this.setState({products: this.props.products})
     }
 
-    render() {
+    updateTotal() {
+        this.props.coupon ? 
+        this.setState({total: this.props.products.map(elm => elm.option.price*elm.quantity).reduce((accumulator, currentValue) => accumulator + currentValue) -this.props.coupon.value}) 
+        : this.setState({total: this.props.products.map(elm => elm.option.price*elm.quantity).reduce((accumulator, currentValue) => accumulator + currentValue)})
+    }
 
+    render() {
+        
         const date = this.props.updatedAt.replace(/T.*/,'').split('-').reverse().join('-')
-        const reducer = (accumulator, currentValue) => accumulator + currentValue
-        const total = this.props.products.map(elm => elm.option.price*elm.quantity).reduce(reducer)
 
         return(
         <section>
@@ -34,7 +40,7 @@ class CustomerOrderCard extends Component {
                     <span>ORDER DATE:<br></br> {date}</span>
                 </Col>
                 <Col md={3}>
-                    <span>TOTAL:<br></br> ${total}</span>
+                    <span>TOTAL:<br></br> ${this.state.total}</span>
                 </Col>
                 <Col md={6}>
                     <span>ORDER N.º {this.props._id}</span>  

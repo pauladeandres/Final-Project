@@ -7,6 +7,7 @@ const Option = require('../models/option.model')
 const { isLoggedIn, checkRoles } = require('../middlewares/index')
 const mongoose = require('mongoose')
 const { checkMongooseError } = require('./../utils')
+const { findByIdAndUpdate } = require('../models/product.model')
 
 router.get('/option/:option_id', (req, res) => {
 
@@ -19,7 +20,6 @@ router.get('/option/:option_id', (req, res) => {
 })
 
 router.delete('/delete/:option_id', (req, res) => {
-    console.log('Respuesta de back: req.params.option_id', req.params.option_id)
     const option_id = req.params.option_id
 
     Option
@@ -42,6 +42,15 @@ router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SU
             console.log(checkMongooseError(err))
             res.status(400).json({ code: 400, errorMessage: checkMongooseError(err) })
         })
+})
+
+router.post('/update-stock/:id', isLoggedIn, (req, res) => {
+
+    Option
+        .findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+
 })
 
 module.exports = router
