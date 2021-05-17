@@ -1,12 +1,6 @@
 import './CheckoutRow.css'
-import { Component } from 'react'
-import { Col, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 const CheckoutRow = (product) => {
-
-    console.log(product.product.name)
-    console.log(product.quantity)
     const totalPrice = product.option.price*product.quantity
 
           return (

@@ -1,0 +1,15 @@
+.product-order-row {
+    margin-bottom: 25px;
+}
+
+.product-order-row img{
+    width: 100%;
+}
+
+.product-order-row a {
+    text-decoration: none;
+}
+
+.product-order-row p {
+    margin-bottom: 0;
+}

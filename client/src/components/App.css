@@ -12,3 +12,8 @@ h5 {
 b {
     font-weight: 600;
 }
+
+a {
+    color: black;
+    text-decoration: none;
+}

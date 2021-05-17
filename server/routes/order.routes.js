@@ -16,13 +16,13 @@ router.post('/new', isLoggedIn, (req, res) => {
                     .findOneAndUpdate({ $and: [{ 'customer': customer }, { 'paid': false }] }, { $push: { products: { product, quantity, option } } })
                     .then(response => res.json(response))
                     .catch(err => res.status(500).json({ code: 500, message: 'Error while updating order', err }))
-            } else {
-                Order
+                } else {
+                    Order
                     .create({ customer, products: [{ product, quantity, option }] })
                     .then(response => res.json(response))
                     .catch(err => res.status(500).json({ code: 500, message: 'Error while creating order', err }))
-            }
-        })
+                }
+            })
         .catch(err => res.status(500).json({ code: 500, message: 'Error with order', err }))
 })
 

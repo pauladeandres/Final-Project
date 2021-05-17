@@ -3,8 +3,9 @@ import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import OrdersService from '../../../service/order.service'
 import { Container, Row, Modal, Col, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import LoginForm from '../Login/LoginForm'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 class ProductDetails extends Component {
 
@@ -17,7 +18,8 @@ class ProductDetails extends Component {
                 quantity: 0,
             },
             showModal: false,
-            options: undefined
+            options: undefined,
+            favorite: false
         }
         this.productService = new ProductsService()
         this.orderService = new OrdersService()
@@ -40,7 +42,6 @@ class ProductDetails extends Component {
             this.orderService
                 .createOrder({product, quantity, option, customer})
                 .then(response => {
-                    console.log(response)
                     this.props.updateCartNumber() 
                     this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
                 })
@@ -60,31 +61,50 @@ class ProductDetails extends Component {
             .getOneProduct(product_id)
             .then(response => {
                 this.setState({ options: response.data.options, order: { ...this.state.order, product: response.data, option: response.data.options[0], color: response.data.options[0].color } })
-                console.log(this.state)
-                    })
+                this.checkFavorite()    
+            })
             .catch(err => console.log(err))
     }
 
-    render() {
+    checkFavorite() {
+        this.props.loggedUser.favoriteProducts.includes(this.state.order.product._id)? this.setState({favorite: true}) : this.setState({favorite: false})
+    }
 
+    handleFavorite(e, product_id) {
+        e.preventDefault()
+        if (this.props.loggedUser) {
+            this.productService
+                .addFavorite({product_id})
+                .then(()=> this.setState({favorite: true}) )
+                .catch(err => console.log(err))  
+        this.props.handleAlert(`You added ${this.state.order.product.name} to your favorites`)
+        } else {this.setState({ showModal: true })} 
+    }
+
+    render() {
+        console.log("rerendering")
         const product = this.state.order
         const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
         const price = this.state.options?.find(elm => elm.color === this.state.order.color).price || product.price
+        const stock = this.state.options?.find(elm => elm.color === this.state.order.color).stock || product.stock
 
         return (
             <Container>
                 {
                     !this.state.options ? <h1>Loading...</h1> :
 
-                        <Row>
+                        <Row className="product-img">
                             <Col md={6}>
                                 <img src={img}></img>
                             </Col>
-                            <Col md={6}>
+                            <Col md={6} className="product-details">
+                            
+                                {this.state.favorite? <span className="favorite-btn btn btn-light">Added to favorites <FontAwesomeIcon icon={faHeart} /></span> : <Form onSubmit={e => this.handleFavorite(e, this.state.order.product._id)}><Button className="favorite-btn" variant="dark" type="submit">Add to favorites <FontAwesomeIcon icon={faHeart} /></Button></Form>}  
                                 <h1>{product.product.name}</h1>
                                 <h3>Information</h3>
                                 <p>{product.product.description}</p>
                                 <p><b>Category:</b> {product.product.category.name}</p>
+                                <p><b>Available items:</b> {stock}</p>
                                 <p className="price-detail">$ {price}</p>
                                 <hr />
                                 

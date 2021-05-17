@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import OrdersService from '../../../service/order.service'
 import CheckoutRow from './CheckoutRow'
 import SignupForm from '../Auth/SignupForm'
-import MyDetails from '../SupplierArea/MyDetails'
+import MyDetails from '../ClientArea/MyDetails'
 
 class Checkout extends Component {
     constructor(props) {
@@ -16,8 +16,6 @@ class Checkout extends Component {
         }
 
         this.orderService = new OrdersService()
-
-        console.log(this.props)
     }
 
     componentDidMount() {
@@ -46,7 +44,7 @@ class Checkout extends Component {
                             <h1 className="checkout-title">Checkout</h1>
                             <Col md={8} className="checkout-column">
                                 <h3>Billing address</h3>
-                                {this.props.loggedUser.client? <MyDetails handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser}/> : <SignupForm handleAlert={this.props.handleAlert} history={this.props.history} loggedUser={this.props.loggedUser} updateCurrentUser={this.props.updateCurrentUser}/>}
+                                {this.props.loggedUser.client? <MyDetails history={this.props.history} handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser}/> : <SignupForm handleAlert={this.props.handleAlert} history={this.props.history} loggedUser={this.props.loggedUser} updateCurrentUser={this.props.updateCurrentUser}/>}
                             </Col>
                             <Col md={4} className="total-column">
                                 <div className="checkout-column">

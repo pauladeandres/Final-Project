@@ -4,8 +4,6 @@ import './ProductCard.css'
 
 const ProductCard = ({ name,  _id, options }) => {
 
-    console.log(options)
-
     return (
         <Col md={3} className="product-card">
             <Card >
