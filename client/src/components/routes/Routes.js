@@ -42,7 +42,7 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
 
             <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
             <Route path="/checkout" render={props => <Checkout history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} />} />
-            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history}/>} />
+            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} />} />
         </Switch>
     )
 }

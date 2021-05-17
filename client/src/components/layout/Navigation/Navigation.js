@@ -4,6 +4,7 @@ import { Navbar, Nav, NavDropdown, Container, Form, Button, FormControl, FormGro
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import Sidebar from '../Sidebar/Sidebar'
 
 const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
 
@@ -17,7 +18,10 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
     }
 
     return (
-        <Navbar bg="light" expand="lg" className="fullNavBar">
+        // (
+        // loggedUser && loggedUser.role === 'ADMIN') ? null
+        // :
+        < Navbar bg="light" expand="lg" className="fullNavBar" >
             <Navbar.Brand as={Link} to="/">HOME</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -54,9 +58,9 @@ const Navigation = ({ loggedUser, storeUser, orderNumber }) => {
                     </NavDropdown>
                 </Nav>
                 <div className="searchBar">
-                <Link to="/cart" ><FontAwesomeIcon icon={faShoppingCart} /></Link>
-                        <span class="order-number">{orderNumber}</span>
-                <Form inline>
+                    <Link to="/cart" ><FontAwesomeIcon icon={faShoppingCart} /></Link>
+                    <span class="order-number">{orderNumber}</span>
+                    <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                     </Form>
                     <Button type="submit" variant="outline-dark">Search</Button>

@@ -1,3 +1,4 @@
+import './Dashboard.css'
 import { Component } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import {
@@ -7,16 +8,18 @@ import {
     CardFooter,
     CardTitle
 } from "reactstrap"
-import LineChart from "./LineChart"
-import BarChart from './BarChart'
+// import "../../../assets/css/paper-dashboard.css?v=1.3.0"
+import LineChart from "./../DashboardCharts/LineChart"
+import BarChart from './../DashboardCharts/BarChart'
 import AdminService from "../../../service/admin.service"
-import TreeChart from "./TreeChart"
-import FunnelChart from './FunnelChart'
-import SpinnerRoll from '../../layout/Spinner/SpinnnerRoll'
+import TreeChart from "./../DashboardCharts/TreeChart"
+import FunnelChart from './../DashboardCharts/FunnelChart'
+import SpinnerRoll from '../../shared/Spinner/SpinnnerRoll'
 import ordersImage from './ordersbw.png'
 import productsImage from './products.png'
 import globeImage from './earth_globe.png'
 import clientImage from './client.png'
+
 
 
 class Dashboard extends Component {
@@ -78,82 +81,125 @@ class Dashboard extends Component {
 
     render() {
         console.log(this.state.clients)
-        return !this.state.orders ? <SpinnerRoll /> :
-            (
-                <Container >
-                    <h1>Dashboard</h1>
-                    <Row>
-                        <Col lg="3" md="6" sm="6">
-                            <Card className="card-stats">
-                                <CardBody>
-                                    <Row>
-                                        <Col md="4" xs="5">
-                                            <div className="icon-big text-center icon-warning">
-                                                <img src={productsImage} alt="orders image" style={{ width: '100%' }} />
-                                            </div>
-                                        </Col>
-                                        <Col md="8" xs="7">
-                                            <div className="numbers">
-                                                <p className="card-category">Products</p>
-                                                <CardTitle tag="p">{this.state.products.length}</CardTitle>
-                                                <p />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                        <Col lg="3" md="6" sm="6">
-                            <Card className="card-stats">
-                                <CardBody>
-                                    <Row>
-                                        <Col md="4" xs="5">
-                                            <div className="icon-big text-center icon-warning">
-                                                <img src={ordersImage} alt="orders image" style={{ width: '100%' }} />
-                                            </div>
-                                        </Col>
-                                        <Col md="8" xs="7">
-                                            <div className="numbers">
-                                                <p className="card-category">Clients</p>
-                                                <CardTitle tag="p">{this.state.clients.customers ? this.state.clients.customers.length : <SpinnerRoll />}</CardTitle>
-                                                <p />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </CardBody>
-                            </Card>
-                        </Col>
+        return (
+            !this.state.orders ? <SpinnerRoll /> :
+                <div className="main-dashboard" >
+                    < Container>
+                        <h1>Dashboard</h1>
+                        <Row>
+                            <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
+                                <Card className="card-stats dashboard-card">
+                                    <CardBody>
+                                        <Row>
+                                            <Col md="4" xs="5">
+                                                <div className="text-center icon-warning">
+                                                    <img src={productsImage} alt="orders image" style={{ width: '100%' }} />
+                                                </div>
+                                            </Col>
+                                            <Col md="8" xs="7">
+                                                <div className="numbers text-right">
+                                                    <p className="card-category board-item">Products</p>
+                                                    <p className="board-number">{this.state.products.length}</p>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </CardBody>
+                                </Card>
+                            </Col>
+                            <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
+                                <Card className="card-stats dashboard-card">
+                                    <CardBody>
+                                        <Row>
+                                            <Col md="4" xs="5">
+                                                <div className="text-center icon-warning">
+                                                    <img src={clientImage} alt="orders image" style={{ width: '100%' }} />
+                                                </div>
+                                            </Col>
+                                            <Col md="8" xs="7">
+                                                <div className="numbers text-right">
+                                                    <p className="card-category board-item" >Clients</p>
+                                                    <p className="board-number">{this.state.clients.customers ? this.state.clients.customers.length : <SpinnerRoll />}</p>
+                                                    <p />
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </CardBody>
+                                </Card>
+                            </Col>
+                            <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
+                                <Card className="card-stats dashboard-card">
+                                    <CardBody>
+                                        <Row>
+                                            <Col md="4" xs="5">
+                                                <div className="text-center icon-warning">
+                                                    <img src={globeImage} alt="orders image" style={{ width: '100%' }} />
+                                                </div>
+                                            </Col>
+                                            <Col md="8" xs="7">
+                                                <div className="numbers text-right">
+                                                    <p className="card-category  board-item">Suppliers</p>
+                                                    <p className="board-number">{this.state.clients.customers ? this.state.clients.suppliers.length : <SpinnerRoll />}</p>
+                                                    <p />
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </CardBody>
+                                </Card>
+                            </Col>
+                            <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
+                                <Card className="card-stats dashboard-card">
+                                    <CardBody>
+                                        <Row>
+                                            <Col md="4" xs="5">
+                                                <div className="text-center icon-warning">
+                                                    <img src={ordersImage} alt="orders image" style={{ width: '100%' }} />
+                                                </div>
+                                            </Col>
+                                            <Col md="8" xs="7">
+                                                <div className="numbers text-right">
+                                                    <p className="card-category board-item">Orders</p>
+                                                    <p className="board-number">{this.state.orders ? this.state.orders.length : <SpinnerRoll />}</p>
+                                                    <p />
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </CardBody>
+                                </Card>
+                            </Col>
 
-                        <Col md={3}>
-                            <h2>Suppliers: {this.state.clients.customers ? this.state.clients.suppliers.length : <SpinnerRoll />}</h2>
-                        </Col>
-                        <Col md={3}>
-                            <h2>Orders: {this.state.orders.length}</h2>
-                        </Col>
+                        </Row>
 
-                    </Row>
-                    <Row style={{ height: "300px" }}>
-                        <Col md={8}></Col>
-                        {!this.state.data.products ? <SpinnerRoll /> : <BarChart data={this.state.data.products} />}
-                        <Col md={8}></Col>
-                    </Row>
-                    <Row style={{ height: "300px" }}>
-                        <Col md={8}></Col>
-                        {!this.state.data.orders ? <SpinnerRoll /> : <LineChart data={this.state.data.orders} />}
-                        <Col md={8}></Col>
-                    </Row>
-                    <Row style={{ height: "300px" }}>
-                        <Col md={8}></Col>
-                        {!this.state.data.categories ? <SpinnerRoll /> : <TreeChart data={this.state.data.categories} />}
-                        <Col md={8}></Col>
-                    </Row>
-                    <Row style={{ height: "300px" }}>
-                        <Col md={8}></Col>
-                        {!this.state.data.categories ? <SpinnerRoll /> : <FunnelChart data={this.state.data.orderPyramid} />}
-                        <Col md={8}></Col>
-                    </Row>
-                </Container >
-            )
+                        <Row className="justify-content-md-center">
+                            < Col md={10}>
+                                <Card className="dashboard-card dashboard-chart">
+                                    {!this.state.data.products ? <SpinnerRoll /> : <BarChart data={this.state.data.products} />}
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-md-center">
+                            <Col md={10}>
+                                <Card className="dashboard-card dashboard-chart">
+                                    {!this.state.data.orders ? <SpinnerRoll /> : <LineChart data={this.state.data.orders} />}
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-md-center">
+                            <Col md={10}>
+                                <Card className="dashboard-card dashboard-chart">
+                                    {!this.state.data.categories ? <SpinnerRoll /> : <TreeChart data={this.state.data.categories} />}
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-md-center">
+                            <Col md={10}>
+                                <Card className="dashboard-card dashboard-chart">
+                                    {!this.state.data.categories ? <SpinnerRoll /> : <FunnelChart data={this.state.data.orderPyramid} />}
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container >
+                </div>
+        )
     }
 }
 
