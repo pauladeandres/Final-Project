@@ -50,16 +50,16 @@
 
 //         return (
 //             <Glide {...props}>
-                
+
 //                     <img src={sofas} />
 //                     <img src={sofas} />
 //                     <img src={sofas} />
 
 //             </Glide>
-                
+
 
 //         )
 //     }
 // }
 
-export default CategoriesList
+// export default CategoriesList

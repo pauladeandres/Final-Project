@@ -8,17 +8,17 @@ const Home = () => {
 
     return (
         <>
-        <Container>
-            <Row>
-                <Col>
-                <img src={homeImage} alt="interiorDesign" className="coverImage" />
-                </Col>
-            </Row>
+            <Container>
+                <Row>
+                    <Col>
+                        <img src={homeImage} alt="interiorDesign" className="coverImage" />
+                    </Col>
+                </Row>
             </Container>
             <Row>
                 <section className="searchByCategory">
                     <Container>
-                        <CategoriesList />
+                        {/* <CategoriesList /> */}
                     </Container>
                 </section>
             </Row>
