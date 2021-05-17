@@ -6,6 +6,7 @@ import Routes from './routes/Routes'
 import AuthService from '../service/auth.service'
 import Alert from './shared/Alert/Alert'
 import OrdersService from '../service/order.service'
+import SpinnerRoll from './shared/Spinner/SpinnnerRoll'
 import CategoryService from '../service/category.service'
 
 import { Container } from 'react-bootstrap'
@@ -36,7 +37,7 @@ class App extends Component {
   fetchUser = () => {
     this.authService
       .isloggedin()
-      .then(response => this.setState({loggedUser: response.data }))
+      .then(response => this.setState({ loggedUser: response.data }))
       .catch(() => this.setState({ loggedUser: undefined }))
   }
 
@@ -44,7 +45,8 @@ class App extends Component {
     this.authService
       .updateUser()
       .then(response => {
-        this.setState({loggedUser: response.data })})
+        this.setState({ loggedUser: response.data })
+      })
       .catch(() => this.setState({ loggedUser: undefined }))
   }
 
@@ -57,35 +59,35 @@ class App extends Component {
   updateCartNumber() {
     this.orderNumber
       .getUserOrder()
-      .then(response => this.setState({orderNumber: response.data[0].products.length}))
+      .then(response => this.setState({ orderNumber: response.data[0].products.length }))
       .catch(err => console.log(err))
   }
 
-loadCategories () {
-  console.log("mira como pido las categorias")
-  this.categoryService
-    .getAllCategories()
-    .then(response => this.setState({categoryList: response.data}))
-    .catch(err => console.log('TENEMOS UN PROBLEMA', err))
-}
+  loadCategories() {
+    console.log("mira como pido las categorias")
+    this.categoryService
+      .getAllCategories()
+      .then(response => this.setState({ categoryList: response.data }))
+      .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+  }
 
-  
+
 
   render() {
 
     return (
-      this.state.loggedUser === null ? "buscando user" :(
-      <main>
-        <Container>
-        <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-          storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList}/>
-        </Container>
-        
-          <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} categoryList={this.state.categoryList}/>
+      this.state.loggedUser === null ? <SpinnerRoll /> : (
+        <>
+          <Navigation handleAlert={alertText => this.handleAlert(alertText)}
+            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} />
 
-        <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
-      
-      </main >)
+          <main>
+            <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />
+
+            <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
+          </main >
+        </>
+      )
     )
   }
 }

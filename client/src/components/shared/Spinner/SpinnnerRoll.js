@@ -2,7 +2,7 @@ import { Container, Row } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 
 
-const SpinnerRole = () => {
+const SpinnerRoll = () => {
     return (
         <Container>
             <Row className="justify-content-md-center mt-5">
@@ -14,4 +14,4 @@ const SpinnerRole = () => {
     )
 }
 
-export default SpinnerRole
+export default SpinnerRoll

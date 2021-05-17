@@ -30,7 +30,7 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
 
             <Route path="/product" exact render={() => <Products />} />
             <Route path="/product/:id" render={props => <ProductDetails {...props} storeUser={storeUser} history={props.history} loggedUser={loggedUser} updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
-            <Route path="/category/:id" render={props => <ProductPerCategory {...props}/>}/>
+            <Route path="/category/:id" render={props => <ProductPerCategory {...props} />} />
             <Route path="/brand/:supplier_id" render={props => <ProductPerSupplier {...props} />} />
 
             <Route path="/admin" exact render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={Dashboard} />} />
@@ -46,7 +46,7 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
             <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
             <Route path="/checkout" render={props => <Checkout history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} />} />
             <Route path="/payment" render={() => <Payment />} />
-            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history}/>} />
+            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} />} />
         </Switch>
     )
 }
