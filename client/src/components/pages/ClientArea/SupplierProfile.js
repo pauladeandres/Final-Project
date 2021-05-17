@@ -4,7 +4,7 @@ import ProductsService from './../../../service/products.service'
 import UserService from './../../../service/user.service'
 
 
-import { Row, Container, Card, Accordion, Button } from 'react-bootstrap'
+import { Row, Container } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
 import MyDetails from './MyDetails'
 

@@ -16,10 +16,11 @@ class ProductsService {
     addFavorite = (product_id => this.app.post('/product/favorite/add', product_id))
     removeFavorite = (product_id => this.app.post(`/product/favorite/remove/${product_id}`))
     getFavorites = () => this.app.get('product/favorite/myfavorite')
+    getProductPerCategory = category_id => this.app.get(`/product/category/${category_id}`)
 
-    createProduct = (productDetails, id) => this.app.post(`/supplier/myarea/${id}`, productDetails)
-    getProductBySupplier = supplier_id => this.app.get(`/supplier/myarea/myproducts/${supplier_id}`)
-    getMyProductDetails = product_id => this.app.get(`/supplier/myarea/myproductdetails/${product_id}`)
+    createProduct = (productDetails, id) => this.app.post(`/client/myarea/${id}`, productDetails)
+    getProductBySupplier = supplier_id => this.app.get(`/client/myarea/myproducts/${supplier_id}`)
+    getMyProductDetails = product_id => this.app.get(`/client/myarea/myproductdetails/${product_id}`)
 
 }
 
