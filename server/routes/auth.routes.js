@@ -68,17 +68,6 @@ router.post('/isloggedin', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
     req.session.currentUser ? res.json(req.session.currentUser) : res.status(401).json({ code: 401, message: 'Unauthorized' })
 })
 
-// CREATE CLIENT (POST)
-router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
-
-    const client = req.body
-
-    Client
-        .create(client)
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error saving client', err }))
-})
-
 // CURRENT USER CLIENT DETAILS (GET)
 router.get('/client/update', (req, res) => {
     User
@@ -86,54 +75,5 @@ router.get('/client/update', (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
-
-router.get('/clientdetails/:id', (req, res) => {
-
-    const client_id = req.params.id
-    console.log(client_id)
-
-    Client
-        .findById(client_id)
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
-})
-
-router.put('/client/:id', (req, res) => {
-
-    console.log('El cambio es', req.body)
-    const client  = req.body
-    const client_id = req.params.id
-
-    Client
-        .findByIdAndUpdate(client_id,  client , { new: true } )
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
-})
-
-
-
-// CURRENT SUPPLIER DETAILS (GET)
-router.get('/supplier/new', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => { res.render('hola') })
-
-// CREATE NEW CLIENT (POST)
-router.post('/supplier/new', isLoggedIn, (req, res) => {
-    const _id = req.session.currentUser._id
-    
-    console.log(_id)
-
-    const { firstName, secondName, company, address, zipcode, city, country, phone } = req.body
-
-    Client
-        .create({ firstName, secondName, company, address, zipcode, city, country, phone })
-        .then(response => {   
-            User
-            .findByIdAndUpdate(_id, { client: response._id }, { new: true })
-            .then(user => console.log(user))
-            .catch(err => console.log(err))
-        })
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
-})
-
 
 module.exports = router

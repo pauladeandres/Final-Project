@@ -7,3 +7,17 @@
     font-weight: 800;
     font-size: 2em;
 }
+
+.product-details {
+    position: relative;
+    margin-top: 15px;
+}
+
+.product-img img {
+    width: 100%;
+}
+
+.favorite-btn {
+    position: absolute;
+    right: 0;
+}

@@ -3,8 +3,8 @@ import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import { Container, Row, Col, Table, Button, Accordion, Card, Modal } from 'react-bootstrap'
 import NewOption from '../NewProduct/NewOption'
-import OptionCard from '../SupplierArea/OptionCard'
-import EditProductModal from '../SupplierArea/EditProductModal'
+import OptionCard from '../ClientArea/OptionCard'
+import EditProductModal from '../ClientArea/EditProductModal'
 
 
 class MyProductDetails extends Component {
@@ -48,6 +48,7 @@ class MyProductDetails extends Component {
 
         return (
             <Container>
+            
             {
                 !this.state.product ? <h1>Cargando...</h1> :
                 <>

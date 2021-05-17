@@ -13,6 +13,10 @@ const userSchema = new Schema({
         enum: ['CUSTOMER', 'ADMIN', 'SUPPLIER'],
         default: 'CUSTOMER'
     },
+    favoriteProducts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    }],
     client: {
         type: Schema.Types.ObjectId,
         ref: 'Client'

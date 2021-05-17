@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import './MyDetails.css'
-import AuthService from '../../../service/auth.service'
+import ClientService from '../../../service/client.service'
 import { Form, Col, Button, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
@@ -22,7 +22,7 @@ class MyDetails extends Component {
             },
             disableForm: true
         }
-        this.authService = new AuthService()
+        this.clientService = new ClientService()
     }
 
     componentDidMount() {
@@ -30,11 +30,9 @@ class MyDetails extends Component {
     }
 
     loadClient() {
-
-        this.authService
+        this.clientService
             .getAssignedClient(this.props.loggedUser.client)
             .then(response => {
-                console.log(response)
                 this.setState({client: response.data})
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
@@ -43,10 +41,9 @@ class MyDetails extends Component {
 
     handleSubmitForm(e) {
         e.preventDefault()
-        this.authService
+        this.clientService
             .editClient(this.props.loggedUser.client, this.state.client)
             .then(response => {
-                console.log(response)
                 this.loadClient()
                 this.setState({ disableForm: true })
             })
@@ -81,6 +78,7 @@ class MyDetails extends Component {
                         </Form.Group>
                     </Form.Row>
 
+                    {this.props.loggedUser.role != "CUSTOMER" && 
                     <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="company">
                             <Form.Label sm={8}>Company Name</Form.Label>
@@ -92,6 +90,7 @@ class MyDetails extends Component {
                                 <Form.Control type="text" value={this.state.client.vatNumber} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="vatNumber" />
                         </Form.Group>
                     </Form.Row>
+                    }
 
                         <Form.Group controlId="address">
                         <Form.Label>Address</Form.Label>
@@ -123,20 +122,21 @@ class MyDetails extends Component {
                         this.state.disableForm === false
                          ?
                     <Form.Row>
-                    <Button variant="dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
+
+                    <Button className="edit-save-btn" variant="dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
                         Save Changes
                     </Button>
                     </Form.Row>
                     :
                     
-                    <Button variant="dark" onClick={() => this.setState({ disableForm: false })}>
-                        Edit Profile
+                    <Button className="edit-save-btn" variant="dark" onClick={() => this.setState({ disableForm: false })}>
+                        {this.props.loggedUser.role === "CUSTOMER"? 'Edit address' : 'Edit Profile'}
                     </Button>
                     
                     }
                 </Form>
 
-                {this.props.loggedUser.role === "CUSTOMER" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn">Continue to payment</Link> }
+                {this.props.history.location.pathname === "/checkout" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn btn-dark">Continue to payment</Link> }
                
             </>
 
