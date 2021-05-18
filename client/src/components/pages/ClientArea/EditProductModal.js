@@ -5,6 +5,7 @@ import { Row, Modal, Col, Form, Button } from 'react-bootstrap'
 
 import CategoryService from '../../../service/category.service'
 import ProductsService from '../../../service/products.service'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 class EditProductModal extends Component {
 
@@ -44,9 +45,9 @@ class EditProductModal extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        
+
         this.productService
-            .editProduct(this.props.product._id, this.state.product )
+            .editProduct(this.props.product._id, this.state.product)
             .then(response => {
                 console.log(response)
                 this.props.closeModal()
@@ -59,36 +60,36 @@ class EditProductModal extends Component {
 
         return (
 
-                !this.state.categoryOptions
+            !this.state.categoryOptions
                 ?
-                <h1>Cargando...</h1>
+                <SpinnerRoll />
                 :
                 <>
-                <Modal.Header> <Modal.Title>Edit Your Product</Modal.Title> </Modal.Header>
-                <Modal.Body> 
-                    <Form onSubmit={ e=> this.handleSubmit(e)}>
-                        <Form.Row as={Row}>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" value={this.state.product.name} onChange={e => this.handleInputChange(e)} name="name"/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row as={Row}>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Description</Form.Label>
-                                    <Form.Control type="textarea" value={this.state.product.description} onChange={e => this.handleInputChange(e)} name="description"/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Group controlId="category">
-                            <Form.Label>Select Category</Form.Label>
+                    <Modal.Header> <Modal.Title>Edit Your Product</Modal.Title> </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={e => this.handleSubmit(e)}>
+                            <Form.Row as={Row}>
+                                <Form.Group as={Col} controlId="formGridEmail">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" value={this.state.product.name} onChange={e => this.handleInputChange(e)} name="name" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row as={Row}>
+                                <Form.Group as={Col} controlId="formGridEmail">
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control type="textarea" value={this.state.product.description} onChange={e => this.handleInputChange(e)} name="description" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Group controlId="category">
+                                <Form.Label>Select Category</Form.Label>
                                 <Form.Control as="select" value={this.state.product.category} name="category" onChange={e => this.handleInputChange(e)}>
                                     <option>{this.state.product.category.name}</option>
-                                {this.state.categoryOptions.map(elm => <option key={elm._id} value={elm._id} > {elm.name}</option>)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Button type="submit" variant="dark">Save changes</Button>
-                    </Form>
-                </Modal.Body>
+                                    {this.state.categoryOptions.map(elm => <option key={elm._id} value={elm._id} > {elm.name}</option>)}
+                                </Form.Control>
+                            </Form.Group>
+                            <Button type="submit" variant="dark">Save changes</Button>
+                        </Form>
+                    </Modal.Body>
                 </>
 
         )

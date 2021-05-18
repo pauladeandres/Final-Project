@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import AuthService from '../../../service/auth.service'
 
 class InitialSignupForm extends Component {
@@ -8,7 +8,11 @@ class InitialSignupForm extends Component {
         super(props)
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            alert: {
+                show: false,
+                text: ' '
+            }
         }
         this.authService = new AuthService()
 
@@ -35,9 +39,9 @@ class InitialSignupForm extends Component {
 
     render() {
         return (
-
+            
             <Form onSubmit={e => this.handleSubmit(e)}>
-
+                <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="text" value={this.state.email} onChange={e => this.handleInputChange(e)} name="email" />

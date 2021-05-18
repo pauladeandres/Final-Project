@@ -3,25 +3,27 @@ import './Sidebar.css'
 
 const Sidebar = () => {
     return (
-        <div>
-            <Navbar >
+        <>
+            <Nav className="d-none d-md-block bg-light sidebar"
+                activeKey="/home"
+                onSelect={selectedKey => alert(`selected ${selectedKey}`)}>
+                <div className="sidebar-sticky"></div>
+                <Nav.Item>
+                    <Nav.Link href="/home">Active</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1">Link</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-2">Link</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="disabled" disabled>
+                        Disabled
+                </Nav.Link>
+                </Nav.Item>
+            </Nav>
 
-                <Navbar.Brand>
-                    <a href="/">User Name</a>
-                </Navbar.Brand>
-                <Navbar.Toggle />
-                <Navbar.Collapse>
-                    <Nav.Link href="#"></Nav.Link>
-                    <Nav.Link href="#"></Nav.Link>
-                    <Nav>
-                        <NavDropdown eventKey={1} title="Item 1">
-                        </NavDropdown>
-                        <NavItem eventKey={2}>Item 2</NavItem>
-                        <NavItem eventKey={3}>Item 3</NavItem>
-                    </Nav>
-                </Navbar.Collapse>
-
-            </Navbar>
-        </div >)
+        </>)
 };
 export default Sidebar

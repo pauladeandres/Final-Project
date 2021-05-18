@@ -6,6 +6,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import OrdersService from '../../../service/order.service'
 import OptionsService from '../../../service/option.service'
 import { Link } from 'react-router-dom'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 
 class CartRow extends Component {
@@ -23,27 +24,27 @@ class CartRow extends Component {
 
     handleDelete(e, id) {
         e.preventDefault()
-        this.orderService 
+        this.orderService
             .deleteProduct(id)
-            .then(()=> this.props.fetchProducts())
+            .then(() => this.props.fetchProducts())
             .catch(err => console.log(err))
         this.updateStock()
-        this.props.handleAlert(`${this.state.products.product.name} was removed from your Cart`)  
+        this.props.handleAlert(`${this.state.products.product.name} was removed from your Cart`)
     }
 
     handleInputChange(e) {
-        this.setState({quantity: e.target.value})
+        this.setState({ quantity: e.target.value })
     }
 
-    handleSubmit(e, id) { 
+    handleSubmit(e, id) {
         e.preventDefault()
 
         const quantity = this.state.quantity
         this.orderService
-            .editQuantity(id, {quantity})
+            .editQuantity(id, { quantity })
             .then(() => this.props.fetchProducts())
-            .catch(err => console.log(err))  
-        this.props.handleAlert(`${this.state.products.product.name} quantity was update to ${this.state.quantity} items.`) 
+            .catch(err => console.log(err))
+        this.props.handleAlert(`${this.state.products.product.name} quantity was update to ${this.state.quantity} items.`)
     }
 
     updateStock() {
@@ -52,46 +53,46 @@ class CartRow extends Component {
         const optionId = this.props.option._id
         console.log('currentStock:', currentStock, 'newStock:', newStock, 'optionId:', optionId)
         this.optionService
-            .updateStock(optionId, {stock: newStock})
+            .updateStock(optionId, { stock: newStock })
             .then(response => console.log(response))
             .catch(err => console.log(err))
     }
 
     render() {
         {
-            if(!this.state.products) { <h1>Loading...</h1> } else {
-            
-            const product = this.state.products
-            const totalPrice = product.quantity * product.option.price 
-            const link = `/product/${product.product._id}`
+            if (!this.state.products) { <SpinnerRoll /> } else {
 
-            return (
-                <div id={product._id} className="cart-items">
-                    <Col md={3}>
-                        <img src={product.option.image}></img>
-                    </Col>
-                    <Col md={9}>
-                        <Form className="delete-btn" onSubmit={e => this.handleDelete(e, product._id)}>
-                            <Button className="btn-dark" type="submit"><FontAwesomeIcon icon={faTrashAlt}/></Button>
-                        </Form>  
-                        <Link to={link} ><h5>{product.product.name}</h5></Link>
-                        <p>Color: {product.option.color}</p>
-                        <p>Unit price: <b>${product.option.price}</b></p>
-                        <p>Total price: <b>${totalPrice}</b></p>
-                        <Form className="edit-quantity-form" onSubmit={e => this.handleSubmit(e, product._id)}>
-                            <Col xs={3}>
-                                <Form.Group controlId="quantity">
-                                <Form.Label>Quantity:</Form.Label>
-                                <Form.Control type="number" min="1" name="quantity" value={this.state.quantity} onChange={e => this.handleInputChange(e)}/>
-                                </Form.Group>
-                            </Col>
-                            <Col xs={3}>
-                                <Button variant="dark" type="submit">Update</Button>
-                            </Col>
-                        </Form>  
-                    </Col> 
-                </div>
-                    )
+                const product = this.state.products
+                const totalPrice = product.quantity * product.option.price
+                const link = `/product/${product.product._id}`
+
+                return (
+                    <div id={product._id} className="cart-items">
+                        <Col md={3}>
+                            <img src={product.option.image}></img>
+                        </Col>
+                        <Col md={9}>
+                            <Form className="delete-btn" onSubmit={e => this.handleDelete(e, product._id)}>
+                                <Button className="btn-dark" type="submit"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+                            </Form>
+                            <Link to={link} ><h5>{product.product.name}</h5></Link>
+                            <p>Color: {product.option.color}</p>
+                            <p>Unit price: <b>${product.option.price}</b></p>
+                            <p>Total price: <b>${totalPrice}</b></p>
+                            <Form className="edit-quantity-form" onSubmit={e => this.handleSubmit(e, product._id)}>
+                                <Col xs={3}>
+                                    <Form.Group controlId="quantity">
+                                        <Form.Label>Quantity:</Form.Label>
+                                        <Form.Control type="number" min="1" name="quantity" value={this.state.quantity} onChange={e => this.handleInputChange(e)} />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={3}>
+                                    <Button variant="dark" type="submit">Update</Button>
+                                </Col>
+                            </Form>
+                        </Col>
+                    </div>
+                )
             }
         }
     }

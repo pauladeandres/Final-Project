@@ -5,6 +5,7 @@ import CategoryService from '../../../service/category.service'
 import CategoryCard from './CategoryCard'
 
 import './CategoriesList.css'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 class CategoriesList extends Component {
 
@@ -34,15 +35,15 @@ class CategoriesList extends Component {
     render() {
 
         return (
-        !this.state.categoryOptions
-        ?
-        <h1>Loading....</h1>
-        :
-        <Carousel fade className="carousel">
-                {this.state.categoryOptions.map(elm => <Carousel.Item><CategoryCard key={elm._id} {...elm}/></Carousel.Item>)}
-        </Carousel>
+            !this.state.categoryOptions
+                ?
+                <SpinnerRoll />
+                :
+                <Carousel fade className="carousel">
+                    {this.state.categoryOptions.map(elm => <Carousel.Item><CategoryCard key={elm._id} {...elm} /></Carousel.Item>)}
+                </Carousel>
         )
     }
 }
-                
+
 export default CategoriesList

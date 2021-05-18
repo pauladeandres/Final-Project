@@ -3,6 +3,7 @@ import ProductsService from './../../../service/products.service'
 import ProductCard from './ProductCard'
 
 import { Row, Container } from 'react-bootstrap'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 class ProductPerCategory extends Component {
 
@@ -21,7 +22,7 @@ class ProductPerCategory extends Component {
 
     componentDidUpdate(prevProps) {
         console.log(prevProps)
-        if(this.props.match.params.id !== prevProps.match.params.id) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
             this.loadProducts()
         }
     }
@@ -44,14 +45,14 @@ class ProductPerCategory extends Component {
 
             !products
                 ?
-                <h1>CARGANDO</h1>
+                <SpinnerRoll />
                 :
                 <Container>
-                    <hr/>
+                    <hr />
                     <Row>
                         <h1>{this.state.products[0].category.name} selection:</h1>
                     </Row>
-                    <hr/>
+                    <hr />
                     <Row>
                         {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>

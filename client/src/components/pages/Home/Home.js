@@ -16,14 +16,15 @@ const Home = () => {
                             substance and elegance to our customers' spaces.</p>
                 </Col>
             </Row>
-            </Container>
+          
             <Row>
                 <section className="searchByCategory">
                     <Container>
-                        <CategoriesList />
+                         <CategoriesList />
                     </Container>
                 </section>
             </Row>
+        </Container>
         </>
     )
 }
