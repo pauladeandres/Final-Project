@@ -46,7 +46,7 @@ router.get('/customer/paid', (req, res) => {
         .populate('products.product')
         .populate('products.option')
         .populate('coupon')
-        .sort({ createdAt: -1 })
+        .sort({ updatedAt: -1 })
         .limit(20)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
@@ -68,6 +68,25 @@ router.post('/edit/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res)
     Order
         .findOneAndUpdate({$and: [{'customer': req.session.currentUser._id}, {'products._id': req.params.id}]},  
         { "$set": {'products.$.quantity': quantity}}, {new: true})
+        .then(response => res.json(response))
+        .catch(err => {
+            res.status(500).json({ code: 500, message: 'Could not update this order', err })})
+})
+
+// GET LAST PAID ORDER ID
+router.get('/lastorder', isLoggedIn, (req, res) => {
+    Order
+        .findOne({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': true }] }, {'_id': 1}, { sort: { 'createdAt' : -1 } } )
+        .then(response => res.json(response))
+        .catch(err => {
+            res.status(500).json({ code: 500, message: 'Could not find any order', err })})
+
+})
+
+// MAKE ORDER AS PAID
+router.put('/paid', isLoggedIn, (req, res) => {
+    Order
+        .findOneAndUpdate({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false}] },{'paid': true})
         .then(response => res.json(response))
         .catch(err => {
             res.status(500).json({ code: 500, message: 'Could not update this order', err })})
