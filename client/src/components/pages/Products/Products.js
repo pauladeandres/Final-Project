@@ -55,18 +55,18 @@ class Products extends Component {
     colorFilter(e) {
         const selectedColor = e.target.name
         console.log(selectedColor)
-        const colorArray=[]
+        const colorArray = []
         const productListCopy = [...this.state.fullList]
         productListCopy.map(product => {
-            product.options.forEach(elm =>{
-                if(elm.color === selectedColor){
+            product.options.forEach(elm => {
+                if (elm.color === selectedColor) {
                     colorArray.push(product)
                 }
             })
         })
         // const filteredProducts = productListCopy.filter(product => product.options[0].color.toLowerCase().includes(selectedColor.toLowerCase()))
         console.log(colorArray)
-        this.setState({products: colorArray})
+        this.setState({ products: colorArray })
     }
 
     removeFilters() {
@@ -92,7 +92,7 @@ class Products extends Component {
                                 <Dropdown.Item onClick={() => this.sortLowtoHigh()} eventKey="1">Low to High</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.sortHightoLow()} eventKey="2">High to Low</Dropdown.Item>
                             </DropdownButton>
-                          
+
                             <DropdownButton variant="outline-dark" as={ButtonGroup} title="Color" id="bg-vertical-dropdown-1" >
                                 <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="black" name="black">Black</Dropdown.Item>
                                 <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="white" name="white">White</Dropdown.Item>
@@ -106,19 +106,7 @@ class Products extends Component {
                                 <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="grey" name="grey">Grey</Dropdown.Item>
                             </DropdownButton>
 
-                            {/* <DropdownButton variant="outline-dark" as={ButtonGroup} title="Brand" id="bg-vertical-dropdown-1">
-                                <Dropdown.Item eventKey="1">SKLUM</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">PINCH</Dropdown.Item>
-                                <Dropdown.Item eventKey="3">Frama Cph</Dropdown.Item>
-<<<<<<< HEAD
-                            </DropdownButton> */}
-                           
-                            <Button onClick={() => this.removeFilters()}variant="outline-danger" className="sortby">Remove Filters</Button>
-=======
-                            </DropdownButton>
-
                             <Button onClick={() => this.removeFilters()} variant="outline-danger" className="sortby">Remove Filters</Button>
->>>>>>> 5ee2d86c630ba4a1552d76b8da72fb82a90fd060
 
                         </Col>
                         <Col lg="3">

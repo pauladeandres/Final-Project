@@ -80,18 +80,18 @@ class App extends Component {
       this.state.loggedUser === null ? <SpinnerRoll /> : (
         <>
           <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList}/>
-          
-          <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
-           
-            {(this.state.loggedUser && this.state.loggedUser.role === 'ADMIN') ? <Sidebar /> : null}
+            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} />
 
-            <main style={{ flex: '1' }}>
-              
+          <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
+
+            {(this.state.loggedUser && this.state.loggedUser.role === 'ADMIN') ? <Sidebar storeUser={user => this.storeUser(user)} /> : null}
+
+            <main style={{ flex: '1', marginTop: "10px" }}>
+
               <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />
 
               <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
-            
+
             </main>
           </div>
         </>
