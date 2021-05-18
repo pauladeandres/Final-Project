@@ -13,9 +13,10 @@ class SearchBar extends Component {
         }
     }
 
-    handleInputChange(e) {
+    async handleInputChange(e) {
         const value = e.target.value
-        this.setState({ keyword: value })
+        await this.setState({ keyword: value })
+        
         this.sendKeyword(this.state.keyword)
     }
 

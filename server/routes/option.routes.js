@@ -40,7 +40,7 @@ router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SU
         .then(response => res.json(response))
         .catch(err => {
             console.log(checkMongooseError(err))
-            res.status(400).json({ code: 400, errorMessage: checkMongooseError(err) })
+            res.status(400).json({ code: 400, message: checkMongooseError(err) })
         })
 })
 

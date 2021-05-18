@@ -1,5 +1,6 @@
 .coverImage {
     width: 100%;
+    object-fit: contain;
 }
 
 .searchByCategory {

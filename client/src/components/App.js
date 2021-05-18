@@ -9,8 +9,7 @@ import OrdersService from '../service/order.service'
 import SpinnerRoll from './shared/Spinner/SpinnnerRoll'
 import CategoryService from '../service/category.service'
 import Sidebar from './layout/Sidebar/Sidebar'
-
-import { Container } from 'react-bootstrap'
+import Footer from './layout/Footer/Footer'
 
 class App extends Component {
 
@@ -94,6 +93,7 @@ class App extends Component {
             
             </main>
           </div>
+          <Footer />
         </>
       )
     )

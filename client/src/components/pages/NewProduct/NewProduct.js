@@ -56,8 +56,8 @@ class NewProduct extends Component {
                 this.props.fetchProducts()
             })
             .catch(err => {
-                this.setState({ alert: { show: true, text: err.response.data.errorMessage } })
-                console.log(err.response.data.errorMessage)
+                this.setState({ alert: { show: true, text: err.response.data.message } })
+                console.log(err.response.data.message)
             })
 
         this.emptyForm()

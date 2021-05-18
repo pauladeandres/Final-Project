@@ -34,14 +34,18 @@ class InitialSignupForm extends Component {
                 this.props.history.push('/login')
                 this.props.handleAlert(`Welcome ${this.state.email}`)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ alert: { show: true, text: err.response.data.message }})
+                console.log(err.response)
+            })
     }
 
     render() {
         return (
-            
+            <>
+            <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
             <Form onSubmit={e => this.handleSubmit(e)}>
-                <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
+                
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="text" value={this.state.email} onChange={e => this.handleInputChange(e)} name="email" />
@@ -54,6 +58,7 @@ class InitialSignupForm extends Component {
 
                 <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Sign-up</Button>
             </Form>
+        </>
         )
     }
 }

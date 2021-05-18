@@ -34,7 +34,7 @@ router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'),
         .then(response => res.json('Product created'))
         .catch(err => {
             console.log(checkMongooseError(err))
-            res.status(400).json({code: 400, errorMessage: checkMongooseError(err)})
+            res.status(400).json({code: 400, message: checkMongooseError(err)})
         })
 })
 

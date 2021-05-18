@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
-import { Row, Container, Col, Button, Dropdown, ButtonGroup, DropdownButton } from 'react-bootstrap'
+import { Row, Container, Col, Form, Button, Dropdown, ButtonGroup, DropdownButton, RangeSlider } from 'react-bootstrap'
 import ProductList from './ProductList'
 import SearchBar from './SearchBar'
 import './Products.css'
@@ -25,16 +25,14 @@ class Products extends Component {
         this.productsService
             .getAllProducts()
             .then(response => {
-                this.setState({ products: response.data })
-                this.setState({ fullList: response.data })
+                this.setState({ products: response.data, fullList: response.data })
                 console.log(this.state.fullList)
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
     filterList(query) {
-        console.log(this.state.fullList)
-        console.log(this.state.products)
+        console.log(query, "que soyyyy")
         const productListCopy = [...this.state.fullList]
         const filteredProducts = productListCopy.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
         this.setState({ products: filteredProducts })
@@ -83,9 +81,19 @@ class Products extends Component {
                 :
                 <Container>
                     <hr />
+                    <div className="productPage-header">
                     <Row>
                         <Col lg="2">
-                            <h2>Our Products</h2>
+                                <Form>
+                                    <Form.Group controlId="formBasicRangeCustom">
+                                        <Form.Label>Min</Form.Label>
+                                        <Form.Control type="range" custom className="rangeSlider" />
+                                    </Form.Group>
+                                    <Form.Group controlId="formBasicRangeCustom">
+                                        <Form.Label>Max</Form.Label>
+                                        <Form.Control type="range" custom className="rangeSlider" />
+                                    </Form.Group>
+                                </Form>
                         </Col>
                         <Col className="filterButtons">
                             <DropdownButton variant="outline-dark" as={ButtonGroup} title="Sort by Price" id="bg-vertical-dropdown-1" >
@@ -105,26 +113,16 @@ class Products extends Component {
                                 <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="orange" name="orange">Orange</Dropdown.Item>
                                 <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="grey" name="grey">Grey</Dropdown.Item>
                             </DropdownButton>
-
-                            {/* <DropdownButton variant="outline-dark" as={ButtonGroup} title="Brand" id="bg-vertical-dropdown-1">
-                                <Dropdown.Item eventKey="1">SKLUM</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">PINCH</Dropdown.Item>
-                                <Dropdown.Item eventKey="3">Frama Cph</Dropdown.Item>
-<<<<<<< HEAD
-                            </DropdownButton> */}
                            
                             <Button onClick={() => this.removeFilters()}variant="outline-danger" className="sortby">Remove Filters</Button>
-=======
-                            </DropdownButton>
-
-                            <Button onClick={() => this.removeFilters()} variant="outline-danger" className="sortby">Remove Filters</Button>
->>>>>>> 5ee2d86c630ba4a1552d76b8da72fb82a90fd060
 
                         </Col>
                         <Col lg="3">
                             <SearchBar filterSearch={query => this.filterList(query)} />
                         </Col>
+
                     </Row>
+                    </div>
                     <hr />
                     <Row>
                         <ProductList products={this.state.products} />

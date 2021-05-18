@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import AuthService from './../../../service/auth.service'
 import { Link } from 'react-router-dom'
 
@@ -9,7 +9,11 @@ class LoginForm extends Component {
         super()
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            alert: {
+                show: false,
+                text: ' '
+            }
         }
         this.authService = new AuthService()
     }
@@ -42,13 +46,17 @@ class LoginForm extends Component {
                     this.props.history.push('/')
                 }
             })
-            .catch(err => console.log('error de autenticacion:', err))
+            .catch(err => {
+                this.setState({ alert: { show: true, text: err.response.data.message } })
+                console.log(err.response)
+            })
     }
 
     render() {
         return (
 
             <>
+                <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                 <Form onSubmit={e => this.handleSubmit(e)}>
 
                     <Form.Group controlId="email">

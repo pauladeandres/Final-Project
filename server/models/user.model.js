@@ -4,13 +4,13 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     email: {
         type: String,
-        unique:  [true, 'Your email is already registered'],
+        unique: true,
         required: [true, 'Please, add your email to continue']
     },
     password: {
         type: String,
-        required: [true, 'Enter your password'],
-        minlength: [4, 'Your password must have more than 4 characters']
+        required: [true, 'Please, choose your password'],
+        minlength: 4
     },
     role: {
         type: String,
