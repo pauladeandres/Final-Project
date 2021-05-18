@@ -1,0 +1,12 @@
+.result-message {
+    line-height: 22px;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+.payment-btn {
+    width: 100%;
+}

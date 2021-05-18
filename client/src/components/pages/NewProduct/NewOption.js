@@ -38,7 +38,7 @@ class NewOption extends Component {
             .then(response => {
                 this.props.fetchProduct()
             })
-            .catch(err => this.setState({ alert: { show: true, text: err.response.data.errorMessage } }))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 
     handleFileUpload(e) {

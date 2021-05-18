@@ -1,10 +1,9 @@
 import './Navigation.css'
 import AuthService from '../../../service/auth.service'
-import { Navbar, Nav, NavDropdown, Container, Form, Button, FormControl, FormGroup, Row } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Container, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import Sidebar from '../Sidebar/Sidebar'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
@@ -18,14 +17,13 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
             .catch(err => console.log(err))
     }
 
-
     return (
         <>
-
-            < Navbar bg="light" expand="lg" className="fullNavBar" >
-                <Navbar.Brand as={Link} to="/">HOME</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+            <Container>
+            < Navbar bg="light" expand="lg" className="fullNavBar">
+                <Navbar.Brand as={Link} to="/" className="logoHome">HOME</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         {
                             !categoryList
@@ -38,9 +36,10 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
                                 </NavDropdown>
                         }
                         <NavDropdown title="My Area" id="basic-nav-dropdown">
+                            {console.log(loggedUser)}
                             {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
-                            {loggedUser ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
-                            <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item>
+                            {loggedUser && loggedUser.role === 'SUPPLIER' ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
+                            {loggedUser && loggedUser.role === 'CUSTOMER' ? <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item> : null }
                             <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                             <NavDropdown.Divider />
@@ -57,6 +56,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
                     </div>
                 </Navbar.Collapse>
             </Navbar >
+            </Container>
         </>
     )
 }

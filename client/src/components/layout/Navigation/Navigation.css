@@ -8,7 +8,7 @@
     border-radius: 50%;
     width: 25px;
     height: 25px;
-    background: rgb(212, 20, 20);
+    background: rgb(240, 98, 98);
     color: rgb(255, 255, 255);
     text-align: center;
     margin-left: 5px;
@@ -26,5 +26,19 @@
 }
 
 .fullNavBar {
-    padding: 15px 25px;
+    padding: 50px 25px;
+    align-items: baseline;
+}
+
+.navbar-brand {
+    font-size: 3em;
+    margin-right: 50px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler {
+    border: none;
 }

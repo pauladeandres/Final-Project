@@ -23,13 +23,23 @@ router.post('/signup', (req, res) => {
                 return
             }
 
+            if(password.length === 0) {
+                res.status(400).json({ code: 400, message: 'Please, enter a password' })
+                return
+            }
+
+            if (password.length < 5) {
+                res.status(400).json({ code: 400, message: 'Password should be more than 5 characters' })
+                return
+            }
+
             const salt = bcrypt.genSaltSync(bcryptSalt)
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
                 .create({ email, password: hashPass })
                 .then(() => res.json({ code: 200, message: 'User created' }))
-                .catch(err => res.status(400).json({ code: 400, errorMessage: checkMongooseError(err) }))
+                .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })

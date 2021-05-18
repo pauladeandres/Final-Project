@@ -43,7 +43,7 @@ class Cart extends Component {
         return (
             <Container>
                 {
-                    !this.state.products ? <SpinnerRoll /> :
+                    !this.state.products ? <h2>Your cart seems empty. Add a new product</h2> :
 
                         <Row>
                             <h1 className="cart-title">Shopping Cart</h1>

@@ -1,12 +1,13 @@
 import './Checkout.css'
 import { Component } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Modal } from 'react-bootstrap'
 import OrdersService from '../../../service/order.service'
 import CouponsService from '../../../service/coupon.service'
 import CheckoutRow from './CheckoutRow'
 import SignupForm from '../Auth/SignupForm'
 import MyDetails from '../ClientArea/MyDetails'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
+import Payment from '../Payment/Payment'
 
 class Checkout extends Component {
     constructor(props) {
@@ -16,7 +17,9 @@ class Checkout extends Component {
             total: undefined,
             customer: undefined,
             promoCode: undefined,
-            couponValue: 0
+            couponValue: 0,
+            showModal: false,
+            orderId: ''
         }
 
         this.orderService = new OrdersService()
@@ -33,7 +36,8 @@ class Checkout extends Component {
         this.orderService
             .getUserOrder()
             .then(response => {
-                this.setState({ products: response.data[0].products })
+                console.log(response.data[0]._id)
+                this.setState({ products: response.data[0].products, orderId: response.data[0]._id })
                 const reducer = (accumulator, currentValue) => accumulator + currentValue
                 this.setState({ total: this.state.products.map(elm => elm.option.price * elm.quantity).reduce(reducer) })
             })
@@ -95,6 +99,7 @@ class Checkout extends Component {
                             <Col md={8} className="checkout-column">
                                 <h3>Billing address</h3>
                                 {this.props.loggedUser.client ? <MyDetails history={this.props.history} handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} /> : <SignupForm handleAlert={this.props.handleAlert} history={this.props.history} loggedUser={this.props.loggedUser} updateCurrentUser={this.props.updateCurrentUser} />}
+                                <Button variant='dark' onClick={() => this.setState({ showModal: true })} className="payment-btn">Continue to payment</Button>
                             </Col>
                             <Col md={4} className="total-column">
                                 <div className="checkout-column">
@@ -116,6 +121,12 @@ class Checkout extends Component {
                                     </Form>
                                 </div>
                             </Col>
+                        <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
+                            <Modal.Header> <Modal.Title>Enter your credit card details</Modal.Title> </Modal.Header>
+                            <Modal.Body>
+                                <Payment history={this.props.history} total={this.state.total} orderId={this.state.orderId}/>
+                            </Modal.Body>
+                        </Modal>
                         </Row>
 
                 }
