@@ -9,4 +9,5 @@ module.exports = app => {
     app.use('/api/uploads', require('./uploads.routes'))
     app.use('/api/option', require('./option.routes'))
     app.use('/api/coupon', require('./coupon.routes'))
+    app.use('/api/stripe', require('./stripe.routes'))
 }
