@@ -1,4 +1,4 @@
-import { Container, Col, Form, Button } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { Component } from 'react'
 import confirm from './confirm.gif'
 import { Link } from 'react-router-dom'
@@ -31,7 +31,7 @@ class PaymentConfirmation extends Component {
     render() {
         return( !this.state.lastOrder? <h1>Loading...</h1> :
         <Container className="confirmation-page">
-            <img src={confirm}></img> <span>Payment Complete</span>
+            <img src={confirm} alt="confirmation"></img> <span>Payment Complete</span>
             <p>Thank your for your order! </p> 
             <p><b>Your order reference is: {this.state.lastOrder && this.state.lastOrder}</b></p>
             <Link to="/customer-area" className="btn btn-dark">Go to my user area</Link>

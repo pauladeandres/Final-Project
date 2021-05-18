@@ -45,8 +45,6 @@ class MyProductDetails extends Component {
 
     render() {
 
-        const { product } = this.state
-
         return (
             <Container>
 
@@ -65,7 +63,7 @@ class MyProductDetails extends Component {
                                                 ?
                                                 <h1>No hay Imagen</h1>
                                                 :
-                                                <img src={this.state.product.options[0].image} />
+                                                <img src={this.state.product.options[0].image} alt={this.state.product.name}/>
                                         }
                                     </Container>
                                 </Col>

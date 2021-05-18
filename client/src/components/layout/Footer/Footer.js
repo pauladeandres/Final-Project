@@ -1,5 +1,6 @@
 import { Container, Col, Row } from 'react-bootstrap';
 import './Footer.css'
+import instagram from './instagram.png'
 
 const Footer = () => {
     return (
@@ -24,10 +25,20 @@ const Footer = () => {
                 <Row>
                     <Col>
                         <h6>Social</h6>
+                        <div className="socialIcons">
+                            <img src={instagram}/>
+                        </div>
                     </Col>
 
-                    <Col>
+                    <Col className="ourBrands">
                         <h6>Our brands</h6>
+                        <p>FRAMA</p>
+                        <p>PINCH</p>
+                        <p>SKLUM</p>
+                        <p>Vitra</p>
+                        <p>AYTM</p>
+                        <p>Blu Dot</p>
+                        <p>Umbra</p>
                     </Col>
 
                     <Col>

@@ -1,17 +1,25 @@
 footer {
     left: 0px;
     right:0;
-    margin-top: 100px;
     background-color: rgb(235, 230, 223);
     padding: 50px;
-    height: 200px;
-    color: rgb(82, 82, 82);
-    display: flex;
-    align-items: center;
+    height: 350px;
+    color: rgb(124, 116, 106);
 }
 
 footer .col {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
 }
+
+.socialIcons img {
+    width: 30px;
+}
+
+.ourBrands > p {
+    margin-bottom: 0px;
+}
+
+

@@ -1,9 +1,7 @@
 import SpinnerRoll from "components/shared/Spinner/SpinnnerRoll"
 import { Component } from "react"
 import { Container, Modal, Row } from "react-bootstrap"
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
 import AdminServices from '../../../service/admin.service'
-import MyDetailsForm from "../ClientArea/MyDetailsForm"
 import ClientCard from "./ClientCard"
 
 

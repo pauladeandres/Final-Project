@@ -15,9 +15,15 @@
 
 .product-img img {
     width: 100%;
+    margin-bottom: 50px;
 }
 
 .favorite-btn {
     position: absolute;
     right: 0;
+}
+
+.relatedproducts {
+    margin-bottom: 50px;
+    justify-content: center;
 }

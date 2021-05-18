@@ -16,7 +16,7 @@ const Home = () => {
                             substance and elegance to our customers' spaces.</p>
                 </Col>
             </Row>
-          
+          </Container>
             <Row>
                 <section className="searchByCategory">
                     <Container>
@@ -24,7 +24,6 @@ const Home = () => {
                     </Container>
                 </section>
             </Row>
-        </Container>
         </>
     )
 }

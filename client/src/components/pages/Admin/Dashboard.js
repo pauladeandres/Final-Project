@@ -3,10 +3,7 @@ import { Component } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import {
     Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    CardTitle
+    CardBody
 } from "reactstrap"
 // import "../../../assets/css/paper-dashboard.css?v=1.3.0"
 import LineChart from "./../DashboardCharts/LineChart"
@@ -93,7 +90,7 @@ class Dashboard extends Component {
                                         <Row className="adjusted-height">
                                             <Col xs="4" className="adjusted-height">
                                                 <div className="text-center icon-warning adjusted-height">
-                                                    <img src={productsImage} alt="orders image" className="adjusted-height" />
+                                                    <img src={productsImage} alt="products" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">
@@ -112,7 +109,7 @@ class Dashboard extends Component {
                                         <Row className="adjusted-height">
                                             <Col xs="4" className="adjusted-height">
                                                 <div className="text-center icon-warning adjusted-height">
-                                                    <img src={clientImage} alt="orders image" className="adjusted-height" />
+                                                    <img src={clientImage} alt="clients" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">
@@ -132,7 +129,7 @@ class Dashboard extends Component {
                                         <Row className="adjusted-height">
                                             <Col xs="4" className="adjusted-height">
                                                 <div className="text-center icon-warning adjusted-height">
-                                                    <img src={globeImage} alt="orders image" className="adjusted-height" />
+                                                    <img src={globeImage} alt="globe" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">
@@ -152,7 +149,7 @@ class Dashboard extends Component {
                                         <Row className="adjusted-height">
                                             <Col xs="4" className="adjusted-height">
                                                 <div className="text-center icon-warning adjusted-height">
-                                                    <img src={ordersImage} alt="orders image" className="adjusted-height" />
+                                                    <img src={ordersImage} alt="orders" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">

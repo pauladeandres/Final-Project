@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
-import { Row, Container, Col, Form, Button, Dropdown, ButtonGroup, DropdownButton, RangeSlider } from 'react-bootstrap'
+import { Row, Container, Col, Form, Button, Dropdown, ButtonGroup, DropdownButton } from 'react-bootstrap'
 import ProductList from './ProductList'
 import SearchBar from './SearchBar'
 import './Products.css'

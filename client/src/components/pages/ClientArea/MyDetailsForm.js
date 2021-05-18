@@ -1,8 +1,6 @@
-import { Component } from 'react'
+
 import './MyDetails.css'
-import ClientService from '../../../service/client.service'
-import { Form, Col, Button, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Form, Col, Row } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 const MyDetailsForm = ({ disabled, loggedUser, handleInput, ...client }) => {
@@ -26,7 +24,7 @@ const MyDetailsForm = ({ disabled, loggedUser, handleInput, ...client }) => {
                     </Form.Group>
                 </Form.Row>
 
-                {loggedUser.role != "CUSTOMER" &&
+                {loggedUser.role !== "CUSTOMER" &&
                     <Form.Row as={Row}>
                         <Form.Group as={Col} controlId="company">
                             <Form.Label sm={8}>Company Name</Form.Label>

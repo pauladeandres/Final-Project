@@ -59,7 +59,7 @@ class CartRow extends Component {
     }
 
     render() {
-        {
+
             if (!this.state.products) { <SpinnerRoll /> } else {
 
                 const product = this.state.products
@@ -69,7 +69,7 @@ class CartRow extends Component {
                 return (
                     <div id={product._id} className="cart-items">
                         <Col md={3}>
-                            <img src={product.option.image}></img>
+                            <img src={product.option.image} alt={product.name}></img>
                         </Col>
                         <Col md={9}>
                             <Form className="delete-btn" onSubmit={e => this.handleDelete(e, product._id)}>
@@ -92,9 +92,9 @@ class CartRow extends Component {
                             </Form>
                         </Col>
                     </div>
-                )
-            }
+            )
         }
+        
     }
 }
 

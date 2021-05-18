@@ -28,11 +28,11 @@
     background-image: url('./arrowprev.png')
 }
 
-.carousel-caption {
-    color: black;
-}
-
 .carousel-indicators li {
+    color: none;
+    opacity: 0;
+}
+.carousel-indicators .active {
     color: none;
     opacity: 0;
 }

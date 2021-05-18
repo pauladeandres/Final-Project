@@ -1,23 +1,21 @@
 import { Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import './CategoryCard.css'
+import './CarouselCard.css'
 
-const CategoryCard = ({image, name,  _id}) =>  {
+const CategoryCard = ({name,  _id, options}) =>  {
 
         return (
                 <>
                 <Link to={`/category/${_id}`}>
                     <img
                         className="d-block"
-                        src={image}
+                        src={options[0].image}
                         alt={name}
                     />
             
-                        <Carousel.Caption >
-                        <div >
-                            <h1 className="categoryTitle" >{name}</h1>
-                        </div>
+                    <Carousel.Caption className="categoryTitle">
+                        <h3>{name}</h3>
                     </Carousel.Caption>
                 </Link>
                 </>

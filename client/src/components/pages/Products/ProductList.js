@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import ProductsService from './../../../service/products.service'
 import ProductCard from './ProductCard'
 import SpinnerRoll from '../../shared/Spinner/SpinnnerRoll'
 import { Row } from 'react-bootstrap'

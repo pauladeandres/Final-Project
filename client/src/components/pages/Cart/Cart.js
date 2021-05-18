@@ -4,8 +4,6 @@ import { Container, Row, Col } from 'react-bootstrap'
 import OrdersService from '../../../service/order.service'
 import CartRow from './CartRow'
 import { Link } from 'react-router-dom'
-import SpinnerRoll from '../../shared/Spinner/SpinnnerRoll'
-
 
 class Cart extends Component {
     constructor() {

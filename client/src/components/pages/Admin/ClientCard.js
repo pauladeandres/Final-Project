@@ -1,4 +1,3 @@
-import { Card, Col } from 'react-bootstrap'
 
 const ClientCard = ({ number, edit, ...props }) => {
     console.log(props)

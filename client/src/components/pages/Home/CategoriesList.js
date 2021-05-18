@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import CategoryService from '../../../service/category.service'
 import CategoryCard from './CategoryCard'
 

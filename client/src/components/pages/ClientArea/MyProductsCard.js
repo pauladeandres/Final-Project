@@ -31,9 +31,9 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
                     {
                         options[0] === undefined
                         ?
-                        <img src={nophoto}></img>
+                        <img src={nophoto} alt="Not provided"></img>
                         :
-                    <img src={options[0].image}></img>
+                    <img src={options[0].image} alt={name}></img>
                     }
                 </Col>
                     <Card.Body>

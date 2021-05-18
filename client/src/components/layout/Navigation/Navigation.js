@@ -1,6 +1,6 @@
 import './Navigation.css'
 import AuthService from '../../../service/auth.service'
-import { Navbar, Nav, NavDropdown, Container, Form } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
 
     return (
         <>
-            <Container>
+            
             < Navbar bg="light" expand="lg" className="fullNavBar">
                 <Navbar.Brand as={Link} to="/" className="logoHome">HOME</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
@@ -56,7 +56,6 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
                     </div>
                 </Navbar.Collapse>
             </Navbar >
-            </Container>
         </>
     )
 }

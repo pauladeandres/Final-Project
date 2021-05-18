@@ -13,7 +13,7 @@
 
 .carousel-item img{
     width: 400px;
-    opacity: 60%;
+    opacity: 70%;
 }
 
 .carousel-control-next {
@@ -28,11 +28,9 @@
     background-image: url('./arrowprev.png')
 }
 
-.carousel-caption {
-    color: black;
+.categoryTitle {
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 1px 1px 10px #838383;
 }
 
-.carousel-indicators li {
-    color: none;
-    opacity: 0;
-}

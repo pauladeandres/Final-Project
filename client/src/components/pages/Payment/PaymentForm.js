@@ -8,8 +8,8 @@ import StripeService from '../../../service/stripe.service'
 import OrderService from '../../../service/order.service'
 
 import './PaymentForm.css'
-const stripeService = new StripeService
-const orderService = new OrderService
+const stripeService = new StripeService()
+const orderService = new OrderService()
 
 const cardStyle = {
     style: {
@@ -39,14 +39,14 @@ export default function CheckoutForm({history, total, orderId}) {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
-  const name = useState('')
+  // const name = useState('')
   
   useEffect(() => {
     stripeService
       .createPayment(total, orderId)
       .then(response => setClientSecret(response.data.clientSecret))
       .catch(err => console.log(err))
-  }, []);
+  }, );
 
   const updatePayment = () => {
 

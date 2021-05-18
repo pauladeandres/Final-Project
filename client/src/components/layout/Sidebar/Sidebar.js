@@ -1,4 +1,4 @@
-import { Nav, NavItem, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import './Sidebar.css'
 import { Link } from 'react-router-dom'
 import AuthService from '../../../service/auth.service'

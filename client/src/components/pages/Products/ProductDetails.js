@@ -8,6 +8,7 @@ import LoginForm from '../Login/LoginForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
+import ProductCarousel from './ProductCarousel'
 
 class ProductDetails extends Component {
 
@@ -103,6 +104,7 @@ class ProductDetails extends Component {
 
     render() {
         const product = this.state.order
+        console.log(product)
         const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
         const price = this.state.options?.find(elm => elm.color === this.state.order.color).price || product.price
         const stock = this.state.options?.find(elm => elm.color === this.state.order.color).stock || product.stock
@@ -111,10 +113,10 @@ class ProductDetails extends Component {
             <Container>
                 {
                     !this.state.options ? <SpinnerRoll /> :
-
+                    <>
                         <Row className="product-img">
                             <Col md={6}>
-                                <img src={img}></img>
+                                <img src={img} alt="spinner"></img>
                             </Col>
                             <Col md={6} className="product-details">
 
@@ -158,7 +160,16 @@ class ProductDetails extends Component {
                                 </Modal>
                             </Col>
                         </Row>
+                         <hr/>
+                        <Row className="relatedproducts">
+                            <h3>OTHER PRODUCTS YOU MIGHT LIKE</h3>
+                            <ProductCarousel category={product.product.category._id}/>
+                        </Row>
+                    </>
+                        
                 }
+               
+                
             </Container>
         )
     }

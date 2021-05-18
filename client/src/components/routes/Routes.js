@@ -16,7 +16,6 @@ import SupplierProfile from '../pages/ClientArea/SupplierProfile'
 import MyProductDetails from '../pages/ClientArea/MyProductDetails'
 import ProtectedRoute from '../pages/Auth/ProtectedRoute'
 import CustomerArea from '../pages/ClientArea/CustomerArea'
-import Payment from '../pages/Payment/Payment'
 import PaymentConfirmation from '../pages/Payment/PaymentConfirmation'
 import { isAccepted } from '../../utils/index'
 

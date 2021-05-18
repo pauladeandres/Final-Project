@@ -13,7 +13,7 @@
 
 .carousel-item img{
     width: 400px;
-    opacity: 60%;
+    opacity: 70%;
 }
 
 .carousel-control-next {
@@ -29,6 +29,12 @@
 }
 
 .carousel-caption {
-    color: black;
+    color: white;
+}
+
+.categoryTitle {
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 1px 1px 10px #838383;
 }
 
