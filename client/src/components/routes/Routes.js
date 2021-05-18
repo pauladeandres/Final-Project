@@ -19,6 +19,7 @@ import MyProductDetails from '../pages/ClientArea/MyProductDetails'
 import ProtectedRoute from '../pages/Auth/ProtectedRoute'
 import CustomerArea from '../pages/ClientArea/CustomerArea'
 import Payment from '../pages/Payment/Payment'
+import PaymentConfirmation from '../pages/Payment/PaymentConfirmation'
 import { isAccepted } from '../../utils/index'
 
 const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber, updateCurrentUser, categoryList }) => {
@@ -45,8 +46,8 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
 
             <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
             <Route path="/checkout" render={props => <Checkout history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} />} />
-            <Route path="/payment" render={() => <Payment />} />
-            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} />} />
+            <Route path="/confirm" render={() => <PaymentConfirmation updateCartNumber={updateCartNumber}/>} />
+            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber}/>} />
         </Switch>
     )
 }

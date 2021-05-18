@@ -135,8 +135,6 @@ class MyDetails extends Component {
                     
                     }
                 </Form>
-
-                {this.props.history.location.pathname === "/checkout" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn btn-dark">Continue to payment</Link> }
                
             </>
 

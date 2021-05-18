@@ -60,12 +60,11 @@ class App extends Component {
   updateCartNumber() {
     this.orderNumber
       .getUserOrder()
-      .then(response => this.setState({ orderNumber: response.data[0].products.length }))
+      .then(response => response.data && this.setState({ orderNumber: response.data[0].products.length }))
       .catch(err => console.log(err))
   }
 
   loadCategories() {
-    console.log("mira como pido las categorias")
     this.categoryService
       .getAllCategories()
       .then(response => this.setState({ categoryList: response.data }))

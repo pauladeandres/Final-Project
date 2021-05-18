@@ -22,6 +22,7 @@ class CustomerArea extends Component {
     componentDidMount() {
         this.updateOrders()
         this.getFavoriteProducts()
+        this.props.updateCartNumber()
     }
 
     updateOrders() {

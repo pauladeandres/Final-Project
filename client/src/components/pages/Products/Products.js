@@ -110,15 +110,9 @@ class Products extends Component {
                                 <Dropdown.Item eventKey="1">SKLUM</Dropdown.Item>
                                 <Dropdown.Item eventKey="2">PINCH</Dropdown.Item>
                                 <Dropdown.Item eventKey="3">Frama Cph</Dropdown.Item>
-<<<<<<< HEAD
                             </DropdownButton> */}
                            
                             <Button onClick={() => this.removeFilters()}variant="outline-danger" className="sortby">Remove Filters</Button>
-=======
-                            </DropdownButton>
-
-                            <Button onClick={() => this.removeFilters()} variant="outline-danger" className="sortby">Remove Filters</Button>
->>>>>>> 5ee2d86c630ba4a1552d76b8da72fb82a90fd060
 
                         </Col>
                         <Col lg="3">
