@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import ProductCard from './ProductCard'
-
+import SpinnerRoll from '../../shared/Spinner/SpinnnerRoll'
 import { Row } from 'react-bootstrap'
 
 class ProductPerSupplier extends Component {
@@ -35,7 +35,7 @@ class ProductPerSupplier extends Component {
 
             !products
                 ?
-                <h1>CARGANDO</h1>
+                <SpinnerRoll />
                 :
                 <>
                     <Row>

@@ -90,10 +90,10 @@ class Dashboard extends Component {
                             <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
                                 <Card className="card-stats dashboard-card">
                                     <CardBody>
-                                        <Row>
-                                            <Col md="4" xs="5">
-                                                <div className="text-center icon-warning">
-                                                    <img src={productsImage} alt="orders image" style={{ width: '100%' }} />
+                                        <Row className="adjusted-height">
+                                            <Col xs="4" className="adjusted-height">
+                                                <div className="text-center icon-warning adjusted-height">
+                                                    <img src={productsImage} alt="orders image" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">
@@ -109,10 +109,10 @@ class Dashboard extends Component {
                             <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
                                 <Card className="card-stats dashboard-card">
                                     <CardBody>
-                                        <Row>
-                                            <Col md="4" xs="5">
-                                                <div className="text-center icon-warning">
-                                                    <img src={clientImage} alt="orders image" style={{ width: '100%' }} />
+                                        <Row className="adjusted-height">
+                                            <Col xs="4" className="adjusted-height">
+                                                <div className="text-center icon-warning adjusted-height">
+                                                    <img src={clientImage} alt="orders image" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">
@@ -129,10 +129,10 @@ class Dashboard extends Component {
                             <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
                                 <Card className="card-stats dashboard-card">
                                     <CardBody>
-                                        <Row>
-                                            <Col md="4" xs="5">
-                                                <div className="text-center icon-warning">
-                                                    <img src={globeImage} alt="orders image" style={{ width: '100%' }} />
+                                        <Row className="adjusted-height">
+                                            <Col xs="4" className="adjusted-height">
+                                                <div className="text-center icon-warning adjusted-height">
+                                                    <img src={globeImage} alt="orders image" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">
@@ -149,10 +149,10 @@ class Dashboard extends Component {
                             <Col lg="3" md="6" sm="6" style={{ marginBottom: "10px" }}>
                                 <Card className="card-stats dashboard-card">
                                     <CardBody>
-                                        <Row>
-                                            <Col md="4" xs="5">
-                                                <div className="text-center icon-warning">
-                                                    <img src={ordersImage} alt="orders image" style={{ width: '100%' }} />
+                                        <Row className="adjusted-height">
+                                            <Col xs="4" className="adjusted-height">
+                                                <div className="text-center icon-warning adjusted-height">
+                                                    <img src={ordersImage} alt="orders image" className="adjusted-height" />
                                                 </div>
                                             </Col>
                                             <Col md="8" xs="7">

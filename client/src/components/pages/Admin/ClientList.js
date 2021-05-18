@@ -1,3 +1,4 @@
+import SpinnerRoll from "components/shared/Spinner/SpinnnerRoll"
 import { Component } from "react"
 import { Container, Row } from "react-bootstrap"
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
@@ -37,7 +38,7 @@ class ClientList extends Component {
                             ?
                             clients.map(elm => <ClientCard key={elm.id} {...elm} />)
                             :
-                            <h1>Cargando...</h1>
+                            <SpinnerRoll />
                         }
                     </Row>
                 </Container>)

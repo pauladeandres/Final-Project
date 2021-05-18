@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { Form, Button, Container, Alert } from 'react-bootstrap'
 import ProductsService from '../../../service/products.service'
 import CategoryService from '../../../service/category.service'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 class NewProduct extends Component {
 
@@ -42,20 +43,20 @@ class NewProduct extends Component {
 
     handleInputChange(e) {
         const { name, value } = e.target
-        this.setState({ product: { ...this.state.product, [name]: value }})
+        this.setState({ product: { ...this.state.product, [name]: value } })
     }
 
     handleSubmit(e) {
 
         e.preventDefault()
-       
+
         this.productService
             .createProduct(this.state.product, this.props.loggedUser._id)
             .then(response => {
                 this.props.fetchProducts()
             })
             .catch(err => {
-                this.setState({ alert: {show: true, text: err.response.data.errorMessage}})
+                this.setState({ alert: { show: true, text: err.response.data.errorMessage } })
                 console.log(err.response.data.errorMessage)
             })
 
@@ -63,42 +64,42 @@ class NewProduct extends Component {
     }
 
     emptyForm() {
-        this.setState({supplier: ' ', name: ' ', description: ' ', category: undefined})
+        this.setState({ supplier: ' ', name: ' ', description: ' ', category: undefined })
     }
 
     render() {
 
         return (
 
-                !this.state.categorieOptions 
+            !this.state.categorieOptions
                 ?
-                <h1>Cargando...</h1>
+                <SpinnerRoll />
                 :
-        <Container >
-            <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
-            <Form onSubmit={e => this.handleSubmit(e)}>
-                
-                <Form.Group controlId="name">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" value={this.state.name} onChange={e => this.handleInputChange(e)} name="name" />
-                </Form.Group>
+                <Container >
+                    <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
+                    <Form onSubmit={e => this.handleSubmit(e)}>
 
-                <Form.Group controlId="description">
-                    <Form.Label>Description:</Form.Label>
-                    <Form.Control type="text" value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
-                </Form.Group>
+                        <Form.Group controlId="name">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" value={this.state.name} onChange={e => this.handleInputChange(e)} name="name" />
+                        </Form.Group>
 
-                <Form.Group controlId="category">
-                    <Form.Label>Select Category</Form.Label>
-                        <Form.Control as="select" defaultValue="Choose Category" onChange={e => this.handleInputChange(e)} name="category">
+                        <Form.Group controlId="description">
+                            <Form.Label>Description:</Form.Label>
+                            <Form.Control type="text" value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
+                        </Form.Group>
+
+                        <Form.Group controlId="category">
+                            <Form.Label>Select Category</Form.Label>
+                            <Form.Control as="select" defaultValue="Choose Category" onChange={e => this.handleInputChange(e)} name="category">
                                 <option>Choose category</option>
                                 {this.state.categorieOptions.map(elm => <option key={elm._id} value={elm._id} > {elm.name}</option>)}
-                    </Form.Control>
-                </Form.Group>
+                            </Form.Control>
+                        </Form.Group>
 
-                <Button variant="dark" style={{ width: '100%' }} type="submit">Create Product</Button>
-            </Form>
-        </Container>
+                        <Button variant="dark" style={{ width: '100%' }} type="submit">Create Product</Button>
+                    </Form>
+                </Container>
         )
     }
 }
