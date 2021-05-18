@@ -79,7 +79,7 @@ class App extends Component {
       this.state.loggedUser === null ? <SpinnerRoll /> : (
         <>
           <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} />
+            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList}/>
 
           <main>
             <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />

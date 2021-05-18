@@ -7,8 +7,8 @@ const optionSchema = new Schema({
     },
     color: {
         type: String,
-        enum: ['black', 'white', 'red', 'blue', 'green', 'brown', 'beige', 'yellow', 'orange'],
-        required: [true, 'Choose your product color' ]
+        enum: ['black', 'white', 'red', 'blue', 'green', 'brown', 'beige', 'yellow', 'orange', 'grey'],
+        required: [true, 'Choose your product color from the list' ]
     },
     stock: {
         type: Number,

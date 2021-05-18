@@ -6,6 +6,9 @@ const User = require('../models/user.model')
 const Client = require('../models/client.model')
 const { isLoggedIn, checkRoles } = require('./../middlewares/index')
 
+const mongoose = require('mongoose')
+const { checkMongooseError } = require('./../utils')
+
 // SIGN UP (POST)
 router.post('/signup', (req, res) => {
 
@@ -16,7 +19,7 @@ router.post('/signup', (req, res) => {
         .then(user => {
 
             if (user) {
-                res.status(400).json({ code: 400, message: 'Email already exixts' })
+                res.status(400).json({ code: 400, message: 'Email already exists' })
                 return
             }
 
@@ -26,7 +29,7 @@ router.post('/signup', (req, res) => {
             User
                 .create({ email, password: hashPass })
                 .then(() => res.json({ code: 200, message: 'User created' }))
-                .catch(err => res.status(500).json({ code: 500, message: 'DB error while creating user', err }))
+                .catch(err => res.status(400).json({ code: 400, errorMessage: checkMongooseError(err) }))
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })

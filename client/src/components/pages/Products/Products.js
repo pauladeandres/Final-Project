@@ -51,6 +51,23 @@ class Products extends Component {
         this.setState({ products: sortedArray })
     }
 
+    colorFilter(e) {
+        const selectedColor = e.target.name
+        console.log(selectedColor)
+        const colorArray=[]
+        const productListCopy = [...this.state.fullList]
+        productListCopy.map(product => {
+            product.options.forEach(elm =>{
+                if(elm.color === selectedColor){
+                    colorArray.push(product)
+                }
+            })
+        })
+        // const filteredProducts = productListCopy.filter(product => product.options[0].color.toLowerCase().includes(selectedColor.toLowerCase()))
+        console.log(colorArray)
+        this.setState({products: colorArray})
+    }
+
     removeFilters() {
         const productsArrayCopy = [...this.state.fullList]
         this.setState({ products: productsArrayCopy })
@@ -74,18 +91,25 @@ class Products extends Component {
                                 <Dropdown.Item onClick={()=> this.sortLowtoHigh()} eventKey="1">Low to High</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.sortHightoLow()} eventKey="2">High to Low</Dropdown.Item>
                             </DropdownButton>
-
+                          
                             <DropdownButton variant="outline-dark" as={ButtonGroup} title="Color" id="bg-vertical-dropdown-1" >
-                                <Dropdown.Item eventKey="1">Black</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">Red</Dropdown.Item>
-                                <Dropdown.Item eventKey="3">Blue</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="black" name="black">Black</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="white" name="white">White</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="red" name="red">Red</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="blue" name="blue">Blue</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="green" name="green">Green</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="brown" name="brown">Brown</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="beige" name="beige">Beige</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="yellow" name="yellow">Yellow</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="orange" name="orange">Orange</Dropdown.Item>
+                                <Dropdown.Item onClick={(e) => this.colorFilter(e)} value="grey" name="grey">Grey</Dropdown.Item>
                             </DropdownButton>
 
-                            <DropdownButton variant="outline-dark" as={ButtonGroup} title="Brand" id="bg-vertical-dropdown-1">
+                            {/* <DropdownButton variant="outline-dark" as={ButtonGroup} title="Brand" id="bg-vertical-dropdown-1">
                                 <Dropdown.Item eventKey="1">SKLUM</Dropdown.Item>
                                 <Dropdown.Item eventKey="2">PINCH</Dropdown.Item>
                                 <Dropdown.Item eventKey="3">Frama Cph</Dropdown.Item>
-                            </DropdownButton>
+                            </DropdownButton> */}
                            
                             <Button onClick={() => this.removeFilters()}variant="outline-danger" className="sortby">Remove Filters</Button>
 

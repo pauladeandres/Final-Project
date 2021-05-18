@@ -69,6 +69,9 @@ class NewOption extends Component {
                         <Form.Group controlId="color">
                             <Form.Label>Color:</Form.Label>
                             <Form.Control type="text" value={this.state.color} onChange={e => this.handleInputChange(e)} name="color" />
+                        <Form.Text className="text-muted">
+                            Choose between: black, white, red, blue, green, brown, beige, yellow, orange, grey
+    </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="stock">
