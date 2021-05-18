@@ -8,6 +8,7 @@ import Alert from './shared/Alert/Alert'
 import OrdersService from '../service/order.service'
 import SpinnerRoll from './shared/Spinner/SpinnnerRoll'
 import CategoryService from '../service/category.service'
+import Sidebar from './layout/Sidebar/Sidebar'
 
 import { Container } from 'react-bootstrap'
 
@@ -78,14 +79,17 @@ class App extends Component {
     return (
       this.state.loggedUser === null ? <SpinnerRoll /> : (
         <>
-          <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} />
+          <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
+            {(this.state.loggedUser && this.state.loggedUser.role === 'ADMIN') ? <Sidebar /> : null}
 
-          <main>
-            <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />
+            <main style={{ flex: '1' }}>
+              <Navigation handleAlert={alertText => this.handleAlert(alertText)}
+                storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} />
+              <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />
 
-            <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
-          </main >
+              <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
+            </main >
+          </div>
         </>
       )
     )

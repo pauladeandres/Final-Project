@@ -4,6 +4,7 @@ import { Row, Container, Col, Button, Dropdown, ButtonGroup, DropdownButton } fr
 import ProductList from './ProductList'
 import SearchBar from './SearchBar'
 import './Products.css'
+import SpinnerRoll from '../../shared/Spinner/SpinnnerRoll'
 
 class Products extends Component {
 
@@ -17,7 +18,7 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        this.loadProducts() 
+        this.loadProducts()
     }
 
     loadProducts() {
@@ -25,7 +26,7 @@ class Products extends Component {
             .getAllProducts()
             .then(response => {
                 this.setState({ products: response.data })
-                this.setState({fullList: response.data})
+                this.setState({ fullList: response.data })
                 console.log(this.state.fullList)
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
@@ -42,7 +43,7 @@ class Products extends Component {
     sortLowtoHigh() {
         const productsArrayCopy = [...this.state.fullList]
         const sortedArray = productsArrayCopy.sort((a, b) => a.options[0].price - (b.options[0].price))
-        this.setState({products: sortedArray})
+        this.setState({ products: sortedArray })
     }
 
     sortHightoLow() {
@@ -60,18 +61,18 @@ class Products extends Component {
 
         return (
             !this.state.products
-            ?
-            <h1>Loading...</h1>
-            :
-            <Container>
-                <hr/>
-                <Row>
-                    <Col lg="2">
-                    <h2>Our Products</h2>
-                    </Col>
-                    <Col className="filterButtons">
+                ?
+                <SpinnerRoll />
+                :
+                <Container>
+                    <hr />
+                    <Row>
+                        <Col lg="2">
+                            <h2>Our Products</h2>
+                        </Col>
+                        <Col className="filterButtons">
                             <DropdownButton variant="outline-dark" as={ButtonGroup} title="Sort by Price" id="bg-vertical-dropdown-1" >
-                                <Dropdown.Item onClick={()=> this.sortLowtoHigh()} eventKey="1">Low to High</Dropdown.Item>
+                                <Dropdown.Item onClick={() => this.sortLowtoHigh()} eventKey="1">Low to High</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.sortHightoLow()} eventKey="2">High to Low</Dropdown.Item>
                             </DropdownButton>
 
@@ -86,20 +87,20 @@ class Products extends Component {
                                 <Dropdown.Item eventKey="2">PINCH</Dropdown.Item>
                                 <Dropdown.Item eventKey="3">Frama Cph</Dropdown.Item>
                             </DropdownButton>
-                           
-                            <Button onClick={() => this.removeFilters()}variant="outline-danger" className="sortby">Remove Filters</Button>
+
+                            <Button onClick={() => this.removeFilters()} variant="outline-danger" className="sortby">Remove Filters</Button>
 
                         </Col>
                         <Col lg="3">
-                        <SearchBar filterSearch={query => this.filterList(query)}/>
-                    </Col>
-                </Row>
-                <hr/>
-                <Row>
-                    <ProductList products={this.state.products}/>
-                </Row>
+                            <SearchBar filterSearch={query => this.filterList(query)} />
+                        </Col>
+                    </Row>
+                    <hr />
+                    <Row>
+                        <ProductList products={this.state.products} />
+                    </Row>
 
-            </Container>
+                </Container>
 
         )
     }

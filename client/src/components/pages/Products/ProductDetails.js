@@ -7,6 +7,7 @@ import { Container, Row, Modal, Col, Form, Button } from 'react-bootstrap'
 import LoginForm from '../Login/LoginForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 class ProductDetails extends Component {
 
@@ -28,64 +29,64 @@ class ProductDetails extends Component {
     }
 
     handleInputChange(e) {
-        const {name, value} = e.target
-        this.setState({ order: { ...this.state.order, [name]: value }})
+        const { name, value } = e.target
+        this.setState({ order: { ...this.state.order, [name]: value } })
     }
-    
+
     handleSubmit(e) {
         e.preventDefault()
         const selectedOption = this.state.options.find(elm => elm.color === this.state.order.color)
-        
+
         if (this.props.loggedUser && this.state.order.quantity <= selectedOption.stock) {
-            
+
             const customer = this.props.loggedUser._id
             const product = this.state.order.product._id
             const quantity = this.state.order.quantity
             const option = selectedOption._id
-            
+
             this.orderService
-            .createOrder({product, quantity, option, customer})
-            .then(response => {
-                this.props.updateCartNumber() 
-                this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
-            })
-            .catch(err => console.log(err))  
+                .createOrder({ product, quantity, option, customer })
+                .then(response => {
+                    this.props.updateCartNumber()
+                    this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
+                })
+                .catch(err => console.log(err))
             this.updateStock(selectedOption)
         } else if (this.props.loggedUser && this.state.order.quantity > selectedOption.stock) {
-            this.props.handleAlert('Not enough items available.') 
-        } else {this.setState({ showModal: true })} 
+            this.props.handleAlert('Not enough items available.')
+        } else { this.setState({ showModal: true }) }
     }
 
     handleFavorite(e, product_id) {
         e.preventDefault()
         if (this.props.loggedUser) {
             this.productService
-                .addFavorite({product_id})
-                .then(()=> this.setState({favorite: true}) )
-                .catch(err => console.log(err))  
-        this.props.handleAlert(`You added ${this.state.order.product.name} to your favorites`)
-        } else {this.setState({ showModal: true })} 
+                .addFavorite({ product_id })
+                .then(() => this.setState({ favorite: true }))
+                .catch(err => console.log(err))
+            this.props.handleAlert(`You added ${this.state.order.product.name} to your favorites`)
+        } else { this.setState({ showModal: true }) }
     }
-    
+
     componentDidMount() {
         this.importOptions()
-        this.props.updateCartNumber() 
+        this.props.updateCartNumber()
     }
-    
+
     importOptions() {
         const product_id = this.props.match.params.id
-        
+
         this.productService
             .getOneProduct(product_id)
             .then(response => {
                 this.setState({ options: response.data.options, order: { ...this.state.order, product: response.data, option: response.data.options[0], color: response.data.options[0].color } })
-                this.checkFavorite()    
+                this.checkFavorite()
             })
             .catch(err => console.log(err))
     }
 
     checkFavorite() {
-        this.props.loggedUser.favoriteProducts.includes(this.state.order.product._id)? this.setState({favorite: true}) : this.setState({favorite: false})
+        this.props.loggedUser.favoriteProducts.includes(this.state.order.product._id) ? this.setState({ favorite: true }) : this.setState({ favorite: false })
     }
 
     updateStock(selectedOption) {
@@ -93,7 +94,7 @@ class ProductDetails extends Component {
         const stock = previousStock - this.state.order.quantity
         const optionId = selectedOption._id
         this.optionService
-            .updateStock(optionId, {stock: stock})
+            .updateStock(optionId, { stock: stock })
             .then(response => console.log(response))
             .catch(err => console.log(err))
         this.importOptions()
@@ -109,15 +110,15 @@ class ProductDetails extends Component {
         return (
             <Container>
                 {
-                    !this.state.options ? <h1>Loading...</h1> :
+                    !this.state.options ? <SpinnerRoll /> :
 
                         <Row className="product-img">
                             <Col md={6}>
                                 <img src={img}></img>
                             </Col>
                             <Col md={6} className="product-details">
-                            
-                                {this.state.favorite? <span className="favorite-btn btn btn-light">Added to favorites <FontAwesomeIcon icon={faHeart} /></span> : <Form onSubmit={e => this.handleFavorite(e, this.state.order.product._id)}><Button className="favorite-btn" variant="dark" type="submit">Add to favorites <FontAwesomeIcon icon={faHeart} /></Button></Form>}  
+
+                                {this.state.favorite ? <span className="favorite-btn btn btn-light">Added to favorites <FontAwesomeIcon icon={faHeart} /></span> : <Form onSubmit={e => this.handleFavorite(e, this.state.order.product._id)}><Button className="favorite-btn" variant="dark" type="submit">Add to favorites <FontAwesomeIcon icon={faHeart} /></Button></Form>}
                                 <h1>{product.product.name}</h1>
                                 <h3>Information</h3>
                                 <p>{product.product.description}</p>
@@ -125,22 +126,22 @@ class ProductDetails extends Component {
                                 <p><b>Available items:</b> {stock} {stock === undefined && <span className="red-text">OUT OF STOCK</span>}</p>
                                 <p className="price-detail">$ {price}</p>
                                 <hr />
-                                
+
                                 <Form onSubmit={e => this.handleSubmit(e)}>
-                                   <Form.Row className="add-cart-bar">
+                                    <Form.Row className="add-cart-bar">
                                         <Col xs={6}>
                                             <Form.Group controlId="option">
-                                            <Form.Label>Color</Form.Label>
-                                            <Form.Control as="select" value={product.color} onChange={e => this.handleInputChange(e)} name="color">
-                                                {this.state.options.map(elm =>
-                                                <option key={elm._id}>{elm.color} </option>)}
-                                            </Form.Control>
+                                                <Form.Label>Color</Form.Label>
+                                                <Form.Control as="select" value={product.color} onChange={e => this.handleInputChange(e)} name="color">
+                                                    {this.state.options.map(elm =>
+                                                        <option key={elm._id}>{elm.color} </option>)}
+                                                </Form.Control>
                                             </Form.Group>
                                         </Col>
                                         <Col xs={3}>
                                             <Form.Group controlId="quantity">
-                                            <Form.Label>Quantity</Form.Label>
-                                            <Form.Control type="number" min="1" value={product.quantity} onChange={e => this.handleInputChange(e)} name="quantity" />
+                                                <Form.Label>Quantity</Form.Label>
+                                                <Form.Control type="number" min="1" value={product.quantity} onChange={e => this.handleInputChange(e)} name="quantity" />
                                             </Form.Group>
                                         </Col>
                                         <Col xs={3}>
@@ -148,13 +149,13 @@ class ProductDetails extends Component {
                                         </Col>
                                     </Form.Row>
                                 </Form>
-                                
+
                                 <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
                                     <Modal.Header> <Modal.Title>Please Log In</Modal.Title> </Modal.Header>
                                     <Modal.Body>
-                                        <LoginForm handleAlert={this.props.handleAlert} storeUser={this.props.storeUser} history={this.props.history} closeModal={() => this.setState({ showModal: false })}/>
+                                        <LoginForm handleAlert={this.props.handleAlert} storeUser={this.props.storeUser} history={this.props.history} closeModal={() => this.setState({ showModal: false })} />
                                     </Modal.Body>
-                                </Modal> 
+                                </Modal>
                             </Col>
                         </Row>
                 }
