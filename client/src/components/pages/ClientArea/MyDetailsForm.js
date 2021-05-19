@@ -2,7 +2,6 @@ import { Component } from 'react'
 import './MyDetails.css'
 import { Form, Col, Row, Button } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
-import { Component } from 'react'
 import ClientService from 'service/client.service'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
