@@ -33,7 +33,6 @@ class SupplierProfile extends Component {
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
-                console.log(this.state.currentUserconsole.log(currentUser))
             })
             .catch(err => console.log('Error loading User', err))
     }
@@ -68,7 +67,7 @@ class SupplierProfile extends Component {
                     </Row>
                     <Row>
                         {console.log(this.props)}
-                        <DeleteUser currentUser={this.state.currentUser}/>
+                        <DeleteUser currentUser={this.state.currentUser} />
                     </Row>
                 </Container>
         )

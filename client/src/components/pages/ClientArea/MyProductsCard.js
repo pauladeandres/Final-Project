@@ -14,15 +14,14 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
         const optionService = new OptionService()
 
         e.preventDefault()
-        console.log(currentUser)
         options.map(option => {
-        optionService
-            .deleteOption(option._id)
-            .then(response => {
-                console.log(response)
-                fetchProducts()
-            })
-            .catch(err => console.log(err))
+            optionService
+                .deleteOption(option._id)
+                .then(response => {
+                    console.log(response)
+                    fetchProducts()
+                })
+                .catch(err => console.log(err))
         })
 
         productService
@@ -35,29 +34,29 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
 
     return (
         <Card border="dark" className="supplier-list" style={{ width: '16rem' }}>
-            <Row as={Row} style={{height: '450px'}}>
+            <Row as={Row} style={{ height: '450px' }}>
                 <Card.Header>{name}</Card.Header>
                 <Col className="img-container">
                     {
                         options[0] === undefined
-                        ?
-                        <img src={nophoto} alt="Not provided"></img>
-                        :
-                    <img src={options[0].image} alt={name}></img>
+                            ?
+                            <img src={nophoto} alt="Not provided"></img>
+                            :
+                            <img src={options[0].image} alt={name}></img>
                     }
                 </Col>
-                    <Card.Body>
+                <Card.Body>
 
-                 <Col md={6}>
-                     <Card.Text>
-                         Category: {category === undefined ?<p>Other</p> : category.name}
-                     </Card.Text>
-                </Col>
-                <Col md={6}>
-                    <Card.Text>
-                        Options: {options.length}
-                    </Card.Text>
-                </Col>
+                    <Col md={6}>
+                        <Card.Text>
+                            Category: {category === undefined ? <p>Other</p> : category.name}
+                        </Card.Text>
+                    </Col>
+                    <Col md={6}>
+                        <Card.Text>
+                            Options: {options.length}
+                        </Card.Text>
+                    </Col>
                 </Card.Body>
             </Row>
             <Row>

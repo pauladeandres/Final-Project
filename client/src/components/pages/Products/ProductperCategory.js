@@ -31,11 +31,7 @@ class ProductPerCategory extends Component {
                 console.log(response)
                 this.setState({ products: response.data })
             })
-<<<<<<< HEAD
-            .catch(err => console.log('Error', err))
-=======
             .catch(err => console.log('Err:', err))
->>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
     }
 
     render() {
@@ -50,10 +46,10 @@ class ProductPerCategory extends Component {
                     <Row>
                         {
                             !products.length
-                            ?
-                            <h1>No products in this category</h1>
-                            :
-                            <h1>{this.state.products[0].category.name} selection:</h1>
+                                ?
+                                <h1>No products in this category</h1>
+                                :
+                                <h1>{this.state.products[0].category.name} selection:</h1>
                         }
                     </Row>
                     <hr />

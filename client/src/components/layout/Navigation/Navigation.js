@@ -36,16 +36,9 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList, history 
                                 </NavDropdown>
                         }
                         <NavDropdown title="My Area" id="basic-nav-dropdown">
-<<<<<<< HEAD
-                        
-                            {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
-                            {loggedUser && loggedUser.role === 'SUPPLIER' ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
-                            {loggedUser && loggedUser.role === 'CUSTOMER' ? <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item> : null}
-=======
                             {loggedUser && loggedUser.role === 'ADMIN' && <NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
                             {loggedUser && loggedUser.role === 'SUPPLIER' && <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item>}
-                            {loggedUser && loggedUser.role === 'CUSTOMER' &&  <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item>}
->>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
+                            {loggedUser && loggedUser.role === 'CUSTOMER' && <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item>}
                             <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                             <NavDropdown.Divider />
