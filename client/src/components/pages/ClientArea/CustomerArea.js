@@ -69,7 +69,7 @@ class CustomerArea extends Component {
                     </Row>
                 }
                 <Row>
-                    <DeleteUser currentUser={this.props.loggedUser} props={this.props}/>
+                    <DeleteUser currentUser={this.props.loggedUser}/>
                 </Row>
             </Container>
         )

@@ -76,7 +76,7 @@ class ClientList extends Component {
                             {clients
                                 ?
                                 clients.map((elm, index) => {
-                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} loadClients={() => this.loadClients()}/>
+                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} loadClients={() => this.loadClients()} loggedUser={this.props.loggedUser}/>
                                 })
                                 :
                                 <SpinnerRoll />

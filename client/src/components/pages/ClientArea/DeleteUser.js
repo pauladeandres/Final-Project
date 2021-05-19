@@ -1,48 +1,38 @@
 import { Button } from 'react-bootstrap'
-import AuthService from 'service/auth.service'
+import AuthService from '../../../service/auth.service'
 import ClientService from '../../../service/client.service'
 
-const DeleteUser = ({ currentUser, props, storeUser, loggedUser, loadClients }) => {
+const DeleteUser = ({ currentUser }) => {
 
     const clientService = new ClientService()
+
     const authService = new AuthService()
-
+ 
     function eliminateAccount(e) {
-
-        e.preventDefault()
         console.log(currentUser)
-        
+        e.preventDefault()
+
+        if(currentUser.client){
         clientService
-            .deleteClient(currentUser.client._id)
-            .then(response => console.log(response))
+            .deleteClient(currentUser.client)
+            .then(response => console.log('client',response))
             .catch(err => console.log('Error deleting client', err))
+        }
 
         authService
             .deleteUser(currentUser._id)
             .then(response => {
-                if(loggedUser.role !== 'ADMIN'){
-                    props.history.push('/')
-                }
-                props.handleAlert(`Account deleted correctly`)
-                console.log(props)
-            })
+                console.log('user',response)
+                })
             .catch(err => console.log('Error deleting user', err))
         
-      (loggedUser.role !== 'ADMIN'
-        ?
-        logOut()
-        :
-        loadClients)
-      
     }
 
     function logOut () {
-
         authService
             .logout()
-            .then(() => storeUser(undefined))
+            .then(res => console.log(res))
             .catch(err => console.log(err))
-
     }
 
     return (

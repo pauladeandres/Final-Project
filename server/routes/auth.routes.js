@@ -99,4 +99,15 @@ router.put('/client/update', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
 
+//DELETE USER
+
+router.delete('/delete/:user_id', (req, res) => {
+    console.log(req.params.user_id)
+
+    User
+        .findByIdAndDelete(req.params.user_id)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({ code: 400, message: 'Error eliminating client', err }))
+})
+
 module.exports = router

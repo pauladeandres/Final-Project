@@ -1,5 +1,7 @@
 import './MyProductsCard.css'
 
+import OptionService from '../../../service/option.service'
+
 import ProductsService from '../../../service/products.service'
 
 import nophoto from './nophoto.png'
@@ -12,7 +14,19 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
 
     function deleteProduct(e) {
         const productService = new ProductsService()
+        const optionService = new OptionService()
+
         e.preventDefault()
+
+        options.map(option => {
+        optionService
+            .deleteOption(option._id)
+            .then(response => {
+                console.log(response)
+                fetchProducts()
+            })
+            .catch(err => console.log(err))
+        })
 
         productService
             .deleteProduct(_id)
