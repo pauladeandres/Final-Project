@@ -9,10 +9,15 @@ router.put('/new', isLoggedIn, (req, res) => {
 
     const { product, quantity, option, customer } = req.body
 
+    if (quantity < 1) {
+    res.status(500).json({ code: 500, message: 'Please add at least 1 item to your cart' })
+    return
+    }
+
     Order
         .findOneAndUpdate({ $and: [{ 'customer': customer }, { 'paid': false }] }, { $push: { products: { product, quantity, option } } }, {new: true, upsert: true })
         .then(response => res.json(response))
-        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
+        .catch(err => { res.status(500).json({ code: 500, message: 'Could not create any order', err })})
 })
 
 // UNPAID CUSTOMER ORDER (GET)
@@ -68,9 +73,7 @@ router.get('/lastorder', isLoggedIn, (req, res) => {
     Order
         .findOne({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': true }] }, {'_id': 1}, { sort: { 'createdAt' : -1 } } )
         .then(response => res.json(response))
-        .catch(err => {
-            res.status(500).json({ code: 500, message: 'Could not find any order', err })})
-
+        .catch(err => { res.status(500).json({ code: 500, message: 'Could not find any order', err })})
 })
 
 // MAKE ORDER AS PAID

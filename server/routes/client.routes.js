@@ -89,7 +89,7 @@ router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
     Client
         .create(client)
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error saving client', err }))
+        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 })
 
 //DELETE CLIENT
