@@ -19,11 +19,10 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
 
     return (
         <>
-            <Container>
-            < Navbar bg="light" expand="lg" className="fullNavBar">
+            < Navbar bg="light" expand="lg">
                 <Navbar.Brand as={Link} to="/" className="logoHome">HOME</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                    <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         {
                             !categoryList
@@ -39,7 +38,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
                             {console.log(loggedUser)}
                             {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
                             {loggedUser && loggedUser.role === 'SUPPLIER' ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
-                            {loggedUser && loggedUser.role === 'CUSTOMER' ? <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item> : null }
+                            {loggedUser && loggedUser.role === 'CUSTOMER' ? <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item> : null}
                             <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                             <NavDropdown.Divider />
@@ -56,7 +55,6 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
                     </div>
                 </Navbar.Collapse>
             </Navbar >
-            </Container>
         </>
     )
 }

@@ -33,14 +33,29 @@ class SupplierList extends Component {
             (
                 <Container>
                     <Row>
-                        {suppliers
-                            ?
-                            suppliers.map(elm => <ClientCard key={elm._id} {...elm} />)
-                            :
-                            <SpinnerRoll />
-                        }
+                        < table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Test</th>
+                                    <th scope="col"># Favorites</th>
+                                    <th scope="col">Edit user</th>
+                                    <th scope="col">Delete user</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {suppliers
+                                    ?
+                                    suppliers.map((elm, index) => <ClientCard key={elm._id} number={index} {...elm} />)
+                                    :
+                                    <SpinnerRoll />
+                                }
+                            </tbody>
+                        </table>
+
                     </Row>
-                </Container>)
+                </Container >)
     }
 }
 
