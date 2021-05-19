@@ -32,6 +32,7 @@
   "scripts": {
     "start": "REACT_APP_BASE_URL=http://localhost:5000/api react-scripts start",
     "build": "REACT_APP_BASE_URL=https://home-furnitures.herokuapp.com/api react-scripts build",
+    "deploy": "cd ..; rm -rf server/public/*; cd client; rm -rf build/*; npm run build; mv build/* ../server/public; cd ..; git add .; git commit -m deploy; git subtree push --prefix=server heroku_app_master main",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
