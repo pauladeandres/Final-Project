@@ -10,7 +10,7 @@ const ClientCard = ({ number, edit, editRole, loadClients, ...props  }) => {
         <>
             <tr>
                 <th scope="row">{number}</th>
-                <td><Link to={`/supplier/myarea/${userId}`}> {props.email}</Link></td>
+                <td> {(props.role === 'SUPPLIER' && props.props.client) ? <Link to={`/supplier/myarea/${userId}`}> {props.email}</Link> : props.email} </td>
                 <td>test</td>
                 <td>{props.favoriteProducts.length}</td>
                 {props.client ? <td onClick={(e) => edit(e, props.client)}>Edit</td> : <td></td>}

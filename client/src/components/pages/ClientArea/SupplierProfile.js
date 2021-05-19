@@ -8,7 +8,6 @@ import MyProductList from './MyProductsList'
 
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
-import DeleteUser from './DeleteUser'
 
 class SupplierProfile extends Component {
 

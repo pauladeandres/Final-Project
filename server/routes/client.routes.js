@@ -106,11 +106,8 @@ router.delete('/delete/:client_id', (req, res) => {
 // GETTING CLIENT DETAILS
 router.get('/clientdetails/:id', isLoggedIn, (req, res) => {
 
-    const client_id = req.params.id
-    console.log(client_id)
-
     Client
-        .findById(client_id)
+        .findById(req.params.id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
@@ -142,7 +139,7 @@ router.post('/supplier/new', isLoggedIn, (req, res) => {
                 .catch(err => console.log(err))
         })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
+        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 })
 
 module.exports = router
