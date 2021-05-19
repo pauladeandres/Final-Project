@@ -12,7 +12,8 @@ class ClientList extends Component {
         super()
         this.state = {
             clients: undefined,
-            showModal: false
+            showModal: false,
+            selectedClient: undefined
         }
         this.adminService = new AdminServices()
     }
@@ -28,9 +29,9 @@ class ClientList extends Component {
             .catch(err => console.log('error no lo coge'))
     }
 
-    onClickEdit(e) {
-        console.log('click')
-        this.setState({ showModal: true })
+    onClickEdit(e, user) {
+        console.log('click', e, user)
+        this.setState({ showModal: true, selectedClient: user })
     }
 
     render() {
@@ -41,7 +42,11 @@ class ClientList extends Component {
             <Container>
                 <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
                     <Modal.Header> <Modal.Title>Edit user</Modal.Title> </Modal.Header>
-                    <Modal.Body> Hola que hase</Modal.Body>
+                    <Modal.Body>
+                        {console.log('this is the state', this.state.selectedClient)}
+                        <MyDetailsForm client={this.state.selectedClient} loggedUser={this.props.loggedUser}
+                            closeModal={() => this.setState({ showModal: false })} refreshClients={() => this.loadClients()} />
+                    </Modal.Body>
                 </Modal>
                 <Row>
                     <table class="table">
@@ -52,12 +57,15 @@ class ClientList extends Component {
                                 <th scope="col">Test</th>
                                 <th scope="col"># Favorites</th>
                                 <th scope="col">Edit user</th>
+                                <th scope="col">Delete user</th>
                             </tr>
                         </thead>
                         <tbody>
                             {clients
                                 ?
-                                clients.map((elm, index) => <ClientCard key={elm.id} number={index} edit={(e) => this.onClickEdit(e)}{...elm} />)
+                                clients.map((elm, index) => {
+                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} {...elm} />
+                                })
                                 :
                                 <SpinnerRoll />
                             }

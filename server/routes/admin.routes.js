@@ -23,6 +23,7 @@ router.get('/clients', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     User
         .find({ role: 'CUSTOMER' })
+        .populate('client')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching suppliers', err }))
 
