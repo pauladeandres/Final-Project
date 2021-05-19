@@ -19,8 +19,7 @@ const DeleteUser = ({ currentUser }) => {
         authService
             .deleteUser(currentUser._id)
             .then(response => {
-                this.props.history.push('/')
-                this.props.handleAlert(`Account deleted correctly`)
+                console.log(response)
             })
             .catch(err => console.log('Error deleting user', err))
     }
