@@ -35,9 +35,15 @@ class ClientList extends Component {
         this.setState({ showModal: true, selectedClient: user })
     }
 
-    editRole(e) {
-        // this.authService
-        // .updateUser()
+    editRole(e, id) {
+        console.log({ e, id })
+        const userDetails = { role: e, id }
+        console.log(userDetails)
+
+        this.authService
+            .updateRole(userDetails)
+            .then(response => this.loadClients())
+            .catch(err => console.log('error no lo coge'))
     }
 
     render() {
@@ -70,7 +76,7 @@ class ClientList extends Component {
                             {clients
                                 ?
                                 clients.map((elm, index) => {
-                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e) => this.editRole(e)} {...elm} />
+                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} />
                                 })
                                 :
                                 <SpinnerRoll />
