@@ -9,7 +9,6 @@ import DeleteUser from './DeleteUser'
 
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
-import DeleteUser from './DeleteUser'
 
 class SupplierProfile extends Component {
 

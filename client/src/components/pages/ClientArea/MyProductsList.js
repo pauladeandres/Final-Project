@@ -24,6 +24,7 @@ class MyProductList extends Component {
 
     loadProducts() {
         console.log('los props de myproductlist', this.props.client)
+        console.log(this.props)
         this.productsService
             .getProductBySupplier(this.props.client._id)
             .then(response => {
