@@ -5,7 +5,6 @@ import AuthService from 'service/auth.service'
 
 import { Row, Container } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
-import DeleteUser from './DeleteUser'
 
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'

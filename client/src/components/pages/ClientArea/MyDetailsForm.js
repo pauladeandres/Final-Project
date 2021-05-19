@@ -6,10 +6,9 @@ import ClientService from 'service/client.service'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 class MyDetailsForm extends Component {
-
-    constructor({ ...props }) {
-        console.log('los props del form son:', props)
+    constructor(props) {
         super(props)
+        console.log('las props son:', props.client)
         this.state = {
             client: props.client,
             role: undefined,
@@ -30,16 +29,20 @@ class MyDetailsForm extends Component {
             .catch(err => console.log(err))
     }
 
-
     refresh() {
         this.props.closeModal()
         this.props.refreshClients()
+    }
+
+    setClient() {
+        this.setState({client: this.props.client})
     }
 
     loadClient() {
         this.clientService
             .getAssignedClient(this.state.client)
             .then(response => {
+                console.log(response.data)
                 this.setState({ client: response.data })
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
@@ -52,18 +55,22 @@ class MyDetailsForm extends Component {
         this.setState({ client: { ...this.state.client, [name]: value } })
     }
 
+    componentDidMount() {
+        this.loadClient()
+    }
+
 
     render() {
-        console.log(this.props)
 
         return (
 
-            !this.state.client
+            !this.state.client.firstName
                 ?
                 <SpinnerRoll />
                 :
                 <>
                     <Form onSubmit={e => this.handleSubmitForm(e)}>
+                        {console.log(this.state.client)}
 
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="firstName">
