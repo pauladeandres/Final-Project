@@ -7,6 +7,8 @@ import CustomerOrderCard from './CustomerOrderCard'
 import CustomerFavoriteRow from './CustomerFavoriteRow'
 import ProductsService from '../../../service/products.service'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
+import SignupForm from '../Auth/SignupForm'
+ 
 
 class CustomerArea extends Component {
     constructor() {
@@ -56,7 +58,7 @@ class CustomerArea extends Component {
                         <Col md={6}>
                             <div className="customer-box">
                                 <h3>My billing details</h3>
-                                <MyDetails history={this.props.history} handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} />
+                                {this.props.loggedUser.client ? <MyDetails history={this.props.history} handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} />: <SignupForm handleAlert={this.props.handleAlert} history={this.props.history} loggedUser={this.props.loggedUser} updateCurrentUser={this.props.updateCurrentUser}/>} 
                             </div>
                             <div className="customer-box">
                                 <h3>My favorites</h3>

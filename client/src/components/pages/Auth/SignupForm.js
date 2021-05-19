@@ -100,7 +100,7 @@ class SignupForm extends Component {
                     <Form.Control type="number" value={this.state.phone} onChange={e => this.handleInputChange(e)} name="phone" />
                 </Form.Group>
 
-                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">{this.props.loggedUser.role === "CUSTOMER"? 'Continue to payment' : 'Register'}</Button>
+                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">{this.props.loggedUser.role === "CUSTOMER" && this.props.history === '/checkout'? 'Continue to payment' : 'Register'}</Button>
             </Form>
         )
     }

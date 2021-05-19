@@ -27,7 +27,7 @@ router.post('/new', isLoggedIn, (req, res) => {
 })
 
 // UNPAID CUSTOMER ORDER (GET)
-router.get('/customer', (req, res) => {
+router.get('/customer', isLoggedIn, (req, res) => {
     Order
         .find({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false }] })
         .populate('customer')
@@ -39,7 +39,7 @@ router.get('/customer', (req, res) => {
 })
 
 // PAID CUSTOMER ORDER (GET)
-router.get('/customer/paid', (req, res) => {
+router.get('/customer/paid', isLoggedIn, (req, res) => {
     Order
         .find({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': true }] })
         .populate('customer')
@@ -53,7 +53,9 @@ router.get('/customer/paid', (req, res) => {
 })
 
 // REMOVE PRODUCT FROM CART (POST)
-router.post('/remove/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
+router.post('/remove/:id', isLoggedIn, (req, res) => {
+
+    console.log('customer', req.session.currentUser._id, 'product_id', req.params.id)
     Order
         .findOneAndUpdate({ 'customer': req.session.currentUser._id }, { $pull: { products: { '_id': req.params.id } } })
         .then(response => res.json(response))
@@ -61,7 +63,7 @@ router.post('/remove/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
 })
 
 // EDIT PRODUCT QUANTITY FROM CART (POST)
-router.post('/edit/:id', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
+router.post('/edit/:id', isLoggedIn, (req, res) => {
 
     const { quantity } = req.body
 
