@@ -36,7 +36,6 @@ class Checkout extends Component {
         this.orderService
             .getUserOrder()
             .then(response => {
-                console.log(response.data[0]._id)
                 this.setState({ products: response.data[0].products, orderId: response.data[0]._id })
                 const reducer = (accumulator, currentValue) => accumulator + currentValue
                 this.setState({ total: this.state.products.map(elm => elm.option.price * elm.quantity).reduce(reducer) })

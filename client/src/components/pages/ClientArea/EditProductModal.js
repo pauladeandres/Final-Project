@@ -28,14 +28,12 @@ class EditProductModal extends Component {
     }
 
     loadCategories() {
-        console.log(this.state.product)
         this.categoriesService
             .getAllCategories()
             .then(response => {
-                console.log(response)
                 this.setState({ categoryOptions: response.data })
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Error:', err))
     }
 
     handleInputChange(e) {
@@ -49,7 +47,6 @@ class EditProductModal extends Component {
         this.productService
             .editProduct(this.props.product._id, this.state.product)
             .then(response => {
-                console.log(response)
                 this.props.closeModal()
                 this.props.fetchProduct()
             })

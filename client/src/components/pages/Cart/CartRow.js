@@ -51,7 +51,6 @@ class CartRow extends Component {
         const currentStock = this.props.option.stock
         const newStock = currentStock + this.state.quantity
         const optionId = this.props.option._id
-        console.log('currentStock:', currentStock, 'newStock:', newStock, 'optionId:', optionId)
         this.optionService
             .updateStock(optionId, { stock: newStock })
             .then(response => console.log(response))

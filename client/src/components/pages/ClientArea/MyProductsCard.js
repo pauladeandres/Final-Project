@@ -1,11 +1,7 @@
 import './MyProductsCard.css'
-
 import ProductsService from '../../../service/products.service'
-
 import nophoto from './nophoto.png'
-
 import { Card, Col, Row, Button } from 'react-bootstrap'
-
 import { Link } from 'react-router-dom'
 
 const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
@@ -16,14 +12,13 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
 
         productService
             .deleteProduct(_id)
-            .then(response => {
+            .then(() => {
                 fetchProducts()
             })
             .catch(err => console.log(err))
     }
 
     return (
-        
         <Card border="dark" className="supplier-list" style={{ width: '16rem' }}>
             <Row as={Row} style={{height: '450px'}}>
                 <Card.Header>{name}</Card.Header>

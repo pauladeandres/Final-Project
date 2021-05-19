@@ -30,9 +30,7 @@ class NewOption extends Component {
     }
 
     handleSubmit(e) {
-
         e.preventDefault()
-
         this.optionService
             .createOption(this.props.product_id, this.state.option)
             .then(response => {
@@ -43,10 +41,8 @@ class NewOption extends Component {
 
     handleFileUpload(e) {
         this.setState({ isUploading: true })
-
         const uploadData = new FormData()
         uploadData.append('imageData', e.target.files[0])
-
         this.uploadsService
             .uploadimage(uploadData)
             .then(response => this.setState({ isUploading: false, option: { ...this.state.option, image: response.data.secure_url } }))
@@ -57,7 +53,6 @@ class NewOption extends Component {
     render() {
 
         return (
-
                 <Container >
                 <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                     <Form onSubmit={e => this.handleSubmit(e)}>
@@ -71,7 +66,7 @@ class NewOption extends Component {
                             <Form.Control type="text" value={this.state.color} onChange={e => this.handleInputChange(e)} name="color" />
                         <Form.Text className="text-muted">
                             Choose between: black, white, red, blue, green, brown, beige, yellow, orange, grey
-    </Form.Text>
+                        </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="stock">

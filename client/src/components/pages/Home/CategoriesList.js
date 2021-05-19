@@ -25,14 +25,12 @@ class CategoriesList extends Component {
         this.categoriesService
             .getAllCategories()
             .then(response => {
-                console.log(response.data)
                 this.setState({ categoryOptions: response.data })
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
 
     render() {
-
         return (
             !this.state.categoryOptions
                 ?

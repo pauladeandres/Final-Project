@@ -29,8 +29,6 @@ const cardStyle = {
   };
 
 export default function CheckoutForm({history, total, orderId}) {
-
-  console.log(orderId)
   
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -82,8 +80,6 @@ export default function CheckoutForm({history, total, orderId}) {
     }
   };
 
-
-
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
@@ -105,6 +101,6 @@ export default function CheckoutForm({history, total, orderId}) {
           {error}
         </div>
       )}
-          </form>
+      </form>
   );
 }

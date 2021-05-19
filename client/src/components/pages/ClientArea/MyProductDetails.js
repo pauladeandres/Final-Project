@@ -17,7 +17,6 @@ class MyProductDetails extends Component {
             showModal: false
         }
         this.productService = new ProductsService()
-
     }
 
     componentDidMount() {
@@ -25,10 +24,7 @@ class MyProductDetails extends Component {
     }
 
     findProduct() {
-
         const product_id = this.props.match.params.id
-
-        console.log(product_id)
         this.productService
             .getMyProductDetails(product_id)
             .then(response => {
@@ -47,7 +43,6 @@ class MyProductDetails extends Component {
 
         return (
             <Container>
-
                 {
                     !this.state.product ? <SpinnerRoll /> :
                         <>
@@ -106,7 +101,7 @@ class MyProductDetails extends Component {
                                                 <Card.Body><NewOption product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()} /></Card.Body>
                                             </Accordion.Collapse>
                                         </Card>
-                                    </Accordion >
+                                    </Accordion>
                                 </Col>
                             </Row>
                         </>

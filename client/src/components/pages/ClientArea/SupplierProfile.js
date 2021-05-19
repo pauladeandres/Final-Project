@@ -8,6 +8,7 @@ import MyProductList from './MyProductsList'
 
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
+import DeleteUser from './DeleteUser'
 
 class SupplierProfile extends Component {
 
@@ -56,7 +57,6 @@ class SupplierProfile extends Component {
 
     render() {
         return (
-
             !this.state.currentUser ? <SpinnerRoll /> :
 
                 <Container>
@@ -72,8 +72,7 @@ class SupplierProfile extends Component {
                         {console.log(this.props)}
                         <DeleteUser loggedUser={this.props.loggedUser} storeUser={this.props.storeUser} currentUser={this.state.currentUser} props={this.props} />
                     </Row>
-                </Container >
-
+                </Container>
         )
     }
 }

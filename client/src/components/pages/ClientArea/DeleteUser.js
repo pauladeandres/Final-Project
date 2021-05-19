@@ -10,7 +10,6 @@ const DeleteUser = ({ currentUser, props, storeUser, loggedUser, loadClients }) 
     function eliminateAccount(e) {
 
         e.preventDefault()
-        console.log(currentUser)
         
         clientService
             .deleteClient(currentUser.client._id)
@@ -24,7 +23,6 @@ const DeleteUser = ({ currentUser, props, storeUser, loggedUser, loadClients }) 
                     props.history.push('/')
                 }
                 props.handleAlert(`Account deleted correctly`)
-                console.log(props)
             })
             .catch(err => console.log('Error deleting user', err))
         

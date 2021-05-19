@@ -105,7 +105,6 @@ class ProductDetails extends Component {
         this.importOptions()
     }
 
-
     render() {
         const product = this.state.order
         const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
@@ -169,11 +168,8 @@ class ProductDetails extends Component {
                             <h3>OTHER PRODUCTS YOU MIGHT LIKE</h3>
                             <ProductCarousel category={product.product.category._id}/>
                         </Row>
-                    </>
-                        
-                }
-               
-                
+                    </>                  
+                }   
             </Container>
         )
     }

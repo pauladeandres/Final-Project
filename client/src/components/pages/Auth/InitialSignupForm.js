@@ -15,8 +15,6 @@ class InitialSignupForm extends Component {
             }
         }
         this.authService = new AuthService()
-
-        console.log(this.props)
     }
 
 

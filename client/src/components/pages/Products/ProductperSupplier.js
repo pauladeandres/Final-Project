@@ -28,11 +28,8 @@ class ProductPerSupplier extends Component {
     }
 
     render() {
-
         const { products } = this.state
-
         return (
-
             !products
                 ?
                 <SpinnerRoll />

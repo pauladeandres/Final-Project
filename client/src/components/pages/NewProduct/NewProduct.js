@@ -8,7 +8,6 @@ class NewProduct extends Component {
 
     constructor(props) {
         super(props)
-        console.log('new product', this.props)
         this.state = {
             product: {
                 supplier: props.client._id,
@@ -36,7 +35,6 @@ class NewProduct extends Component {
         this.categoriesService
             .getAllCategories()
             .then(response => {
-                console.log(response)
                 this.setState({ categorieOptions: response.data })
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
@@ -71,7 +69,6 @@ class NewProduct extends Component {
     render() {
 
         return (
-
             !this.state.categorieOptions
                 ?
                 <SpinnerRoll />

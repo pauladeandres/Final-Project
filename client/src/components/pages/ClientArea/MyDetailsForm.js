@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 class MyDetailsForm extends Component {
     constructor(props) {
         super(props)
-        console.log('las props son:', props.client)
         this.state = {
             client: props.client,
             role: undefined,
@@ -42,7 +41,6 @@ class MyDetailsForm extends Component {
         this.clientService
             .getAssignedClient(this.state.client)
             .then(response => {
-                console.log(response.data)
                 this.setState({ client: response.data })
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
@@ -70,8 +68,6 @@ class MyDetailsForm extends Component {
                 :
                 <>
                     <Form onSubmit={e => this.handleSubmitForm(e)}>
-                        {console.log(this.state.client)}
-
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="firstName">
                                 <Form.Label sm={6}>First Name</Form.Label>
@@ -150,11 +146,8 @@ class MyDetailsForm extends Component {
 
                         }
                     </Form>
-
                     {this.props.loggedUser === 'CUSTOMER' && this.props.history.location.pathname === "/checkout" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn btn-dark">Continue to payment</Link>}
-
                 </>
-
         )
     }
 }

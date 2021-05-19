@@ -30,8 +30,8 @@ class ProductCarousel extends Component {
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
+    
     render() {
-
         return (
             !this.state.products
                 ?

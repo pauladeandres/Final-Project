@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import './CategoryCard.css'
 
 const CategoryCard = ({image, name,  _id}) =>  {
-
         return (
                 <>
                 <Link to={`/category/${_id}`}>

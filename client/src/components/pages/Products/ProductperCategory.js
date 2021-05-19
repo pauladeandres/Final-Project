@@ -17,11 +17,9 @@ class ProductPerCategory extends Component {
 
     componentDidMount() {
         this.loadProducts()
-        console.log(this.props.match.params.id)
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps)
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.loadProducts()
         }
@@ -38,11 +36,8 @@ class ProductPerCategory extends Component {
     }
 
     render() {
-
         const { products } = this.state
-
         return (
-
             !products
                 ?
                 <SpinnerRoll />
@@ -63,7 +58,6 @@ class ProductPerCategory extends Component {
                         {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </Container>
-
         )
     }
 }

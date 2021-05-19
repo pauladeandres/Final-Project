@@ -1,8 +1,6 @@
 import { Component } from 'react'
 import './MyDetails.css'
 import ClientService from '../../../service/client.service'
-import { Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
 
