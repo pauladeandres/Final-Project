@@ -39,7 +39,6 @@ export default function CheckoutForm({history, total, orderId}) {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
-  // const name = useState('')
   
   useEffect(() => {
     stripeService
@@ -57,8 +56,6 @@ export default function CheckoutForm({history, total, orderId}) {
   }
 
   const handleChange = async (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
@@ -103,7 +100,6 @@ export default function CheckoutForm({history, total, orderId}) {
           )}
         </span>
       </button>
-      {/* Show any error that happens when processing the payment */}
       {error && (
         <div className="card-error" role="alert">
           {error}

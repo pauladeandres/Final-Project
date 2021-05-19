@@ -13,8 +13,8 @@ class ProductsService {
     getOneProduct = product_id => this.app.get(`/product/${product_id}`)
     deleteProduct = product_id => this.app.delete(`/product/delete/${product_id}`)
     editProduct = (product_id, productDetails) => this.app.put(`/product/edit/${product_id}`, productDetails)
-    addFavorite = (product_id => this.app.post('/product/favorite/add', product_id))
-    removeFavorite = (product_id => this.app.post(`/product/favorite/remove/${product_id}`))
+    addFavorite = (product_id => this.app.put('/product/favorite/add', product_id))
+    removeFavorite = (product_id => this.app.put(`/product/favorite/remove/${product_id}`))
     getFavorites = () => this.app.get('product/favorite/myfavorite')
     getProductPerCategory = category_id => this.app.get(`/product/category/${category_id}`)
 

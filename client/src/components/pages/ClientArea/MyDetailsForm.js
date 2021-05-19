@@ -1,36 +1,10 @@
-
+import { Component } from 'react'
 import './MyDetails.css'
-import { Form, Col, Row } from 'react-bootstrap'
+import { Form, Col, Row, Button } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
+import ClientService from '../../../service/client.service'
+import { Link } from 'react-router-dom'
 
-<<<<<<< HEAD
-const MyDetailsForm = ({ disabled, loggedUser, handleInput, ...client }) => {
-
-    console.log(client, disabled, loggedUser)
-
-    return (
-        !client.firstName ? <SpinnerRoll /> :
-
-            <>
-
-                <Form.Row as={Row}>
-                    <Form.Group as={Col} controlId="firstName">
-                        <Form.Label sm={6}>First Name</Form.Label>
-                        <Form.Control type="text" value={client.firstName} disabled={disabled} onChange={e => handleInput(e)} name="firstName" />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="secondName">
-                        <Form.Label sm={6}>Second Name</Form.Label>
-                        <Form.Control type="text" value={client.secondName} disabled={disabled} onChange={e => handleInput(e)} name="secondName" />
-                    </Form.Group>
-                </Form.Row>
-
-                {loggedUser.role !== "CUSTOMER" &&
-                    <Form.Row as={Row}>
-                        <Form.Group as={Col} controlId="company">
-                            <Form.Label sm={8}>Company Name</Form.Label>
-                            <Form.Control type="text" value={client.company} disabled={disabled} onChange={e => handleInput(e)} name="company" />
-=======
 class MyDetailsForm extends Component {
 
     constructor({ ...props }) {
@@ -118,7 +92,6 @@ class MyDetailsForm extends Component {
                         <Form.Group controlId="address">
                             <Form.Label>Address</Form.Label>
                             <Form.Control value={this.state.client.address} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="address" />
->>>>>>> 38f5f18ec3c8b5847cdff5444c2f11e5f005df52
                         </Form.Group>
 
                         <Form.Group controlId="phone">

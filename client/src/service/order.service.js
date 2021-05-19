@@ -8,11 +8,11 @@ class OrdersService {
         })
     }
 
-    createOrder = orderDetails => this.app.post('/new', orderDetails)
+    createOrder = orderDetails => this.app.put('/new', orderDetails)
     getUserOrder = () => this.app.get('/customer')
     getUserPaidOrder = () => this.app.get('/customer/paid')
-    deleteProduct = productId => this.app.post(`/remove/${productId}`)
-    editQuantity = (productId, quantity) => this.app.post(`edit/${productId}`, quantity)
+    deleteProduct = productId => this.app.put(`/remove/${productId}`)
+    editQuantity = (productId, quantity) => this.app.put(`edit/${productId}`, quantity)
     getLastOrderId = () => this.app.get('/lastorder')
     makeAsPaid = () => this.app.put('/paid')
 }

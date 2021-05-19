@@ -72,17 +72,17 @@ router.post('/login', (req, res) => {
 })
 
 // LOG OUT (GET)
-router.get('/logout', (req, res) => {
+router.get('/logout', isLoggedIn, (req, res) => {
     req.session.destroy((err) => res.json({ message: 'Logout successful' }));
 })
 
 // IS LOGGEDIN (POST)
-router.post('/isloggedin', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
+router.post('/isloggedin', isLoggedIn, (req, res) => {
     req.session.currentUser ? res.json(req.session.currentUser) : res.status(401).json({ code: 401, message: 'Unauthorized' })
 })
 
 // CURRENT USER CLIENT DETAILS (GET)
-router.get('/client/update', (req, res) => {
+router.get('/client/update', isLoggedIn, (req, res) => {
     User
         .findById(req.session.currentUser._id)
         .then(response => res.json(response))

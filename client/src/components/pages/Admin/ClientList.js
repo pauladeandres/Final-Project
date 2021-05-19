@@ -3,6 +3,7 @@ import { Component } from "react"
 import { Container, Modal, Row } from "react-bootstrap"
 import AdminServices from '../../../service/admin.service'
 import ClientCard from "./ClientCard"
+import MyDetailsForm from '../ClientArea/MyDetailsForm'
 
 
 class ClientList extends Component {
