@@ -34,7 +34,7 @@ router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'),
         .then(response => res.json('Product created'))
         .catch(err => {
             console.log(checkMongooseError(err))
-            res.status(400).json({code: 400, message: checkMongooseError(err)})
+            res.status(400).json({ code: 400, message: checkMongooseError(err) })
         })
 })
 
@@ -42,7 +42,7 @@ router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'),
 router.get('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { supplier_id } = req.params
-
+    console.log(supplier_id)
     User
         .findById(supplier_id)
         .populate('client')
@@ -106,11 +106,11 @@ router.get('/clientdetails/:id', (req, res) => {
 
 // UPDATING CLIENT DETAILS
 router.put('/client/:id', (req, res) => {
-    const client  = req.body
+    const client = req.body
     const client_id = req.params.id
 
     Client
-        .findByIdAndUpdate(client_id,  client , { new: true } )
+        .findByIdAndUpdate(client_id, client, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
@@ -118,18 +118,18 @@ router.put('/client/:id', (req, res) => {
 // CREATE NEW CLIENT (POST)
 router.post('/supplier/new', isLoggedIn, (req, res) => {
     const _id = req.session.currentUser._id
-    
+
     console.log(_id)
 
     const { firstName, secondName, company, address, zipcode, city, country, phone } = req.body
 
     Client
         .create({ firstName, secondName, company, address, zipcode, city, country, phone })
-        .then(response => {   
+        .then(response => {
             User
-            .findByIdAndUpdate(_id, { client: response._id }, { new: true })
-            .then(user => console.log(user))
-            .catch(err => console.log(err))
+                .findByIdAndUpdate(_id, { client: response._id }, { new: true })
+                .then(user => console.log(user))
+                .catch(err => console.log(err))
         })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))

@@ -8,9 +8,10 @@ class NewProduct extends Component {
 
     constructor(props) {
         super(props)
+        console.log('new product', this.props)
         this.state = {
             product: {
-                supplier: this.props.loggedUser._id,
+                supplier: props.client._id,
                 name: '',
                 description: '',
                 category: undefined
@@ -51,7 +52,7 @@ class NewProduct extends Component {
         e.preventDefault()
 
         this.productService
-            .createProduct(this.state.product, this.props.loggedUser._id)
+            .createProduct(this.state.product, this.props.client._id)
             .then(response => {
                 this.props.fetchProducts()
             })

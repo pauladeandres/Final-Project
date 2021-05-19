@@ -23,7 +23,7 @@ router.post('/signup', (req, res) => {
                 return
             }
 
-            if(password.length === 0) {
+            if (password.length === 0) {
                 res.status(400).json({ code: 400, message: 'Please, enter a password' })
                 return
             }
@@ -82,11 +82,15 @@ router.post('/isloggedin', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
 })
 
 // CURRENT USER CLIENT DETAILS (GET)
-router.get('/client/update', (req, res) => {
+router.get('/client/details', (req, res) => {
     User
         .findById(req.session.currentUser._id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
+})
+
+router.get('client/update', (req, res) => {
+    console.log(req.body)
 })
 
 module.exports = router
