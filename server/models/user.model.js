@@ -5,7 +5,13 @@ const userSchema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: [true, 'Please, add your email to continue']
+        required: [true, 'Please, add your email to continue'],
+        validate: {
+            validator: function (email) {
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+            },
+            message: props => `${props.value} is not a valid email`
+        }
     },
     password: {
         type: String,

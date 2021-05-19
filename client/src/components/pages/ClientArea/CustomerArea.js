@@ -8,6 +8,7 @@ import CustomerFavoriteRow from './CustomerFavoriteRow'
 import ProductsService from '../../../service/products.service'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import SignupForm from '../Auth/SignupForm'
+import DeleteUser from './DeleteUser'
  
 
 class CustomerArea extends Component {
@@ -67,6 +68,9 @@ class CustomerArea extends Component {
                         </Col>
                     </Row>
                 }
+                <Row>
+                    <DeleteUser currentUser={this.props.loggedUser} props={this.props}/>
+                </Row>
             </Container>
         )
     }
