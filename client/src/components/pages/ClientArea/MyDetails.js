@@ -42,22 +42,6 @@ class MyDetails extends Component {
             .catch(err => console.log(err))
     }
 
-    handleSubmitForm(e) {
-        e.preventDefault()
-        this.clientService
-            .editClient(this.props.loggedUser.client, this.state.client)
-            .then(response => {
-                this.loadClient()
-                this.setState({ disableForm: true })
-            })
-            .catch(err => console.log(err))
-    }
-
-    handleInputChange(e) {
-        const { name, value } = e.target
-        this.setState({ client: { ...this.state.client, [name]: value } })
-    }
-
     render() {
 
         return (
@@ -67,28 +51,9 @@ class MyDetails extends Component {
                 <SpinnerRoll />
                 :
                 <>
-                    <Form onSubmit={e => this.handleSubmitForm(e)}>
 
-                        {this.state.client.firstName ? <MyDetailsForm {...this.state.client} disabled={this.state.disableForm} loggedUser={this.props.loggedUser} handleInput={(e) => this.handleInputChange(e)} /> : <SpinnerRoll />}
-                        {
-                            this.state.disableForm === false
-                                ?
-                                <Form.Row>
-
-                                    <Button className="edit-save-btn" variant="dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
-                                        Save Changes
-                    </Button>
-                                </Form.Row>
-                                :
-
-                                <Button className="edit-save-btn" variant="dark" onClick={() => this.setState({ disableForm: false })}>
-                                    {this.props.loggedUser.role === "CUSTOMER" ? 'Edit address' : 'Edit Profile'}
-                                </Button>
-
-                        }
-                    </Form>
-
-                    {this.props.history.location.pathname === "/checkout" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn btn-dark">Continue to payment</Link>}
+                    {this.state.client.firstName ? <MyDetailsForm loggedUser={this.props.loggedUser} client={this.state.client} disabled={this.state.disableForm}
+                        loadClient={() => this.loadClient()} history={this.props.history} /> : <SpinnerRoll />}
 
                 </>
 

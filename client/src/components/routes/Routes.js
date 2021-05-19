@@ -35,14 +35,14 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
             <Route path="/admin/clients" render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={ClientList} />} />
             <Route path="/admin/suppliers" render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={SupplierList} />} />
 
-            <Route path="/supplier/myarea/:id" exact render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} {...props} component={SupplierProfile}/>} />
-            <Route path="/supplier/myarea/myproductdetails/:id" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} {...props} component={MyProductDetails}/>} />
+            <Route path="/supplier/myarea/:id" exact render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} {...props} component={SupplierProfile} />} />
+            <Route path="/supplier/myarea/myproductdetails/:id" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} {...props} component={MyProductDetails} />} />
             <Route path="/supplier/signup" render={props => <SignupForm updateCurrentUser={updateCurrentUser} history={props.history} loggedUser={loggedUser} handleAlert={handleAlert} />} />
 
             <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
             <Route path="/checkout" render={props => <Checkout history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} />} />
-            <Route path="/confirm" render={() => <PaymentConfirmation updateCartNumber={updateCartNumber}/>} />
-            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber}/>} />
+            <Route path="/confirm" render={() => <PaymentConfirmation updateCartNumber={updateCartNumber} />} />
+            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber} />} />
         </Switch>
     )
 }

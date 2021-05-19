@@ -34,10 +34,10 @@ class LoginForm extends Component {
                 this.props.storeUser(response.data)
 
                 this.props.handleAlert(`Welcome back ${response.data.email}`)
-                
+
                 if ((response.data.role === 'SUPPLIER') && !response.data.client) {
-                    this.props.history.push('/suppliers/signup')
-                } else if (this.props.history.location.pathname !== '/login'){
+                    this.props.history.push('/supplier/signup')
+                } else if (this.props.history.location.pathname !== '/login') {
                     this.props.closeModal()
                     this.props.history.push(this.props.history.location.pathname)
                 } else if ((response.data.role === 'ADMIN') && !response.data.client) {
