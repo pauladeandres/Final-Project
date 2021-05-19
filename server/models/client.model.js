@@ -3,10 +3,12 @@ const Schema = mongoose.Schema
 
 const clientSchema = new Schema({
     firstName: {
-        type: String
+        type: String,
+        required: [true, 'First name required']
     },
     secondName: {
-        type: String
+        type: String,
+        required: [true, 'Family name required']
     },
     company: {
         type: String
@@ -15,19 +17,30 @@ const clientSchema = new Schema({
         type: String
     },
     address: {
-        type: String
+        type: String,
+        required: [true, 'Address required']
     },
     zipcode: {
-        type: Number
+        type: Number,
+        required: [true, 'ZIP code required']
     },
     city: {
-        type: String
+        type: String,
+        required: [true, 'City required']
     },
     country: {
-        type: String
+        type: String,
+        required: [true, 'Country required']
     },
     phone: {
-        type: Number
+        type: Number,
+        required: [true, 'Phone number required'],
+        validate: {
+            validator: function(v) {
+                return /\d{9}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        },
     },
     products: [{
         type: Schema.Types.ObjectId,

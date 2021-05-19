@@ -3,11 +3,13 @@ import ProductsService from './../../../service/products.service'
 import ClientService from './../../../service/client.service'
 import AuthService from 'service/auth.service'
 
-import { Row, Container, Button } from 'react-bootstrap'
+import { Row, Container } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
 import DeleteUser from './DeleteUser'
+
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
+import DeleteUser from './DeleteUser'
 
 class SupplierProfile extends Component {
 

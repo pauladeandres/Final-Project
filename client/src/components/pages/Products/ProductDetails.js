@@ -108,7 +108,6 @@ class ProductDetails extends Component {
 
     render() {
         const product = this.state.order
-        console.log(product)
         const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
         const price = this.state.options?.find(elm => elm.color === this.state.order.color).price || product.price
         const stock = this.state.options?.find(elm => elm.color === this.state.order.color).stock || product.stock
