@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import './MyDetails.css'
-import { Form, Col, Row, Button } from 'react-bootstrap'
+import { Form, Col, Row, Button, Alert } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import ClientService from 'service/client.service'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
@@ -11,7 +11,11 @@ class MyDetailsForm extends Component {
         this.state = {
             client: props.client,
             role: undefined,
-            disableForm: true
+            disableForm: true,
+            alert: {
+                show: false,
+                text: ' '
+            }
         }
         this.clientService = new ClientService()
     }
@@ -25,7 +29,10 @@ class MyDetailsForm extends Component {
                 this.props.loggedUser.role === 'ADMIN' && this.state.client.role === 'CUSTOMER' ? this.refresh() : this.loadClient()
                 this.setState({ disableForm: true })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ alert: { show: true, text: err.response.data.message } })
+                console.log(err.response)
+            })
     }
 
     refresh() {
@@ -47,7 +54,6 @@ class MyDetailsForm extends Component {
             .catch(err => console.log(err))
     }
 
-
     handleInputChange(e) {
         const { name, value } = e.target
         this.setState({ client: { ...this.state.client, [name]: value } })
@@ -57,16 +63,14 @@ class MyDetailsForm extends Component {
         this.loadClient()
     }
 
-
     render() {
-
         return (
-
-            !this.state.client.firstName
+            !this.state.client
                 ?
                 <SpinnerRoll />
                 :
                 <>
+                    <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                     <Form onSubmit={e => this.handleSubmitForm(e)}>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="firstName">
@@ -80,7 +84,7 @@ class MyDetailsForm extends Component {
                             </Form.Group>
                         </Form.Row>
 
-                        {this.props.loggedUser.role != "CUSTOMER" &&
+                        {this.props.loggedUser.role !== "CUSTOMER" &&
                             <Form.Row as={Row}>
                                 <Form.Group as={Col} controlId="company">
                                     <Form.Label sm={8}>Company Name</Form.Label>

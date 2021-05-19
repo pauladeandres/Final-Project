@@ -11,9 +11,6 @@ const Client = require('../models/client.model')
 const mongoose = require('mongoose')
 const { checkMongooseError } = require('./../utils')
 
-// Endpoints
-
-
 // GET ALL CATEGORIES
 router.get('/', (req, res) => {
 
@@ -81,21 +78,8 @@ router.get('/myarea/myproductdetails/:product_id', isLoggedIn, checkRoles('ADMIN
 
 })
 
-// CREATE CLIENT (POST)
-router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, res) => {
-
-    const client = req.body
-
-    Client
-        .create(client)
-        .then(response => res.json(response))
-        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
-})
-
 //DELETE CLIENT
-
 router.delete('/delete/:client_id', (req, res) => {
-    console.log(req.params.client_id)
 
     Client
         .findByIdAndDelete(req.params.client_id)
@@ -117,6 +101,11 @@ router.put('/client/:id', isLoggedIn, (req, res) => {
     const client = req.body
     const client_id = req.params.id
 
+    if (client.firstName.length === 0 || client.secondName.length === 0 || client.address.length === 0 || client.zipcode.length === 0 || client.city.length === 0 || client.country.length === 0 || client.phone.length === 0) {
+        res.status(500).json({ code: 500, message: 'Please fill all the fields' })
+        return 
+    }
+
     Client
         .findByIdAndUpdate(client_id, client, { new: true })
         .then(response => res.json(response))
@@ -124,7 +113,7 @@ router.put('/client/:id', isLoggedIn, (req, res) => {
 })
 
 // CREATE NEW CLIENT (POST)
-router.post('/supplier/new', isLoggedIn, (req, res) => {
+router.post('/new', isLoggedIn, (req, res) => {
 
     const _id = req.session.currentUser._id
 

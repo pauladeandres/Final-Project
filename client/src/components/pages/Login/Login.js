@@ -2,7 +2,6 @@ import { Container, Row, Col } from 'react-bootstrap'
 import LoginForm from './LoginForm'
 
 const Login = ({ storeUser, history, updateCartNumber, handleAlert }) => {
-
     return (
         <Container>
             <Row className="justify-content-center">

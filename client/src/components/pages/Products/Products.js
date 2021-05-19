@@ -126,7 +126,6 @@ class Products extends Component {
                     </Row>
 
                 </Container>
-
         )
     }
 }

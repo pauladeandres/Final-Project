@@ -1,11 +1,8 @@
 import OptionService from '../../../service/option.service'
-
 import trash from './trash.jpg'
-
 import { Button } from 'react-bootstrap'
 
 const OptionCard = ({_id, image, price, stock, color, fetchProduct}) => {
-
     function deleteProductOption(e) {
         const optionService = new OptionService()
         e.preventDefault()
@@ -18,7 +15,7 @@ const OptionCard = ({_id, image, price, stock, color, fetchProduct}) => {
             .catch(err => console.log(err))
     }
 
-        return (           
+        return (   
                 <>
                 <tr >
                     <td className="image-container" >

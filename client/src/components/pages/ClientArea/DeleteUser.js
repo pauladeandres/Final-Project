@@ -25,32 +25,27 @@ const DeleteUser = ({ currentUser, props, storeUser, loggedUser, loadClients }) 
                 props.handleAlert(`Account deleted correctly`)
             })
             .catch(err => console.log('Error deleting user', err))
-        
+
       (loggedUser.role !== 'ADMIN'
         ?
         logOut()
         :
         loadClients)
-      
     }
 
     function logOut () {
-
         authService
             .logout()
             .then(() => storeUser(undefined))
             .catch(err => console.log(err))
-
     }
 
     return (
-
         <>
             <Button onClick={(e) => eliminateAccount(e)} variant="outline-danger" style={{ width: '100%' }}>
                 Delete Account
             </Button>
         </>
-
     )
 }
 

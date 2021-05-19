@@ -88,7 +88,6 @@ class EditProductModal extends Component {
                         </Form>
                     </Modal.Body>
                 </>
-
         )
     }
 }

@@ -38,7 +38,6 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
                          Category: {category === undefined ?<p>Other</p> : category.name}
                      </Card.Text>
                 </Col>
-
                 <Col md={6}>
                     <Card.Text>
                         Options: {options.length}

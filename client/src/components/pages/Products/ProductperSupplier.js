@@ -39,7 +39,6 @@ class ProductPerSupplier extends Component {
                         {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </>
-
         )
     }
 }

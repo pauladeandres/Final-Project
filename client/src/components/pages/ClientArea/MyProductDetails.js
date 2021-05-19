@@ -40,7 +40,6 @@ class MyProductDetails extends Component {
 
 
     render() {
-
         return (
             <Container>
                 {

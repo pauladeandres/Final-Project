@@ -41,7 +41,7 @@ class Cart extends Component {
         return (
             <Container>
                 {
-                    !this.state.products ? <h2>Your cart seems empty. Add a new product</h2> :
+                    !this.state.products ? <h2>Your cart looks empty. You can add a new product</h2> :
 
                         <Row>
                             <h1 className="cart-title">Shopping Cart</h1>
@@ -65,7 +65,6 @@ class Cart extends Component {
             </Container>
         )
     }
-
 }
 
 export default Cart

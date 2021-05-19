@@ -49,9 +49,7 @@ class NewOption extends Component {
             .catch(err => console.log(err))
     }
 
-
     render() {
-
         return (
                 <Container >
                 <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>

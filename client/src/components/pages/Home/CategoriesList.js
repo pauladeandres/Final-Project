@@ -2,7 +2,6 @@ import { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
 import CategoryService from '../../../service/category.service'
 import CategoryCard from './CategoryCard'
-
 import './CategoriesList.css'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
@@ -21,7 +20,6 @@ class CategoriesList extends Component {
     }
 
     loadCategories() {
-
         this.categoriesService
             .getAllCategories()
             .then(response => {

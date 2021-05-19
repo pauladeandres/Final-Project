@@ -41,20 +41,15 @@ class MyDetails extends Component {
     }
 
     render() {
-
         return (
-
             !this.props.loggedUser
                 ?
                 <SpinnerRoll />
                 :
                 <>
-
                     {this.state.client ? <MyDetailsForm loggedUser={this.props.loggedUser} client={this.props.loggedUser.client} disabled={this.state.disableForm}
                         loadClient={() => this.loadClient()} history={this.props.history} /> : <SpinnerRoll />}
-
                 </>
-
         )
     }
 }
