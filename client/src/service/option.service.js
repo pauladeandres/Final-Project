@@ -12,7 +12,7 @@ class OptionService {
     createOption = (product_id, optionDetails) => this.app.post(`/myarea/newoption/${product_id}`, optionDetails)
     getOption = option_id => this.app.get(`/option/${option_id}`)
     deleteOption = option_id => this.app.delete(`/delete/${option_id}`)
-    updateStock = (option_id, stock) => this.app.post(`/update-stock/${option_id}`, stock)
+    updateStock = (option_id, stock) => this.app.put(`/update-stock/${option_id}`, stock)
 
 }
 

@@ -3,7 +3,7 @@ import { Component } from 'react'
 import ProductsService from '../../../service/products.service'
 import OrdersService from '../../../service/order.service'
 import OptionsService from '../../../service/option.service'
-import { Container, Row, Modal, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Modal, Col, Form, Button, Alert } from 'react-bootstrap'
 import LoginForm from '../Login/LoginForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
@@ -19,6 +19,10 @@ class ProductDetails extends Component {
                 product: undefined,
                 color: undefined,
                 quantity: 0,
+            },
+            alert: {
+                show: false,
+                text: ' '
             },
             showModal: false,
             options: undefined,
@@ -47,11 +51,11 @@ class ProductDetails extends Component {
 
             this.orderService
                 .createOrder({ product, quantity, option, customer })
-                .then(response => {
+                .then(() => {
                     this.props.updateCartNumber()
                     this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
                 })
-                .catch(err => console.log(err))
+                .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
             this.updateStock(selectedOption)
         } else if (this.props.loggedUser && this.state.order.quantity > selectedOption.stock) {
             this.props.handleAlert('Not enough items available.')
@@ -129,6 +133,7 @@ class ProductDetails extends Component {
                                 <p className="price-detail">$ {price}</p>
                                 <hr />
 
+                                <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                                 <Form onSubmit={e => this.handleSubmit(e)}>
                                     <Form.Row className="add-cart-bar">
                                         <Col xs={6}>

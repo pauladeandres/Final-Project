@@ -3,7 +3,8 @@ import { Component } from "react"
 import { Container, Modal, Row } from "react-bootstrap"
 import AdminServices from '../../../service/admin.service'
 import ClientCard from "./ClientCard"
-import MyDetailsForm from "./../ClientArea/MyDetailsForm"
+import MyDetailsForm from './../ClientArea/MyDetailsForm'
+import AuthService from "service/auth.service"
 
 
 class ClientList extends Component {
@@ -15,6 +16,7 @@ class ClientList extends Component {
             selectedClient: undefined
         }
         this.adminService = new AdminServices()
+        this.authService = new AuthService()
     }
 
     componentDidMount() {
@@ -31,6 +33,11 @@ class ClientList extends Component {
     onClickEdit(e, user) {
         console.log('click', e, user)
         this.setState({ showModal: true, selectedClient: user })
+    }
+
+    editRole(e) {
+        // this.authService
+        // .updateUser()
     }
 
     render() {
@@ -63,7 +70,7 @@ class ClientList extends Component {
                             {clients
                                 ?
                                 clients.map((elm, index) => {
-                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} {...elm} />
+                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e) => this.editRole(e)} {...elm} />
                                 })
                                 :
                                 <SpinnerRoll />

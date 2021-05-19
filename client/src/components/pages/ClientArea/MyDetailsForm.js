@@ -2,8 +2,9 @@ import { Component } from 'react'
 import './MyDetails.css'
 import { Form, Col, Row, Button } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
-import ClientService from '../../../service/client.service'
-import { Link } from 'react-router-dom'
+import { Component } from 'react'
+import ClientService from 'service/client.service'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 class MyDetailsForm extends Component {
 
@@ -12,6 +13,7 @@ class MyDetailsForm extends Component {
         super(props)
         this.state = {
             client: props.client,
+            role: undefined,
             disableForm: true
         }
         this.clientService = new ClientService()
@@ -23,11 +25,12 @@ class MyDetailsForm extends Component {
         this.clientService
             .editClient(clientId, this.state.client)
             .then(response => {
-                this.props.loggedUser.role === 'ADMIN' ? this.refresh() : this.props.loadClient()
+                this.props.loggedUser.role === 'ADMIN' && this.state.client.role === 'CUSTOMER' ? this.refresh() : this.loadClient()
                 this.setState({ disableForm: true })
             })
             .catch(err => console.log(err))
     }
+
 
     refresh() {
         this.props.closeModal()
@@ -36,7 +39,7 @@ class MyDetailsForm extends Component {
 
     loadClient() {
         this.clientService
-            .getAssignedClient(this.props.loggedUser.client)
+            .getAssignedClient(this.state.client)
             .then(response => {
                 this.setState({ client: response.data })
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
@@ -114,6 +117,15 @@ class MyDetailsForm extends Component {
                                 <Form.Label>Zip</Form.Label>
                                 <Form.Control value={this.state.client.zipcode} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="zipcode" />
                             </Form.Group>
+                            {this.props.loggedUser.role === 'ADMIN' &&
+                                <Form.Group as={Col} controlId="role">
+                                    <Form.Label>Role</Form.Label>
+                                    <Form.Control as="select" value={this.state.client.role} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="role" >
+                                        <option>CUSTOMER</option>
+                                        <option>SUPPLIER</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            }
                         </Form.Row>
                         {
                             this.state.disableForm === false

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const { isLoggedIn, checkRoles } = require('../middlewares/index')
 const Product = require('../models/product.model')
 const User = require('../models/user.model')
 
@@ -25,15 +25,15 @@ router.get('/:product_id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading product', err }))
 })
 
-router.delete('/delete/:product_id', (req, res) => { 
-    //TODO borrar categorias cuando borras productos
+router.delete('/delete/:product_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => { 
+
     Product
         .findByIdAndDelete(req.params.product_id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting product', err }))
 })
 
-router.put('/edit/:product_id', (req, res) => {
+router.put('/edit/:product_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { product_id } = req.params
     const {name, description, category} = req.body
@@ -71,7 +71,7 @@ router.get('/:supplier', (req, res) => {
 })
 
 // ADD A PRODUCT TO FAVORITES
-router.post('/favorite/add', (req, res) => {
+router.put('/favorite/add', isLoggedIn, (req, res) => {
 
     const { product_id } = req.body
 
@@ -82,7 +82,7 @@ router.post('/favorite/add', (req, res) => {
 })
 
 // REMOVE A PRODUCT FROM FAVORITES
-router.post('/favorite/remove/:id', (req, res) => {
+router.put('/favorite/remove/:id', isLoggedIn, (req, res) => {
 
     console.log('product_id:', req.params.id)
 
@@ -94,7 +94,7 @@ router.post('/favorite/remove/:id', (req, res) => {
 })
 
 // GET USER'S FAVORITE PRODUCTS
-router.get('/favorite/myfavorite', (req, res) => {
+router.get('/favorite/myfavorite', isLoggedIn, (req, res) => {
 
     console.log(req.session.currentUser._id)
 

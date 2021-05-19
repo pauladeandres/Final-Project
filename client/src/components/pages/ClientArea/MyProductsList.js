@@ -4,13 +4,15 @@ import MyProductCard from './MyProductsCard'
 import NewProduct from '../NewProduct/NewProduct'
 
 import { Row, Container, Accordion, Card, Button } from 'react-bootstrap'
+import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
 class MyProductList extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            products: undefined
+            products: undefined,
+            currentClient: props.client
         }
         this.productsService = new ProductsService()
     }
@@ -21,10 +23,10 @@ class MyProductList extends Component {
     }
 
     loadProducts() {
-
+        console.log('los props de myproductlist', this.props.client)
         this.productsService
-            .getProductBySupplier(this.props.loggedUser._id)
-            .then(response => { 
+            .getProductBySupplier(this.props.client._id)
+            .then(response => {
                 this.setState({ products: response.data })
                 console.log(this.state.products)
             })
@@ -43,11 +45,11 @@ class MyProductList extends Component {
 
             !products
                 ?
-                <h1>CARGANDO</h1>
+                <SpinnerRoll />
                 :
                 <Container>
                     <Row>
-                        {products.map(elm => <MyProductCard key={elm._id} handleAlert={this.props.handleAlert} {...elm} fetchProducts={() => this.fetchProducts()}/>)}
+                        {products.map(elm => <MyProductCard key={elm._id} handleAlert={this.props.handleAlert} {...elm} fetchProducts={() => this.fetchProducts()} />)}
                     </Row>
                     <Row>
                         <Container>
@@ -57,7 +59,7 @@ class MyProductList extends Component {
                                         <Button variant="dark" style={{ width: '100%' }}>Create Product</Button>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="0">
-                                        <Card.Body><NewProduct handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} fetchProducts={() => this.fetchProducts()}/></Card.Body>
+                                        <Card.Body><NewProduct handleAlert={this.props.handleAlert} client={this.state.currentClient} fetchProducts={() => this.fetchProducts()} /></Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
                             </Accordion>

@@ -99,7 +99,7 @@ class Checkout extends Component {
                             <Col md={8} className="checkout-column">
                                 <h3>Billing address</h3>
                                 {this.props.loggedUser.client ? <MyDetails history={this.props.history} handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} /> : <SignupForm handleAlert={this.props.handleAlert} history={this.props.history} loggedUser={this.props.loggedUser} updateCurrentUser={this.props.updateCurrentUser} />}
-                                <Button variant='dark' onClick={() => this.setState({ showModal: true })} className="payment-btn">Continue to payment</Button>
+                                {this.props.loggedUser.client && <Button variant='dark' onClick={() => this.setState({ showModal: true })} className="payment-btn">Continue to payment</Button>}
                             </Col>
                             <Col md={4} className="total-column">
                                 <div className="checkout-column">
