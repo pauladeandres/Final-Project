@@ -131,4 +131,15 @@ router.post('/new', isLoggedIn, (req, res) => {
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 })
 
+// ADD ORDER TO CLIENT
+router.put('/add-order', isLoggedIn, (req, res) => {
+
+    const {order_id, client_id} = req.body
+
+    Client
+        .findByIdAndUpdate(client_id, { $push: { order: order_id } }, {new: true})
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Could not insert this order', err }))
+})
+
 module.exports = router

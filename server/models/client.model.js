@@ -32,6 +32,10 @@ const clientSchema = new Schema({
         type: String,
         required: [true, 'Country required']
     },
+    order: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Order'
+    }],
     phone: {
         type: Number,
         required: [true, 'Phone number required'],
