@@ -4,7 +4,7 @@ class AdminService {
 
     constructor() {
         this.app = axios.create({
-            baseURL: 'http://localhost:5000/api/admin',
+            baseURL: `${process.env.REACT_APP_BASE_URL}/admin`,
             withCredentials: true
         })
     }

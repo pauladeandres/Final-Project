@@ -28,7 +28,7 @@ class ProductCarousel extends Component {
                 console.log(response)
                 this.setState({ products: response.data })
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Error', err))
     }
     render() {
 

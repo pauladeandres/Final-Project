@@ -67,7 +67,7 @@ class App extends Component {
     this.categoryService
       .getAllCategories()
       .then(response => this.setState({ categoryList: response.data }))
-      .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+      .catch(err => console.log('Error', err))
   }
 
 

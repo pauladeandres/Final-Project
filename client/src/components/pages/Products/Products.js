@@ -6,6 +6,7 @@ import SearchBar from './SearchBar'
 import './Products.css'
 import SpinnerRoll from '../../shared/Spinner/SpinnnerRoll'
 
+
 class Products extends Component {
 
     constructor() {
@@ -28,7 +29,7 @@ class Products extends Component {
                 this.setState({ products: response.data, fullList: response.data })
                 console.log(this.state.fullList)
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Error', err))
     }
 
     filterList(query) {
@@ -62,7 +63,6 @@ class Products extends Component {
                 }
             })
         })
-        // const filteredProducts = productListCopy.filter(product => product.options[0].color.toLowerCase().includes(selectedColor.toLowerCase()))
         console.log(colorArray)
         this.setState({ products: colorArray })
     }

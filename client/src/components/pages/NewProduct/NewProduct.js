@@ -39,7 +39,7 @@ class NewProduct extends Component {
                 console.log(response)
                 this.setState({ categorieOptions: response.data })
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Error', err))
     }
 
     handleInputChange(e) {

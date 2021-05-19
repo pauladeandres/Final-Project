@@ -31,7 +31,7 @@ class MyProductList extends Component {
                 this.setState({ products: response.data })
                 console.log(this.state.products)
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Error', err))
     }
 
     fetchProducts() {

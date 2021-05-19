@@ -30,8 +30,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "NODE_PATH=./src react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_BASE_URL=http://localhost:5000/api react-scripts start",
+    "build": "REACT_APP_BASE_URL=https://home-design-app.herokuapp.com/api react-scripts build",
+    "dev": "DEBUG=express-generator:* nodemon ./bin/www",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
