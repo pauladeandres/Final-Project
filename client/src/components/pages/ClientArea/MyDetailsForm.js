@@ -1,4 +1,4 @@
-
+import { Component } from 'react'
 import './MyDetails.css'
 import { Form, Col, Row, Button } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'

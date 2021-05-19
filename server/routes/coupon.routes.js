@@ -2,9 +2,10 @@ const express = require('express')
 const router = express.Router()
 const Coupon = require('../models/coupon.model')
 const Order = require('../models/order.model')
+const { isLoggedIn, checkRoles } = require('../middlewares/index')
 
 // CREATE A COUPON
-router.post('/new', (req, res) => {
+router.post('/new', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     const { name, value} = req.body
 
@@ -15,7 +16,7 @@ router.post('/new', (req, res) => {
 })
 
 // GET ALL COUPONS
-router.get('/all', (req, res) => {
+router.get('/all', isLoggedIn, (req, res) => {
     Coupon
         .find()
         .then(response => res.json(response))
@@ -24,7 +25,7 @@ router.get('/all', (req, res) => {
 })
 
 // ADD COUPON TO ORDER
-router.put('/add/:id', (req, res) => {
+router.put('/add/:id', isLoggedIn, (req, res) => {
     Order
         .findOneAndUpdate({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false }] }, {coupon: req.params.id})
         .then(response => res.json(response))

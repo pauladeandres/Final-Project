@@ -31,12 +31,10 @@ class SignupForm extends Component {
         e.preventDefault()
         this.clientService
             .createUser(this.state)
-            .then(() => {
-                this.props.loggedUser.role === 'CUSTOMER' ? this.props.history.push('/payment') : this.props.history.push('/')
-            })
+            .then( () => this.props.updateCurrentUser())
             .catch(err => console.log(err))
-        this.props.updateCurrentUser()
         this.props.handleAlert(`Your datas have been saved ${this.state.firstName}`)
+        this.props.loggedUser.role === 'SUPPLIER' ? this.props.history.push(`/`) : this.props.history.push(this.props.history.location.pathname)
     }
 
     render() {

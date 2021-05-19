@@ -12,7 +12,8 @@ const orderSchema = new Schema({
             ref: 'Product'
         },
         quantity: {
-            type: Number
+            type: Number,
+            min: [1, 'Please select a minimum of 1 item'],
         },
         option: {
             type: Schema.Types.ObjectId,

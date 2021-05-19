@@ -39,10 +39,10 @@ const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber,
             <Route path="/supplier/myarea/myproductdetails/:id" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} {...props} component={MyProductDetails} />} />
             <Route path="/supplier/signup" render={props => <SignupForm updateCurrentUser={updateCurrentUser} history={props.history} loggedUser={loggedUser} handleAlert={handleAlert} />} />
 
-            <Route path="/cart" render={() => <Cart updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
-            <Route path="/checkout" render={props => <Checkout history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} />} />
-            <Route path="/confirm" render={() => <PaymentConfirmation updateCartNumber={updateCartNumber} />} />
-            <Route page="/customer-area" render={props => <CustomerArea loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber} />} />
+            <Route path="/cart" render={() => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} loggedUser={loggedUser} updateCartNumber={updateCartNumber} handleAlert={handleAlert} component={Cart} />} />
+            <Route path="/checkout" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} component={Checkout} />} />
+            <Route path="/confirm" render={() => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} loggedUser={loggedUser} updateCartNumber={updateCartNumber} component={PaymentConfirmation} />} />
+            <Route page="/customer-area" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber} component={CustomerArea} />} />
         </Switch>
     )
 }

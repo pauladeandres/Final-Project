@@ -93,7 +93,7 @@ router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
 })
 
 // GETTING CLIENT DETAILS
-router.get('/clientdetails/:id', (req, res) => {
+router.get('/clientdetails/:id', isLoggedIn, (req, res) => {
 
     const client_id = req.params.id
     console.log(client_id)
@@ -105,7 +105,7 @@ router.get('/clientdetails/:id', (req, res) => {
 })
 
 // UPDATING CLIENT DETAILS
-router.put('/client/:id', (req, res) => {
+router.put('/client/:id', isLoggedIn, (req, res) => {
     const client = req.body
     const client_id = req.params.id
 
@@ -117,9 +117,8 @@ router.put('/client/:id', (req, res) => {
 
 // CREATE NEW CLIENT (POST)
 router.post('/supplier/new', isLoggedIn, (req, res) => {
-    const _id = req.session.currentUser._id
 
-    console.log(_id)
+    const _id = req.session.currentUser._id
 
     const { firstName, secondName, company, address, zipcode, city, country, phone } = req.body
 
@@ -134,18 +133,5 @@ router.post('/supplier/new', isLoggedIn, (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
 })
-
-// ELIMINAR!?
-// PARA CREAR CATEGORIAS DESDE POSTMAN
-// router.post('/products/createcategory', (req, res) => {
-
-//     const { name } = req.body
-
-//     Category
-//         .create({ name })
-//         .then(response => res.json(response))
-//         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
-
-// })
 
 module.exports = router

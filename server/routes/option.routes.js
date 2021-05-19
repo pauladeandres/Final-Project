@@ -1,10 +1,8 @@
 const express = require('express')
 const router = express.Router()
-
+const { isLoggedIn, checkRoles } = require('../middlewares/index')
 const Product = require('../models/product.model')
 const Option = require('../models/option.model')
-
-const { isLoggedIn, checkRoles } = require('../middlewares/index')
 const mongoose = require('mongoose')
 const { checkMongooseError } = require('./../utils')
 const { findByIdAndUpdate } = require('../models/product.model')
@@ -19,7 +17,7 @@ router.get('/option/:option_id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading products', err }))
 })
 
-router.delete('/delete/:option_id', (req, res) => {
+router.delete('/delete/:option_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
     const option_id = req.params.option_id
 
     Option
@@ -44,7 +42,7 @@ router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SU
         })
 })
 
-router.post('/update-stock/:id', isLoggedIn, (req, res) => {
+router.put('/update-stock/:id', isLoggedIn, (req, res) => {
 
     Option
         .findByIdAndUpdate(req.params.id, req.body, { new: true })
