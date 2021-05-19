@@ -116,7 +116,6 @@ router.get('/clientdetails/:id', isLoggedIn, (req, res) => {
 router.put('/client/:id', isLoggedIn, (req, res) => {
     const client = req.body
     const client_id = req.params.id
-
     Client
         .findByIdAndUpdate(client_id, client, { new: true })
         .then(response => res.json(response))

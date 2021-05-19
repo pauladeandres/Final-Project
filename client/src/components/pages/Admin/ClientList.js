@@ -55,9 +55,8 @@ class ClientList extends Component {
                 <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
                     <Modal.Header> <Modal.Title>Edit user</Modal.Title> </Modal.Header>
                     <Modal.Body>
-                        {console.log('this is the state', this.state.selectedClient)}
                         <MyDetailsForm client={this.state.selectedClient} loggedUser={this.props.loggedUser}
-                            closeModal={() => this.setState({ showModal: false })} refreshClients={() => this.loadClients()} />
+                            closeModal={() => this.setState({ showModal: false })} refreshClients={() => this.loadClients()} role={'CUSTOMER'} />
                     </Modal.Body>
                 </Modal>
                 <Row>
@@ -76,7 +75,7 @@ class ClientList extends Component {
                             {clients
                                 ?
                                 clients.map((elm, index) => {
-                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} loadClients={() => this.loadClients()}/>
+                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} loadClients={() => this.loadClients()} />
                                 })
                                 :
                                 <SpinnerRoll />

@@ -4,12 +4,12 @@ class CouponService {
 
     constructor() {
         this.app = axios.create({
-            baseURL: 'http://localhost:5000/api/coupon',
+            baseURL: `${process.env.REACT_APP_BASE_URL}/coupon`,
             withCredentials: true
         })
     }
 
-    getAllCoupons= () => this.app.get('/all')
+    getAllCoupons = () => this.app.get('/all')
     addCoupon = couponId => this.app.put(`/add/${couponId}`)
 }
 

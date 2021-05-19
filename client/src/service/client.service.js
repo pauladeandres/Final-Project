@@ -4,7 +4,7 @@ class ClientService {
 
     constructor() {
         this.app = axios.create({
-            baseURL: 'http://localhost:5000/api/client',
+            baseURL: `${process.env.REACT_APP_BASE_URL}/client`,
             withCredentials: true
         })
     }
