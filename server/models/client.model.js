@@ -37,7 +37,7 @@ const clientSchema = new Schema({
         required: [true, 'Phone number required'],
         validate: {
             validator: function(v) {
-                return /\d{9}/.test(v);
+                return /^\d{0,9}$/.test(v);
             },
             message: props => `${props.value} is not a valid phone number!`
         },
