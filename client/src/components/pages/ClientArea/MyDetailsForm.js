@@ -26,7 +26,7 @@ class MyDetailsForm extends Component {
         this.clientService
             .editClient(clientId, this.state.client)
             .then(response => {
-                this.props.loggedUser.role === 'ADMIN' && this.state.client.role === 'CUSTOMER' ? this.refresh() : this.loadClient()
+                (this.props.loggedUser.role === 'ADMIN' && this.state.role === 'CUSTOMER') ? this.refresh() : this.loadClient()
                 this.setState({ disableForm: true })
             })
             .catch(err => {
@@ -41,7 +41,7 @@ class MyDetailsForm extends Component {
     }
 
     setClient() {
-        this.setState({client: this.props.client})
+        this.setState({ client: this.props.client })
     }
 
     loadClient() {
@@ -123,15 +123,6 @@ class MyDetailsForm extends Component {
                                 <Form.Label>Zip</Form.Label>
                                 <Form.Control value={this.state.client.zipcode} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="zipcode" />
                             </Form.Group>
-                            {this.props.loggedUser.role === 'ADMIN' &&
-                                <Form.Group as={Col} controlId="role">
-                                    <Form.Label>Role</Form.Label>
-                                    <Form.Control as="select" value={this.state.client.role} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="role" >
-                                        <option>CUSTOMER</option>
-                                        <option>SUPPLIER</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            }
                         </Form.Row>
                         {
                             this.state.disableForm === false
@@ -140,7 +131,7 @@ class MyDetailsForm extends Component {
 
                                     <Button className="edit-save-btn" variant="dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
                                         Save Changes
-                    </Button>
+                                    </Button>
                                 </Form.Row>
                                 :
 

@@ -75,7 +75,6 @@ class Dashboard extends Component {
 
 
     render() {
-        console.log(this.state.clients)
         return (
             !this.state.orders ? <SpinnerRoll /> :
                 <div className="main-dashboard" >
@@ -133,7 +132,7 @@ class Dashboard extends Component {
                                             <Col md="8" xs="7">
                                                 <div className="numbers text-right">
                                                     <p className="card-category  board-item">Suppliers</p>
-                                                    <p className="board-number">{this.state.clients.customers ? this.state.clients.suppliers.length : <SpinnerRoll />}</p>
+                                                    <p className="board-number">{this.state.clients.suppliers ? this.state.clients.suppliers.length : <SpinnerRoll />}</p>
                                                     <p />
                                                 </div>
                                             </Col>

@@ -8,7 +8,7 @@ class StripeService {
         })
     }
 
-    createPayment= (total, orderId) => this.app.post('/create-payment-intent', {total, orderId})
+    createPayment = (total, orderId) => this.app.post('/create-payment-intent', { total, orderId })
 }
 
 export default StripeService
