@@ -14,6 +14,8 @@ class AuthService {
     logout = () => this.app.get('/logout')
     isloggedin = () => this.app.post('/isloggedin')
     updateUser = () => this.app.get('/client/update')
+    deleteUser = user_id => this.app.delete(`/delete/${user_id}`)
+    
 }
 
 export default AuthService

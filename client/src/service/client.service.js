@@ -13,7 +13,7 @@ class ClientService {
     editClient = (client_id, clientDetails) => this.app.put(`/client/${client_id}`, clientDetails)
     getAssignedClient = client_id => this.app.get(`/clientdetails/${client_id}`)
     createUser = clientDetails => this.app.post('/supplier/new', clientDetails)
-
+    deleteClient = client_id => this.app.delete(`/delete/${client_id}`)
 }
 
 export default ClientService

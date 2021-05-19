@@ -75,7 +75,7 @@ class App extends Component {
   render() {
 
     return (
-      this.state.loggedUser === null ? <SpinnerRoll /> : (
+      (
         <>
           <Navigation handleAlert={alertText => this.handleAlert(alertText)}
             storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} />

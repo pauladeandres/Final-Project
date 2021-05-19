@@ -1,22 +1,26 @@
 import { Component } from 'react'
 
 import ProductsService from './../../../service/products.service'
-import UserService from './../../../service/user.service'
+import ClientService from './../../../service/client.service'
+import AuthService from 'service/auth.service'
 
-
-import { Row, Container } from 'react-bootstrap'
+import { Row, Container, Button } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
 import MyDetails from './MyDetails'
+import DeleteUser from './DeleteUser'
+
 
 class SupplierProfile extends Component {
 
     constructor() {
         super()
         this.state = {
-            openForm: false
+            openForm: false,
+            currentUser: undefined
         }
         this.productsService = new ProductsService()
-        this.userService = new UserService()
+        this.clientService = new ClientService()
+        this.authService = new AuthService()
     }
 
     componentDidMount() {
@@ -25,12 +29,30 @@ class SupplierProfile extends Component {
 
     loadUser() {
 
-        this.userService
-            .getOneSupplier(this.props.loggedUser._id)
+        this.clientService
+            .getOneSupplier(this.props.match.params.id)
             .then(response => {
-                this.props.storeUser( response.data )
+                console.log(response)
+                this.setState({currentUser: response.data})
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Error loading User', err))
+    }
+
+    eliminateAccount(e) {
+
+        e.preventDefault()
+
+        this.clientService
+            .deleteClient(this.state.currentUser.client._id)
+            .then(response => console.log(response))
+            .catch(err=> console.log('Error deleting client', err))
+        
+        this.authService
+            .deleteUser(this.state.currentUser._id)
+            .then(response => {
+                this.props.handleAlert(`Account deleted correctly`)
+            })
+            .catch(err => console.log('Error deleting user', err))
     }
 
     render() {
@@ -47,6 +69,9 @@ class SupplierProfile extends Component {
                 <Row>
                     <h1>My products</h1>
                     <MyProductList handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser}/>
+                </Row>
+                <Row>
+                    <DeleteUser currentUser={this.state.currentUser}/>
                 </Row>
                 
             </Container>

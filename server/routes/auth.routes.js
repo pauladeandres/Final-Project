@@ -44,6 +44,17 @@ router.post('/signup', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })
 
+//DELETE USER
+
+router.delete('/delete/:user_id', (req, res) => {
+    console.log(req.params.user_id)
+
+    User
+        .findByIdAndDelete(req.params.user_id)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({ code: 400, message: 'Error eliminating user', err }))
+})
+
 // LOG IN (POST)
 router.post('/login', (req, res) => {
 

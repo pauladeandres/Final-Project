@@ -52,7 +52,7 @@ class MyDetails extends Component {
                 :
                 <>
 
-                    {this.state.client.firstName ? <MyDetailsForm loggedUser={this.props.loggedUser} client={this.state.client} disabled={this.state.disableForm}
+                    {this.state.client ? <MyDetailsForm loggedUser={this.props.loggedUser} client={this.state.client} disabled={this.state.disableForm}
                         loadClient={() => this.loadClient()} history={this.props.history} /> : <SpinnerRoll />}
 
                 </>

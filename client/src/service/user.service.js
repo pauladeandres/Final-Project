@@ -8,8 +8,6 @@ class UserService {
             withCredentials: true
         })
     }
-
-    getOneSupplier= supplier_id => this.app.get(`/supplier/myarea/${supplier_id}`)
     
 }
 

@@ -92,6 +92,17 @@ router.post('/client/new', isLoggedIn, checkRoles('ADMIN', 'CUSTOMER'), (req, re
         .catch(err => res.status(500).json({ code: 500, message: 'Error saving client', err }))
 })
 
+//DELETE CLIENT
+
+router.delete('/delete/:client_id', (req, res) => {
+    console.log(req.params.client_id)
+
+    Client
+        .findByIdAndDelete(req.params.client_id)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({ code: 400, message: 'Error eliminating client', err }))
+})
+
 // GETTING CLIENT DETAILS
 router.get('/clientdetails/:id', (req, res) => {
 
