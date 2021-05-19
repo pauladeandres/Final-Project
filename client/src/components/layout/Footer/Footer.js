@@ -7,7 +7,6 @@ const Footer = () => {
         <footer>
             <Container className="footer-container">
                 <Row>
-
                     <Col>
                         <h4>Email Us</h4>
                     </Col>
@@ -19,17 +18,15 @@ const Footer = () => {
                     <Col>
                         <h4>Chat</h4>
                     </Col>
-
                 </Row>
                 <hr/>
                 <Row>
                     <Col>
                         <h6>Social</h6>
                         <div className="socialIcons">
-                            <img src={instagram}/>
+                            <img src={instagram} alt="Instagram"/>
                         </div>
                     </Col>
-
                     <Col className="ourBrands">
                         <h6>Our brands</h6>
                         <p>FRAMA</p>
@@ -40,7 +37,6 @@ const Footer = () => {
                         <p>Blu Dot</p>
                         <p>Umbra</p>
                     </Col>
-
                     <Col>
                         <h6>From Monday to Friday</h6>
                         <h6>8:30h to 20:00h</h6>

@@ -1,6 +1,5 @@
 import { Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
 import './CategoryCard.css'
 
 const CategoryCard = ({image, name,  _id}) =>  {
@@ -23,6 +22,5 @@ const CategoryCard = ({image, name,  _id}) =>  {
                 </>
         )
     }
-
 
 export default CategoryCard

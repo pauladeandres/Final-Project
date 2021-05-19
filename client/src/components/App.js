@@ -6,16 +6,14 @@ import Routes from './routes/Routes'
 import AuthService from '../service/auth.service'
 import Alert from './shared/Alert/Alert'
 import OrdersService from '../service/order.service'
-import SpinnerRoll from './shared/Spinner/SpinnnerRoll'
 import CategoryService from '../service/category.service'
 import Sidebar from './layout/Sidebar/Sidebar'
 import Footer from './layout/Footer/Footer'
 
 class App extends Component {
 
-  constructor() {
-    super()
-
+  constructor(props) {
+    super(props)
     this.state = {
       loggedUser: null,
       showAlert: false,
@@ -27,6 +25,7 @@ class App extends Component {
     this.orderNumber = new OrdersService()
     this.categoryService = new CategoryService()
   }
+
 
   handleAlert(alertText, showAlert = true) {
     this.setState({ showAlert, alertText })
@@ -67,18 +66,15 @@ class App extends Component {
     this.categoryService
       .getAllCategories()
       .then(response => this.setState({ categoryList: response.data }))
-      .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+      .catch(err => console.log('Error:', err))
   }
 
-
-
   render() {
-
     return (
       (
         <>
           <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} />
+            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} history={this.props.history} />
 
           <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
 

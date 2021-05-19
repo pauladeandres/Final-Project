@@ -28,12 +28,11 @@ class SupplierList extends Component {
 
     render() {
         const { suppliers } = this.state
-        console.log(this.props.loggedUser)
         return (!this.props.loggedUser || this.props.loggedUser.role !== 'ADMIN') ? <Redirect to="/" /> :
             (
                 <Container>
                     <Row>
-                        < table class="table">
+                        <table class="table">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
@@ -53,9 +52,8 @@ class SupplierList extends Component {
                                 }
                             </tbody>
                         </table>
-
                     </Row>
-                </Container >)
+                </Container>)
     }
 }
 

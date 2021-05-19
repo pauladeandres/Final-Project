@@ -1,3 +1,4 @@
+import './SupplierProfile.css'
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
 import ClientService from './../../../service/client.service'
@@ -8,6 +9,7 @@ import MyProductList from './MyProductsList'
 
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
+import DeleteUser from './DeleteUser'
 
 class SupplierProfile extends Component {
 
@@ -27,7 +29,6 @@ class SupplierProfile extends Component {
     }
 
     loadUser() {
-
         this.clientService
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
@@ -38,9 +39,7 @@ class SupplierProfile extends Component {
     }
 
     eliminateAccount(e) {
-
         e.preventDefault()
-
         this.clientService
             .deleteClient(this.state.currentUser.client._id)
             .then(response => console.log(response))
@@ -56,24 +55,21 @@ class SupplierProfile extends Component {
 
     render() {
         return (
-
             !this.state.currentUser ? <SpinnerRoll /> :
-
                 <Container>
                     <h1>My Area</h1>
-                    <Row>
+                    <Row className="suppliers-columns">
+                        <h3>My details</h3>
                         <MyDetailsForm handleAlert={this.props.handleAlert} client={this.state.currentUser.client} loggedUser={this.props.loggedUser} history={this.props.history} />
                     </Row>
-                    <Row>
-                        <h1>My products</h1>
+                    <Row className="suppliers-columns">
+                        <h3>My products</h3>
                         <MyProductList handleAlert={this.props.handleAlert} client={this.state.currentUser.client} />
                     </Row>
-                    <Row>
-                        {console.log(this.props)}
+                    <Row className="suppliers-columns">
                         <DeleteUser loggedUser={this.props.loggedUser} storeUser={this.props.storeUser} currentUser={this.state.currentUser} props={this.props} />
                     </Row>
-                </Container >
-
+                </Container>
         )
     }
 }

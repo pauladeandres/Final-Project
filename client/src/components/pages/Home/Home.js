@@ -4,7 +4,6 @@ import homeImage from './HomeCover.webp'
 import './Home.css'
 
 const Home = () => {
-
     return (
         <>
         <Container>

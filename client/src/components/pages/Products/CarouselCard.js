@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import './CarouselCard.css'
 
 const CategoryCard = ({name,  _id, options}) =>  {
-
         return (
                 <>
                 <Link to={`/category/${_id}`}>
@@ -21,6 +20,5 @@ const CategoryCard = ({name,  _id, options}) =>  {
                 </>
         )
     }
-
 
 export default CategoryCard

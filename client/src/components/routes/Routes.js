@@ -19,7 +19,7 @@ import CustomerArea from '../pages/ClientArea/CustomerArea'
 import PaymentConfirmation from '../pages/Payment/PaymentConfirmation'
 import { isAccepted } from '../../utils/index'
 
-const Routes = ({ storeUser, loggedUser, history, handleAlert, updateCartNumber, updateCurrentUser, categoryList }) => {
+const Routes = ({ storeUser, loggedUser, handleAlert, updateCartNumber, updateCurrentUser, categoryList }) => {
     return (
         <Switch>
             <Route path="/" exact render={() => <Home />} />

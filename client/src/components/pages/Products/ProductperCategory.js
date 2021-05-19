@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
 import ProductCard from './ProductCard'
-
 import { Row, Container } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
@@ -34,15 +33,12 @@ class ProductPerCategory extends Component {
                 console.log(response)
                 this.setState({ products: response.data })
             })
-            .catch(err => console.log('TENEMOS UN PROBLEMA', err))
+            .catch(err => console.log('Err:', err))
     }
 
     render() {
-
         const { products } = this.state
-
         return (
-
             !products
                 ?
                 <SpinnerRoll />
@@ -63,7 +59,6 @@ class ProductPerCategory extends Component {
                         {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </Container>
-
         )
     }
 }

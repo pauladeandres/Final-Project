@@ -44,7 +44,6 @@ class MyProductDetails extends Component {
 
 
     render() {
-
         return (
             <Container>
 
@@ -106,7 +105,7 @@ class MyProductDetails extends Component {
                                                 <Card.Body><NewOption product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()} /></Card.Body>
                                             </Accordion.Collapse>
                                         </Card>
-                                    </Accordion >
+                                    </Accordion>
                                 </Col>
                             </Row>
                         </>

@@ -68,7 +68,7 @@ class SignupForm extends Component {
                             </Form.Group>
                         </Col>
                     </Row>
-                    {this.props.loggedUser.role != "CUSTOMER" && <Row>
+                    {this.props.loggedUser.role !== "CUSTOMER" && <Row>
                         <Col>
                             <Form.Group controlId="company">
                                 <Form.Label>Company</Form.Label>

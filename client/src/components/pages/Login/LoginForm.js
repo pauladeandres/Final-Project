@@ -30,11 +30,8 @@ class LoginForm extends Component {
         this.authService
             .login(this.state)
             .then(response => {
-
                 this.props.storeUser(response.data)
-
                 this.props.handleAlert(`Welcome back ${response.data.email}`)
-
                 if ((response.data.role === 'SUPPLIER') && !response.data.client) {
                     this.props.history.push('/supplier/signup')
                 } else if (this.props.history.location.pathname !== '/login') {
@@ -54,7 +51,6 @@ class LoginForm extends Component {
 
     render() {
         return (
-
             <>
                 <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                 <Form onSubmit={e => this.handleSubmit(e)}>
@@ -71,9 +67,7 @@ class LoginForm extends Component {
 
                     <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Iniciar sesión</Button>
                 </Form>
-
                 <hr />
-
                 <Link to="/signup">Not an account yet? Sign up</Link>
             </>
         )

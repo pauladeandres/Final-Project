@@ -26,7 +26,6 @@ class Products extends Component {
             .getAllProducts()
             .then(response => {
                 this.setState({ products: response.data, fullList: response.data })
-                console.log(this.state.fullList)
             })
             .catch(err => console.log('TENEMOS UN PROBLEMA', err))
     }
@@ -129,7 +128,6 @@ class Products extends Component {
                     </Row>
 
                 </Container>
-
         )
     }
 }

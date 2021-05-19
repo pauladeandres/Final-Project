@@ -1,11 +1,7 @@
 import './MyProductsCard.css'
-
 import ProductsService from '../../../service/products.service'
-
 import nophoto from './nophoto.png'
-
 import { Card, Col, Row, Button } from 'react-bootstrap'
-
 import { Link } from 'react-router-dom'
 
 const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
@@ -43,7 +39,6 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
                          Category: {category === undefined ?<p>Other</p> : category.name}
                      </Card.Text>
                 </Col>
-
                 <Col md={6}>
                     <Card.Text>
                         Options: {options.length}

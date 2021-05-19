@@ -7,8 +7,6 @@ router.post('/create-payment-intent', isLoggedIn, async (req, res) => {
 
     const {total, orderId} = req.body
 
-    // console.log(orderId)
-
     const paymentIntent = await stripe.paymentIntents.create({
     amount: total*100,
     currency: "usd",
