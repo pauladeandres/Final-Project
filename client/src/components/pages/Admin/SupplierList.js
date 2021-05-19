@@ -47,7 +47,7 @@ class SupplierList extends Component {
                             <tbody>
                                 {suppliers
                                     ?
-                                    suppliers.map((elm, index) => <ClientCard key={elm._id} number={index} {...elm} />)
+                                    suppliers.map((elm, index) => <ClientCard key={elm._id} number={index} {...elm} loadClients={()=>this.loadClients()}/>)
                                     :
                                     <SpinnerRoll />
                                 }

@@ -5,7 +5,6 @@ import AuthService from 'service/auth.service'
 
 import { Row, Container } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
-import DeleteUser from './DeleteUser'
 
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import MyDetailsForm from './MyDetailsForm'
@@ -34,6 +33,7 @@ class SupplierProfile extends Component {
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
+                console.log(this.props.loggedUser)
             })
             .catch(err => console.log('Error loading User', err))
     }
@@ -71,7 +71,7 @@ class SupplierProfile extends Component {
                     </Row>
                     <Row>
                         {console.log(this.props)}
-                        <DeleteUser storeUser={this.props.storeUser} currentUser={this.state.currentUser} props={this.props} />
+                        <DeleteUser loggedUser={this.props.loggedUser} storeUser={this.props.storeUser} currentUser={this.state.currentUser} props={this.props} />
                     </Row>
                 </Container >
 
