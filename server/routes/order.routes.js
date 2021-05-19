@@ -50,8 +50,8 @@ router.get('/customer/paid', isLoggedIn, (req, res) => {
 router.put('/remove/:id', isLoggedIn, (req, res) => {
 
     Order
-        .findOneAndUpdate({ 'customer': req.session.currentUser._id }, { $pull: { products: { '_id': req.params.id } } })
-        .then(response => res.json(response))
+        .findOneAndUpdate({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false }] }, { $pull: { products: { '_id': req.params.id } } }, {new: true})
+        .then(response => console.log(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any order', err }))
 })
 
