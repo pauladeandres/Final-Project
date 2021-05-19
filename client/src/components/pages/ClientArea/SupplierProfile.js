@@ -1,22 +1,12 @@
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
-<<<<<<< HEAD
-import ClientService from './../../../service/client.service'
-import AuthService from 'service/auth.service'
-
-import { Row, Container, Button } from 'react-bootstrap'
-import MyProductList from './MyProductsList'
-import MyDetails from './MyDetails'
-import DeleteUser from './DeleteUser'
-
-=======
 import { Row, Container } from 'react-bootstrap'
 import MyProductList from './MyProductsList'
 import MyDetails from './MyDetails'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import ClientService from 'service/client.service'
 import MyDetailsForm from './MyDetailsForm'
->>>>>>> ec50031b13ccebd4f2c63da22f5d0b77355c2aab
+import DeleteUser from './DeleteUser'
 
 class SupplierProfile extends Component {
 
@@ -28,10 +18,6 @@ class SupplierProfile extends Component {
         }
         this.productsService = new ProductsService()
         this.clientService = new ClientService()
-<<<<<<< HEAD
-        this.authService = new AuthService()
-=======
->>>>>>> ec50031b13ccebd4f2c63da22f5d0b77355c2aab
     }
 
     componentDidMount() {
@@ -43,7 +29,7 @@ class SupplierProfile extends Component {
         this.clientService
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
-                this.setState({ currentUser: response.data.client })
+                this.setState({ currentUser: response.data })
             })
             .catch(err => console.log('Error loading User', err))
     }
@@ -72,38 +58,17 @@ class SupplierProfile extends Component {
 
                 <Container>
                     <h1>My Area</h1>
-
                     <Row>
-                        <MyDetailsForm handleAlert={this.props.handleAlert} client={this.state.currentUser} loggedUser={this.props.loggedUser} history={this.props.history} />
+                        <MyDetailsForm handleAlert={this.props.handleAlert} client={this.state.currentUser.client} loggedUser={this.props.loggedUser} history={this.props.history} />
                     </Row>
-
                     <Row>
                         <h1>My products</h1>
-                        <MyProductList handleAlert={this.props.handleAlert} client={this.state.currentUser} />
+                        <MyProductList handleAlert={this.props.handleAlert} client={this.state.currentUser.client} />
                     </Row>
-
-<<<<<<< HEAD
-        return  (
-
-            <Container>
-                <h1>My Area</h1>
-                
-                <Row>
-                    <MyDetails handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser} history={this.props.history}/>
-                </Row>
-        
-                <Row>
-                    <h1>My products</h1>
-                    <MyProductList handleAlert={this.props.handleAlert} loggedUser={this.props.loggedUser}/>
-                </Row>
-                <Row>
-                    <DeleteUser currentUser={this.state.currentUser}/>
-                </Row>
-                
-            </Container>
-=======
+                    <Row>
+                        <DeleteUser currentUser={this.state.currentUser} />
+                    </Row>
                 </Container>
->>>>>>> ec50031b13ccebd4f2c63da22f5d0b77355c2aab
 
         )
     }
