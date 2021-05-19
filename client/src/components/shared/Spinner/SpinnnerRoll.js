@@ -1,7 +1,6 @@
 import { Container, Row } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 
-
 const SpinnerRoll = () => {
     return (
         <Container>

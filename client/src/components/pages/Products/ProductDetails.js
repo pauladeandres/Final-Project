@@ -105,7 +105,6 @@ class ProductDetails extends Component {
         this.importOptions()
     }
 
-
     render() {
         const product = this.state.order
         const img = this.state.options?.find(elm => elm.color === this.state.order.color).image || product.image
@@ -124,7 +123,7 @@ class ProductDetails extends Component {
                             <Col md={6} className="product-details">
 
                                 {this.state.favorite ? <span className="favorite-btn btn btn-light">Added to favorites <FontAwesomeIcon icon={faHeart} /></span> : <Form onSubmit={e => this.handleFavorite(e, this.state.order.product._id)}><Button className="favorite-btn" variant="dark" type="submit">Add to favorites <FontAwesomeIcon icon={faHeart} /></Button></Form>}
-                                <h1>{product.product.name}</h1>
+                                <Col md={6} className="title-column"><h1>{product.product.name}</h1></Col>
                                 <h3>Information</h3>
                                 <p>{product.product.description}</p>
                                 <p><b>Category:</b> {product.product.category.name}</p>
@@ -169,11 +168,8 @@ class ProductDetails extends Component {
                             <h3>OTHER PRODUCTS YOU MIGHT LIKE</h3>
                             <ProductCarousel category={product.product.category._id}/>
                         </Row>
-                    </>
-                        
-                }
-               
-                
+                    </>      
+                }        
             </Container>
         )
     }

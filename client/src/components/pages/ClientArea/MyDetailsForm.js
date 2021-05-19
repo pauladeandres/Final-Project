@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import './MyDetails.css'
-import { Form, Col, Row, Button } from 'react-bootstrap'
+import { Form, Col, Row, Button, Alert } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import ClientService from 'service/client.service'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
@@ -8,11 +8,14 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 class MyDetailsForm extends Component {
     constructor(props) {
         super(props)
-        console.log('las props son:', props.client)
         this.state = {
             client: props.client,
             role: undefined,
-            disableForm: true
+            disableForm: true,
+            alert: {
+                show: false,
+                text: ' '
+            }
         }
         this.clientService = new ClientService()
     }
@@ -23,10 +26,13 @@ class MyDetailsForm extends Component {
         this.clientService
             .editClient(clientId, this.state.client)
             .then(response => {
-                this.props.loggedUser.role === 'ADMIN' && this.state.client.role === 'CUSTOMER' ? this.refresh() : this.loadClient()
+                (this.props.loggedUser.role === 'ADMIN' && this.state.role === 'CUSTOMER') ? this.refresh() : this.loadClient()
                 this.setState({ disableForm: true })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({ alert: { show: true, text: err.response.data.message } })
+                console.log(err.response)
+            })
     }
 
     refresh() {
@@ -35,20 +41,18 @@ class MyDetailsForm extends Component {
     }
 
     setClient() {
-        this.setState({client: this.props.client})
+        this.setState({ client: this.props.client })
     }
 
     loadClient() {
         this.clientService
             .getAssignedClient(this.state.client)
             .then(response => {
-                console.log(response.data)
                 this.setState({ client: response.data })
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
             .catch(err => console.log(err))
     }
-
 
     handleInputChange(e) {
         const { name, value } = e.target
@@ -59,19 +63,15 @@ class MyDetailsForm extends Component {
         this.loadClient()
     }
 
-
     render() {
-
         return (
-
-            !this.state.client.firstName
+            !this.state.client
                 ?
                 <SpinnerRoll />
                 :
                 <>
+                    <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                     <Form onSubmit={e => this.handleSubmitForm(e)}>
-                        {console.log(this.state.client)}
-
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="firstName">
                                 <Form.Label sm={6}>First Name</Form.Label>
@@ -84,7 +84,7 @@ class MyDetailsForm extends Component {
                             </Form.Group>
                         </Form.Row>
 
-                        {this.props.loggedUser.role != "CUSTOMER" &&
+                        {this.props.loggedUser.role !== "CUSTOMER" &&
                             <Form.Row as={Row}>
                                 <Form.Group as={Col} controlId="company">
                                     <Form.Label sm={8}>Company Name</Form.Label>
@@ -123,15 +123,6 @@ class MyDetailsForm extends Component {
                                 <Form.Label>Zip</Form.Label>
                                 <Form.Control value={this.state.client.zipcode} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="zipcode" />
                             </Form.Group>
-                            {this.props.loggedUser.role === 'ADMIN' &&
-                                <Form.Group as={Col} controlId="role">
-                                    <Form.Label>Role</Form.Label>
-                                    <Form.Control as="select" value={this.state.client.role} disabled={this.state.disableForm} onChange={e => this.handleInputChange(e)} name="role" >
-                                        <option>CUSTOMER</option>
-                                        <option>SUPPLIER</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            }
                         </Form.Row>
                         {
                             this.state.disableForm === false
@@ -140,7 +131,7 @@ class MyDetailsForm extends Component {
 
                                     <Button className="edit-save-btn" variant="dark" type="submit" onClick={() => this.setState({ disableForm: false })}>
                                         Save Changes
-                    </Button>
+                                    </Button>
                                 </Form.Row>
                                 :
 
@@ -150,11 +141,8 @@ class MyDetailsForm extends Component {
 
                         }
                     </Form>
-
                     {this.props.loggedUser === 'CUSTOMER' && this.props.history.location.pathname === "/checkout" && <Link to="/payment" className="btn btn-primary btn-lg btn-block payment-btn btn-dark">Continue to payment</Link>}
-
                 </>
-
         )
     }
 }

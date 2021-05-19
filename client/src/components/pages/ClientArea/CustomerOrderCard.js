@@ -30,9 +30,7 @@ class CustomerOrderCard extends Component {
     }
 
     render() {
-
         const date = this.props.updatedAt.replace(/T.*/, '').split('-').reverse().join('-')
-
         return (
             <section>
                 <div className="order-header">

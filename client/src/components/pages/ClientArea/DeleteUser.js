@@ -9,7 +9,7 @@ const DeleteUser = ({ currentUser }) => {
     const authService = new AuthService()
  
     function eliminateAccount(e) {
-        console.log(currentUser)
+        
         e.preventDefault()
 
         if(currentUser.client){
@@ -36,13 +36,11 @@ const DeleteUser = ({ currentUser }) => {
     }
 
     return (
-
         <>
             <Button onClick={(e) => eliminateAccount(e)} variant="outline-danger" style={{ width: '100%' }}>
                 Delete Account
             </Button>
         </>
-
     )
 }
 

@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
 import ProductCard from './ProductCard'
-
 import { Row, Container } from 'react-bootstrap'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 
@@ -17,11 +16,9 @@ class ProductPerCategory extends Component {
 
     componentDidMount() {
         this.loadProducts()
-        console.log(this.props.match.params.id)
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps)
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.loadProducts()
         }
@@ -34,15 +31,16 @@ class ProductPerCategory extends Component {
                 console.log(response)
                 this.setState({ products: response.data })
             })
+<<<<<<< HEAD
             .catch(err => console.log('Error', err))
+=======
+            .catch(err => console.log('Err:', err))
+>>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
     }
 
     render() {
-
         const { products } = this.state
-
         return (
-
             !products
                 ?
                 <SpinnerRoll />
@@ -63,7 +61,6 @@ class ProductPerCategory extends Component {
                         {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </Container>
-
         )
     }
 }

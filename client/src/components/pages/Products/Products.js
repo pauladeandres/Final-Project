@@ -27,7 +27,6 @@ class Products extends Component {
             .getAllProducts()
             .then(response => {
                 this.setState({ products: response.data, fullList: response.data })
-                console.log(this.state.fullList)
             })
             .catch(err => console.log('Error', err))
     }
@@ -63,7 +62,10 @@ class Products extends Component {
                 }
             })
         })
+<<<<<<< HEAD
         console.log(colorArray)
+=======
+>>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
         this.setState({ products: colorArray })
     }
 
@@ -129,7 +131,6 @@ class Products extends Component {
                     </Row>
 
                 </Container>
-
         )
     }
 }

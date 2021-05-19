@@ -1,5 +1,4 @@
 import { Component } from 'react'
-
 import { Button, FormControl } from 'react-bootstrap'
 
 import './SearchBar.css'
@@ -27,7 +26,6 @@ class SearchBar extends Component {
     render() {
         return (
             <div className="searchBar">
-                 {console.log(this.props)}
                 <FormControl type="text" onChange={(e) => this.handleInputChange(e)} value={this.state.keyword} placeholder="Search" className="mr-sm-2" />
                 <Button type="submit" variant="outline-dark">Search</Button>
             </div>

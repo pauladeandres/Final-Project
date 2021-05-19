@@ -12,7 +12,7 @@ class ClientService {
     getOneSupplier = supplier_id => this.app.get(`/myarea/${supplier_id}`)
     editClient = (client_id, clientDetails) => this.app.put(`/client/${client_id}`, clientDetails)
     getAssignedClient = client_id => this.app.get(`/clientdetails/${client_id}`)
-    createUser = clientDetails => this.app.post('/supplier/new', clientDetails)
+    createUser = clientDetails => this.app.post('/new', clientDetails)
     deleteClient = client_id => this.app.delete(`/delete/${client_id}`)
 }
 

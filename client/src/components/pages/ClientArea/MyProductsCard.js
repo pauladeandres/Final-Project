@@ -3,11 +3,8 @@ import './MyProductsCard.css'
 import OptionService from '../../../service/option.service'
 
 import ProductsService from '../../../service/products.service'
-
 import nophoto from './nophoto.png'
-
 import { Card, Col, Row, Button } from 'react-bootstrap'
-
 import { Link } from 'react-router-dom'
 
 const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
@@ -17,7 +14,7 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
         const optionService = new OptionService()
 
         e.preventDefault()
-
+        console.log(currentUser)
         options.map(option => {
         optionService
             .deleteOption(option._id)
@@ -30,14 +27,13 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
 
         productService
             .deleteProduct(_id)
-            .then(response => {
+            .then(() => {
                 fetchProducts()
             })
             .catch(err => console.log(err))
     }
 
     return (
-        
         <Card border="dark" className="supplier-list" style={{ width: '16rem' }}>
             <Row as={Row} style={{height: '450px'}}>
                 <Card.Header>{name}</Card.Header>
@@ -57,7 +53,6 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
                          Category: {category === undefined ?<p>Other</p> : category.name}
                      </Card.Text>
                 </Col>
-
                 <Col md={6}>
                     <Card.Text>
                         Options: {options.length}

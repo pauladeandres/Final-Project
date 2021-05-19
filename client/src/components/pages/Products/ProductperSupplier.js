@@ -28,11 +28,8 @@ class ProductPerSupplier extends Component {
     }
 
     render() {
-
         const { products } = this.state
-
         return (
-
             !products
                 ?
                 <SpinnerRoll />
@@ -42,7 +39,6 @@ class ProductPerSupplier extends Component {
                         {products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </>
-
         )
     }
 }

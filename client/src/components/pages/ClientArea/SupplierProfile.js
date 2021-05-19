@@ -1,3 +1,4 @@
+import './SupplierProfile.css'
 import { Component } from 'react'
 import ProductsService from './../../../service/products.service'
 import ClientService from './../../../service/client.service'
@@ -28,20 +29,17 @@ class SupplierProfile extends Component {
     }
 
     loadUser() {
-
         this.clientService
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
-                console.log(this.state.currentUser)
+                console.log(this.state.currentUserconsole.log(currentUser))
             })
             .catch(err => console.log('Error loading User', err))
     }
 
     eliminateAccount(e) {
-
         e.preventDefault()
-
         this.clientService
             .deleteClient(this.state.currentUser.client._id)
             .then(response => console.log(response))
@@ -57,24 +55,22 @@ class SupplierProfile extends Component {
 
     render() {
         return (
-
             !this.state.currentUser ? <SpinnerRoll /> :
-
                 <Container>
                     <h1>My Area</h1>
-                    <Row>
+                    <Row className="suppliers-columns">
+                        <h3>My details</h3>
                         <MyDetailsForm handleAlert={this.props.handleAlert} client={this.state.currentUser.client} loggedUser={this.props.loggedUser} history={this.props.history} />
                     </Row>
-                    <Row>
-                        <h1>My products</h1>
+                    <Row className="suppliers-columns">
+                        <h3>My products</h3>
                         <MyProductList handleAlert={this.props.handleAlert} client={this.state.currentUser.client} />
                     </Row>
                     <Row>
                         {console.log(this.props)}
                         <DeleteUser currentUser={this.state.currentUser}/>
                     </Row>
-                </Container >
-
+                </Container>
         )
     }
 }

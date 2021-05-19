@@ -9,7 +9,7 @@ class CouponService {
         })
     }
 
-    getAllCoupons= () => this.app.get('/all')
+    getAllCoupons = () => this.app.get('/all')
     addCoupon = couponId => this.app.put(`/add/${couponId}`)
 }
 

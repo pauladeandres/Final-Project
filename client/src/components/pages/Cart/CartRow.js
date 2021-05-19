@@ -26,7 +26,10 @@ class CartRow extends Component {
         e.preventDefault()
         this.orderService
             .deleteProduct(id)
-            .then(() => this.props.fetchProducts())
+            .then(response => {
+                console.log(response)
+                this.props.fetchProducts()
+            })
             .catch(err => console.log(err))
         this.updateStock()
         this.props.handleAlert(`${this.state.products.product.name} was removed from your Cart`)
@@ -51,7 +54,6 @@ class CartRow extends Component {
         const currentStock = this.props.option.stock
         const newStock = currentStock + this.state.quantity
         const optionId = this.props.option._id
-        console.log('currentStock:', currentStock, 'newStock:', newStock, 'optionId:', optionId)
         this.optionService
             .updateStock(optionId, { stock: newStock })
             .then(response => console.log(response))
@@ -63,7 +65,7 @@ class CartRow extends Component {
             if (!this.state.products) { <SpinnerRoll /> } else {
 
                 const product = this.state.products
-                const totalPrice = product.quantity * product.option.price
+                const totalPrice = this.state.quantity * product.option.price
                 const link = `/product/${product.product._id}`
 
                 return (
@@ -94,7 +96,6 @@ class CartRow extends Component {
                     </div>
             )
         }
-        
     }
 }
 

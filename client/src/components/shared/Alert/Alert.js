@@ -20,5 +20,4 @@ const Alert = ({ handleAlert, show, text }) => {
     )
 }
 
-
 export default Alert

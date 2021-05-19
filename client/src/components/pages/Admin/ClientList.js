@@ -36,9 +36,7 @@ class ClientList extends Component {
     }
 
     editRole(e, id) {
-        console.log({ e, id })
         const userDetails = { role: e, id }
-        console.log(userDetails)
 
         this.authService
             .updateRole(userDetails)
@@ -47,17 +45,14 @@ class ClientList extends Component {
     }
 
     render() {
-        console.log(this.props.loggedUser)
         const { clients } = this.state
-        console.log(clients)
         return (
             <Container>
                 <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
                     <Modal.Header> <Modal.Title>Edit user</Modal.Title> </Modal.Header>
                     <Modal.Body>
-                        {console.log('this is the state', this.state.selectedClient)}
                         <MyDetailsForm client={this.state.selectedClient} loggedUser={this.props.loggedUser}
-                            closeModal={() => this.setState({ showModal: false })} refreshClients={() => this.loadClients()} />
+                            closeModal={() => this.setState({ showModal: false })} refreshClients={() => this.loadClients()} role={'CUSTOMER'} />
                     </Modal.Body>
                 </Modal>
                 <Row>

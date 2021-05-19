@@ -36,7 +36,7 @@ class PaymentConfirmation extends Component {
             <p><b>Your order reference is: {this.state.lastOrder && this.state.lastOrder}</b></p>
             <Link to="/customer-area" className="btn btn-dark">Go to my user area</Link>
         </Container>
-    )
+        )
     }
 }
 

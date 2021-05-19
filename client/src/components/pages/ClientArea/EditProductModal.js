@@ -1,4 +1,4 @@
-import './EditProductModal.css'
+console.log(currentUser)import './EditProductModal.css'
 import { Component } from 'react'
 
 import { Row, Modal, Col, Form, Button } from 'react-bootstrap'
@@ -28,11 +28,9 @@ class EditProductModal extends Component {
     }
 
     loadCategories() {
-        console.log(this.state.product)
         this.categoriesService
             .getAllCategories()
             .then(response => {
-                console.log(response)
                 this.setState({ categoryOptions: response.data })
             })
             .catch(err => console.log('Error', err))
@@ -49,7 +47,6 @@ class EditProductModal extends Component {
         this.productService
             .editProduct(this.props.product._id, this.state.product)
             .then(response => {
-                console.log(response)
                 this.props.closeModal()
                 this.props.fetchProduct()
             })
@@ -91,7 +88,6 @@ class EditProductModal extends Component {
                         </Form>
                     </Modal.Body>
                 </>
-
         )
     }
 }

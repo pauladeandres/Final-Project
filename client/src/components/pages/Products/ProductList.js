@@ -12,9 +12,7 @@ class ProductList extends Component {
     }
 
     render() {
-
         return (
-
             !this.props.products
                 ?
                 <SpinnerRoll />
@@ -24,7 +22,6 @@ class ProductList extends Component {
                         {this.props.products.map(elm => <ProductCard key={elm._id} {...elm} />)}
                     </Row>
                 </>
-
         )
     }
 }

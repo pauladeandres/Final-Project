@@ -8,7 +8,6 @@ class NewProduct extends Component {
 
     constructor(props) {
         super(props)
-        console.log('new product', this.props)
         this.state = {
             product: {
                 supplier: props.client._id,
@@ -32,14 +31,16 @@ class NewProduct extends Component {
     }
 
     loadCategories() {
-
         this.categoriesService
             .getAllCategories()
             .then(response => {
-                console.log(response)
                 this.setState({ categorieOptions: response.data })
             })
+<<<<<<< HEAD
             .catch(err => console.log('Error', err))
+=======
+            .catch(err => console.log('Err:', err))
+>>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
     }
 
     handleInputChange(e) {
@@ -48,9 +49,7 @@ class NewProduct extends Component {
     }
 
     handleSubmit(e) {
-
         e.preventDefault()
-
         this.productService
             .createProduct(this.state.product, this.props.client._id)
             .then(response => {
@@ -69,9 +68,7 @@ class NewProduct extends Component {
     }
 
     render() {
-
         return (
-
             !this.state.categorieOptions
                 ?
                 <SpinnerRoll />

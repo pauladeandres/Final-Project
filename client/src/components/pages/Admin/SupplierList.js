@@ -4,6 +4,7 @@ import { Container, Row } from "react-bootstrap"
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min"
 import AdminServices from '../../../service/admin.service'
 import ClientCard from "./ClientCard"
+import AuthService from "service/auth.service"
 
 
 class SupplierList extends Component {
@@ -13,6 +14,7 @@ class SupplierList extends Component {
             suppliers: undefined
         }
         this.adminService = new AdminServices()
+        this.authService = new AuthService()
     }
 
     componentDidMount() {
@@ -26,14 +28,22 @@ class SupplierList extends Component {
             .catch(err => console.log(err))
     }
 
+    editRole(e, id) {
+        const userDetails = { role: e, id }
+        console.log('los userDetails para el authservice:', userDetails)
+        this.authService
+            .updateRole(userDetails)
+            .then(response => this.loadClients())
+            .catch(err => console.log('error no lo coge'))
+    }
+
     render() {
         const { suppliers } = this.state
-        console.log(this.props.loggedUser)
         return (!this.props.loggedUser || this.props.loggedUser.role !== 'ADMIN') ? <Redirect to="/" /> :
             (
                 <Container>
                     <Row>
-                        < table class="table">
+                        <table class="table">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
@@ -47,15 +57,15 @@ class SupplierList extends Component {
                             <tbody>
                                 {suppliers
                                     ?
-                                    suppliers.map((elm, index) => <ClientCard key={elm._id} {...elm} number={index} loadClients={()=>this.loadClients()} loggedUser={this.props.loggedUser}/>)
+                                    suppliers.map((elm, index) => <ClientCard key={elm._id} number={index}
+                                        loadClients={() => this.loadClients()} refreshClients={() => this.loadClients()} editRole={(e, id) => this.editRole(e, id)} {...elm} />)
                                     :
                                     <SpinnerRoll />
                                 }
                             </tbody>
                         </table>
-
                     </Row>
-                </Container >)
+                </Container>)
     }
 }
 

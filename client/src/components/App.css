@@ -24,3 +24,7 @@ a {
     color: red;
     font-weight: 600;
 }
+
+button {
+    margin-bottom: 1rem;
+}
