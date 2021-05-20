@@ -1,4 +1,5 @@
 import { Container, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './Footer.css'
 import instagram from './instagram.png'
 
@@ -8,7 +9,7 @@ const Footer = () => {
             <Container className="footer-container">
                 <Row>
                     <Col>
-                        <h4>Email Us</h4>
+                        <Link to={'/contact'}><h4>Email Us</h4></Link>
                     </Col>
 
                     <Col>
@@ -19,12 +20,12 @@ const Footer = () => {
                         <h4>Chat</h4>
                     </Col>
                 </Row>
-                <hr/>
+                <hr />
                 <Row>
                     <Col>
                         <h6>Social</h6>
                         <div className="socialIcons">
-                            <img src={instagram} alt="Instagram"/>
+                            <img src={instagram} alt="Instagram" />
                         </div>
                     </Col>
                     <Col className="ourBrands">
