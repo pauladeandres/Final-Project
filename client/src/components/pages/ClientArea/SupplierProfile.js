@@ -33,10 +33,6 @@ class SupplierProfile extends Component {
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
-<<<<<<< HEAD
-                console.log(this.state.currentUser)
-=======
->>>>>>> 3a73d0a3f0fbfd3d7afcaa6102fd7fd9440da191
             })
             .catch(err => console.log('Error loading User', err))
     }
@@ -70,7 +66,6 @@ class SupplierProfile extends Component {
                         <MyProductList handleAlert={this.props.handleAlert} client={this.state.currentUser.client} />
                     </Row>
                     <Row>
-                        {console.log(this.props)}
                         <DeleteUser storeUser={this.props.storeUser} loggedUser={this.props.loggedUser} currentUser={this.state.currentUser}/>
                     </Row>
                 </Container>

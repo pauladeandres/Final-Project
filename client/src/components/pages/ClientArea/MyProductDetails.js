@@ -29,7 +29,6 @@ class MyProductDetails extends Component {
             .getMyProductDetails(product_id)
             .then(response => {
                 this.setState({ product: response.data })
-                console.log(response)
             })
             .catch(err => console.log(err))
     }

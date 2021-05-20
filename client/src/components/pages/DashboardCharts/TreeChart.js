@@ -2,7 +2,6 @@ import { ResponsiveTreeMap } from '@nivo/treemap'
 
 
 const TreeChart = ({ data }) => {
-    console.log(data)
     return (
         <ResponsiveTreeMap
             data={data}
@@ -15,7 +14,6 @@ const TreeChart = ({ data }) => {
             parentLabelTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
             borderColor={{ from: 'color', modifiers: [['darker', 0.1]] }}
             colors={{ scheme: 'yellow_green' }}
-
         />
     )
 }

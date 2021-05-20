@@ -22,12 +22,10 @@ class MyProductList extends Component {
     }
 
     loadProducts() {
-        console.log(this.props)
         this.productsService
             .getProductBySupplier(this.props.client._id)
             .then(response => {
                 this.setState({ products: response.data })
-                console.log(this.state.products)
             })
             .catch(err => console.log('Error', err))
     }

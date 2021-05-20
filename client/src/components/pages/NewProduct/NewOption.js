@@ -38,6 +38,7 @@ class NewOption extends Component {
                 this.props.handleAlert(`A new option has been created`)
             })
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+        this.emptyForm()
     }
 
     handleFileUpload(e) {
@@ -48,6 +49,10 @@ class NewOption extends Component {
             .uploadimage(uploadData)
             .then(response => this.setState({ isUploading: false, option: { ...this.state.option, image: response.data.secure_url } }))
             .catch(err => console.log(err))
+    }
+
+    emptyForm() {
+        this.setState({ price:' ' , color: ' ', stock: ' ' , image: ' ' })
     }
 
     render() {

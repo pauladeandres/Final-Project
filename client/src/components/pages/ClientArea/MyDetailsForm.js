@@ -31,14 +31,11 @@ class MyDetailsForm extends Component {
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
             .catch(err => {
-                console.log(err)
                 this.setState({ alert: { show: true, text: err.response.data.message } })
-                console.log(err.response)
             })
     }
 
     refresh() {
-        console.log('refresca?')
         this.props.closeModal()
         this.props.refreshClients()
     }
