@@ -54,8 +54,7 @@ router.get('/myarea/myproducts/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'S
 
     Product
         .find({ supplier: supplier_id })
-        .populate('supplier category')
-        .populate('options')
+        .populate('supplier category options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 
@@ -68,9 +67,7 @@ router.get('/myarea/myproductdetails/:product_id', isLoggedIn, checkRoles('ADMIN
 
     Product
         .findById(product_id)
-        .populate('supplier')
-        .populate('options')
-        .populate('category')
+        .populate('supplier options category')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading product', err }))
 
@@ -122,8 +119,8 @@ router.post('/new', isLoggedIn, (req, res) => {
         .then(response => {
             User
                 .findByIdAndUpdate(_id, { client: response._id }, { new: true })
-                .then(user => res.json(user))
-                .catch(err => res.json(err))
+                .then(response => res.json(response))
+                .catch(err => res.status(500).json({ code: 500, message: 'Could not find any user', err }))
         })
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))

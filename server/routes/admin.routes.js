@@ -123,8 +123,7 @@ function getProductCategories() {
             const manyProducts = categories.map(cat =>
                 Product
                     .find({ category: cat._id })
-                    .populate('options')
-                    .populate('category')
+                    .populate('options category')
             )
             return Promise.all(manyProducts)
         }

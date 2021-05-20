@@ -21,10 +21,31 @@ a {
 }
 
 .red-text {
-    color: red;
+    color: #dc3545;
     font-weight: 600;
 }
 
 button {
     margin-bottom: 1rem;
+}
+
+.dropdown-menu {
+    background-color: #f8f9fa;
+    border: 0;
+}
+
+.dropdown-item {
+    font-weight: 300;
+}
+
+.form-control {
+    border: 0px solid #212529;
+    background-color: #eeeeee;
+    border-radius: 0rem;
+}
+
+.form-control:disabled,
+.form-control:read-only {
+    background-color: #fff;
+    border-bottom: 1px solid #212529;
 }
