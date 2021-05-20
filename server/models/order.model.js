@@ -28,15 +28,15 @@ const orderSchema = new Schema({
         default: false
     },
     coupon: {
-            type: Schema.Types.ObjectId,
-            ref: 'Coupon'
+        type: Schema.Types.ObjectId,
+        ref: 'Coupon'
     }
 }, {
     timestamps: true
 })
 
 orderSchema.statics.populateOrder = function () {
-    return this.find().populate('products.product').populate('products.option')
+    return this.find().populate('products.product').populate('products.option').populate('customer')
 }
 
 const Order = mongoose.model("Order", orderSchema)

@@ -66,7 +66,8 @@ function getOrders() {
     return Order
         .populateOrder()
         .then(response => {
-            let dataArray = response.map(elm => {
+            let dataArray = response.map((elm, ind) => {
+                const arrayName = elm.customer && elm.customer !== null ? elm.customer.email : ind
                 let coords = elm.products.map(products => {
                     let name = products.product ? products.product.name : "N/A"
                     let color = products.option.color ? products.option.color : 'N/A'
@@ -77,7 +78,7 @@ function getOrders() {
                     }
                 }
                 )
-                return coords
+                return { id: arrayName, data: coords }
             }
             )
             return dataArray
@@ -85,9 +86,9 @@ function getOrders() {
         .then(dataArray => {
             return (dataArray.map((elm, index) => (
                 {
-                    "id": index,
+                    "id": elm.id,
                     "color": "hsl(239, 70%, 50%)",
-                    'data': elm
+                    'data': elm.data
                 })
             ))
         }
