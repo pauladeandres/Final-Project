@@ -5,6 +5,7 @@ import OptionService from '../../../service/option.service'
 import ProductsService from '../../../service/products.service'
 
 const DeleteUser = ({ ...props }) => {
+    
     const clientService = new ClientService()
     const productService = new ProductsService()
     const optionService = new OptionService()
@@ -14,10 +15,10 @@ const DeleteUser = ({ ...props }) => {
         
         e.preventDefault()
 
-        if(props.currentUser.client?.options) {
-            props.currentUser.client.options.forEach(option => {
+        if(props.currentUser.client?.products.options?.length) {
+            props.currentUser.client.products.options.forEach(option => {
                 optionService
-                    .deleteOption(option._id)
+                    .deleteOption(option)
                     .then(response => {
                         console.log(response)             
                     })
@@ -25,11 +26,12 @@ const DeleteUser = ({ ...props }) => {
             })
            }
 
-         if(props.currentUser.products?.length) {
-         props.currentUser.products.forEach(product =>{  
+         if(props.currentUser.client?.products?.length) {
+         props.currentUser.client.products.forEach(product =>{  
             productService
-                .deleteProduct(product._id)
-                .then(() => {
+                .deleteProduct(product)
+                .then(response => {
+                    console.log('product', response)
                     this.props.fetchProducts()
                 })
                 .catch(err => console.log(err))
@@ -47,7 +49,7 @@ const DeleteUser = ({ ...props }) => {
             .deleteUser(props.currentUser._id)
             .then(response => {
                 props.loggedUser.role === 'ADMIN' ?  props.loadClients() : logOut()
-                console.log('user',response)
+                console.log('user', response)
                 })
             .catch(err => console.log('Error deleting user', err))
         

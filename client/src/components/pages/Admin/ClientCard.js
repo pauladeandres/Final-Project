@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import DeleteUser from './../ClientArea/DeleteUser'
 
 const ClientCard = ({ number, edit, editRole, loadClients, loggedUser, ...props }) => {
-    console.log('card props', props)
+    
     const userId = props._id
     return (
         <>

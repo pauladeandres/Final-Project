@@ -1,3 +1,10 @@
+
+input:focus, textarea:focus {
+    outline: black !important;
+    box-shadow: none !important;
+    border: 1px solid black !important;
+}
+
 footer {
     left: 0px;
     right:0;
@@ -21,6 +28,24 @@ footer .col {
 
 .ourBrands > p {
     margin-bottom: 0px;
+}
+
+.footer-sections{
+    text-decoration: none !important;
+    color:rgb(124, 116, 106);
+}
+
+.footer-sections :hover{
+    text-decoration: none;
+    color: black;
+}
+
+.footer-sections>img {
+    color: white;
+}
+
+.footer-sections>img:hover {
+    filter: brightness(0.5);
 }
 
 

@@ -7,7 +7,7 @@ const User = require('../models/user.model')
 const Category = require('./../models/category.model')
 const Option = require('./../models/option.model')
 const Client = require('../models/client.model')
-
+const nodemailer = require("nodemailer");
 const mongoose = require('mongoose')
 const { checkMongooseError } = require('./../utils')
 
@@ -24,14 +24,12 @@ router.get('/', (req, res) => {
 router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
     const supplier_id = req.params.supplier_id
     const { supplier, name, description, category } = req.body
-    console.log({ supplier, name, description, category })
 
     Product
         .create({ supplier, name, description, category })
         .then(product => Client.findByIdAndUpdate(supplier_id, { $push: { products: product._id } }))
         .then(newProd => res.json(newProd))
         .catch(err => {
-            console.log(checkMongooseError(err))
             res.status(400).json({ code: 400, message: checkMongooseError(err) })
         })
 })
@@ -40,7 +38,7 @@ router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'),
 router.get('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
 
     const { supplier_id } = req.params
-    console.log(supplier_id)
+
     User
         .findById(supplier_id)
         .populate('client')
@@ -56,7 +54,8 @@ router.get('/myarea/myproducts/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'S
 
     Product
         .find({ supplier: supplier_id })
-        .populate('supplier category options')
+        .populate('supplier category')
+        .populate('options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 
@@ -102,7 +101,7 @@ router.put('/client/:id', isLoggedIn, (req, res) => {
 
     if (client.firstName.length === 0 || client.secondName.length === 0 || client.address.length === 0 || client.zipcode.length === 0 || client.city.length === 0 || client.country.length === 0 || client.phone.length === 0) {
         res.status(500).json({ code: 500, message: 'Please fill all the fields' })
-        return 
+        return
     }
 
     Client
@@ -123,8 +122,8 @@ router.post('/new', isLoggedIn, (req, res) => {
         .then(response => {
             User
                 .findByIdAndUpdate(_id, { client: response._id }, { new: true })
-                .then(user => console.log(user))
-                .catch(err => console.log(err))
+                .then(user => res.json(user))
+                .catch(err => res.json(err))
         })
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
@@ -133,12 +132,37 @@ router.post('/new', isLoggedIn, (req, res) => {
 // ADD ORDER TO CLIENT
 router.put('/add-order', isLoggedIn, (req, res) => {
 
-    const {order_id, client_id} = req.body
+    const { order_id, client_id } = req.body
 
     Client
-        .findByIdAndUpdate(client_id, { $push: { order: order_id } }, {new: true})
+        .findByIdAndUpdate(client_id, { $push: { order: order_id } }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not insert this order', err }))
 })
+
+router.post('/contact', (req, res) => {
+    console.log('aqui andamos', req.body)
+    const { email, subject, text } = req.body
+    myEmail = 'homefurnitureapp@gmail.com'
+
+    let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'homefurnitureapp@gmail.com',
+            pass: 'Popino2021'
+        }
+    })
+
+    transporter.sendMail({
+        from: `"Client fed up" <${email}>`,
+        to: myEmail,
+        subject: subject,
+        text: text,
+        html: `<b>${text}</b>`
+    })
+        .then(info => res.json(info))
+        .catch(error => console.log(error));
+})
+
 
 module.exports = router

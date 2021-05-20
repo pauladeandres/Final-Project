@@ -35,7 +35,7 @@ class CategoriesList extends Component {
                 <SpinnerRoll />
                 :
                 <Carousel fade className="carousel">
-                    {this.state.categoryOptions.map(elm => <Carousel.Item><CategoryCard key={elm._id} {...elm} /></Carousel.Item>)}
+                    {this.state.categoryOptions.map(elm => <Carousel.Item key={elm._id}><CategoryCard key={elm._id} {...elm} /></Carousel.Item>)}
                 </Carousel>
         )
     }

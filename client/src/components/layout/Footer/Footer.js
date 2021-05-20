@@ -9,7 +9,7 @@ const Footer = () => {
             <Container className="footer-container">
                 <Row>
                     <Col>
-                        <Link to={'/contact'}><h4>Email Us</h4></Link>
+                        <Link to={'/contact'} className={'footer-sections'}><h4>Email Us</h4></Link>
                     </Col>
 
                     <Col>
@@ -24,11 +24,11 @@ const Footer = () => {
                 <Row>
                     <Col>
                         <h6>Social</h6>
-                        <div className="socialIcons">
-                            <img src={instagram} alt="Instagram" />
+                        <div class="socialIcons footer-sections">
+                            <img src={instagram} alt="Instagram" class="socialIcons footer-sections" />
                         </div>
                     </Col>
-                    <Col className="ourBrands">
+                    <Col className="ourBrands footer-sections">
                         <h6>Our brands</h6>
                         <p>FRAMA</p>
                         <p>PINCH</p>

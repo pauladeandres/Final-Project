@@ -31,7 +31,7 @@ class ClientList extends Component {
     }
 
     onClickEdit(e, user) {
-        console.log('click', e, user)
+        
         this.setState({ showModal: true, selectedClient: user })
     }
 
@@ -56,8 +56,8 @@ class ClientList extends Component {
                     </Modal.Body>
                 </Modal>
                 <Row>
-                    <table class="table">
-                        <thead class="thead-light">
+                    <table className="table">
+                        <thead className="thead-light">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Email</th>

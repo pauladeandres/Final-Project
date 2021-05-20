@@ -89,7 +89,6 @@ router.get('/client/details', (req, res) => {
 
 router.put('/client/update', (req, res) => {
     const { role, id } = req.body
-    console.log(role, id)
 
     User
         .findByIdAndUpdate(id, { role })
@@ -100,7 +99,6 @@ router.put('/client/update', (req, res) => {
 //DELETE USER
 
 router.delete('/delete/:user_id', (req, res) => {
-    console.log(req.params.user_id)
 
     User
         .findByIdAndDelete(req.params.user_id)
