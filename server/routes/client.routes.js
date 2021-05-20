@@ -123,7 +123,7 @@ router.post('/new', isLoggedIn, (req, res) => {
             User
                 .findByIdAndUpdate(_id, { client: response._id }, { new: true })
                 .then(user => res.json(user))
-                .catch(err => res.json(err))
+                .catch(err => res.status(500).json({ code: 500, message: 'Could not create client', err }))
         })
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))

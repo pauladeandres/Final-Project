@@ -8,5 +8,17 @@
 
 .img-container img{
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
+}
+
+.product-card > .card {
+    border: none;
+    margin-top: 15px;
+    padding: 10px 10px;
+}
+
+.product-caption > .card-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0px;
 }

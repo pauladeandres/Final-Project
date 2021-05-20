@@ -1,6 +1,7 @@
 .carousel {
     height: 400px;
     display: flex;
+    padding-bottom: 50px;
 }
 
 .carousel-fade .carousel-item-next.carousel-item-start, .carousel-fade .carousel-item-prev.carousel-item-end, .carousel-fade .carousel-item.active {
