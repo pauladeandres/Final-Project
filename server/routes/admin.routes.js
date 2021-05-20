@@ -15,7 +15,6 @@ router.get('/suppliers', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
     User
         .find({ role: 'SUPPLIER' })
         .then(response => {
-            console.log(response)
             res.json(response)
         })
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching suppliers', err }))
@@ -54,7 +53,7 @@ router.get('/data', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     Promise.all([productPromise, ordersPromise, categoryPromise, pyramidPromise])
         .then(response => {
-            console.log(response)
+            console.log('promise response:', response)
             return res.json({
                 products: response[0], orders: response[1],
                 categories: response[2], orderPyramid: response[3]
@@ -68,14 +67,20 @@ function getOrders() {
     return Order
         .populateOrder()
         .then(response => {
-            let dataArray = response.map(elm => elm.products.map(products => {
-                let name = products.product.name + " " + products.option.color
-                console.log(name)
-                return {
-                    x: name,
-                    y: products.quantity
+            let dataArray = response.map(elm => {
+                let coords = elm.products.map(products => {
+                    let name = products.product ? products.product.name : "N/A"
+                    let color = products.option.color ? products.option.color : 'N/A'
+                    let nameColor = name + " " + color
+                    return {
+                        x: nameColor,
+                        y: !products.quantity ? 0 : products.quantity
+                    }
                 }
-            }))
+                )
+                return coords
+            }
+            )
             return dataArray
         })
         .then(dataArray => {

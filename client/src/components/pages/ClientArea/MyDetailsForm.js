@@ -26,7 +26,7 @@ class MyDetailsForm extends Component {
         this.clientService
             .editClient(clientId, this.state.client)
             .then(response => {
-                (this.props.loggedUser.role === 'ADMIN' && this.state.role === 'CUSTOMER') ? this.refresh() : this.loadClient()
+                (this.props.loggedUser.role === 'ADMIN' && this.props.role === 'CUSTOMER') ? this.refresh() : this.loadClient()
                 this.setState({ disableForm: true })
             })
             .catch(err => {
@@ -36,6 +36,7 @@ class MyDetailsForm extends Component {
     }
 
     refresh() {
+        console.log('refresca?')
         this.props.closeModal()
         this.props.refreshClients()
     }
@@ -46,7 +47,7 @@ class MyDetailsForm extends Component {
 
     loadClient() {
         this.clientService
-            .getAssignedClient(this.state.client)
+            .getAssignedClient(this.props.client)
             .then(response => {
                 this.setState({ client: response.data })
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
