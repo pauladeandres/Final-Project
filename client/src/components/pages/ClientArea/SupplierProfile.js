@@ -33,7 +33,7 @@ class SupplierProfile extends Component {
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
-                console.log(this.state.currentUserconsole.log(currentUser))
+                console.log(this.state.currentUser)
             })
             .catch(err => console.log('Error loading User', err))
     }
@@ -60,7 +60,7 @@ class SupplierProfile extends Component {
                     <h1>My Area</h1>
                     <Row className="suppliers-columns">
                         <h3>My details</h3>
-                        <MyDetailsForm handleAlert={this.props.handleAlert} client={this.state.currentUser.client} loggedUser={this.props.loggedUser} history={this.props.history} />
+                        <MyDetailsForm handleAlert={this.props.handleAlert} client={this.state.currentUser.client._id} loggedUser={this.props.loggedUser} history={this.props.history} />
                     </Row>
                     <Row className="suppliers-columns">
                         <h3>My products</h3>
@@ -68,7 +68,7 @@ class SupplierProfile extends Component {
                     </Row>
                     <Row>
                         {console.log(this.props)}
-                        <DeleteUser currentUser={this.state.currentUser}/>
+                        <DeleteUser storeUser={this.props.storeUser} loggedUser={this.props.loggedUser} currentUser={this.state.currentUser}/>
                     </Row>
                 </Container>
         )

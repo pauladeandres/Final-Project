@@ -46,7 +46,7 @@ class MyDetailsForm extends Component {
 
     loadClient() {
         this.clientService
-            .getAssignedClient(this.state.client)
+            .getAssignedClient(this.props.client)
             .then(response => {
                 this.setState({ client: response.data })
                 this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)

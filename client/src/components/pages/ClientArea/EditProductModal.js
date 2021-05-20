@@ -1,4 +1,4 @@
-console.log(currentUser)import './EditProductModal.css'
+import './EditProductModal.css'
 import { Component } from 'react'
 
 import { Row, Modal, Col, Form, Button } from 'react-bootstrap'

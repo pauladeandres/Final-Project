@@ -18,7 +18,7 @@ const ClientCard = ({ number, edit, editRole, loadClients, loggedUser, ...props 
                 <td>{props.role !== 'SUPPLIER' ? props.favoriteProducts.length : null}</td>
                 {props.client && props.role !== 'SUPPLIER' ? <td onClick={(e) => edit(e, props.client)}>Edit</td> : <td><Link to={`/supplier/myarea/${userId}`}> Profile</Link></td>}
 
-                <td> <DeleteUser currentUser={props} loadClients={loadClients} /></td>
+                <td> <DeleteUser currentUser={props} loadClients={loadClients} loggedUser={loggedUser}/></td>
                 <DropdownButton id="dropdown-basic-button" title="Change role" onSelect={(e) => editRole(e, userId)} >
                     <Dropdown.Item eventKey={'SUPPLIER'}>SUPPLIER</Dropdown.Item>
                     <Dropdown.Item eventKey={'CUSTOMER'}>CUSTOMER</Dropdown.Item>

@@ -22,13 +22,14 @@ router.get('/', (req, res) => {
 
 // CREATING PRODUCT
 router.post('/myarea/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'SUPPLIER'), (req, res) => {
-
+    const supplier_id = req.params.supplier_id
     const { supplier, name, description, category } = req.body
     console.log({ supplier, name, description, category })
 
     Product
         .create({ supplier, name, description, category })
-        .then(response => res.json('Product created'))
+        .then(product => Client.findByIdAndUpdate(supplier_id, { $push: { products: product._id } }))
+        .then(newProd => res.json(newProd))
         .catch(err => {
             console.log(checkMongooseError(err))
             res.status(400).json({ code: 400, message: checkMongooseError(err) })
@@ -55,9 +56,7 @@ router.get('/myarea/myproducts/:supplier_id', isLoggedIn, checkRoles('ADMIN', 'S
 
     Product
         .find({ supplier: supplier_id })
-        .populate('supplier')
-        .populate('category')
-        .populate('options')
+        .populate('supplier category options')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating product', err }))
 

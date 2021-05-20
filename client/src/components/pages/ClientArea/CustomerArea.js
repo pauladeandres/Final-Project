@@ -23,6 +23,7 @@ class CustomerArea extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.loggedUser.client)
         this.updateOrders()
         this.getFavoriteProducts()
         this.props.updateCartNumber()
@@ -69,7 +70,7 @@ class CustomerArea extends Component {
                     </Row>
                 }
                 <Row>
-                    <DeleteUser currentUser={this.props.loggedUser}/>
+                    <DeleteUser currentUser={this.props.loggedUser} loggedUser={this.props.loggedUser} storeUser={this.props.storeUser}/>
                 </Row>
             </Container>
         )

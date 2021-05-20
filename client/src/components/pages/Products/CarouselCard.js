@@ -6,7 +6,7 @@ import './CarouselCard.css'
 const CategoryCard = ({name,  _id, options}) =>  {
         return (
                 <>
-                <Link to={`/category/${_id}`}>
+                <Link to={`/product/${_id}`}>
                     <img
                         className="d-block"
                         src={options[0].image}

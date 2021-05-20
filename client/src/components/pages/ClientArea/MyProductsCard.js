@@ -14,7 +14,7 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
         const optionService = new OptionService()
 
         e.preventDefault()
-        console.log(currentUser)
+     
         options.map(option => {
         optionService
             .deleteOption(option._id)

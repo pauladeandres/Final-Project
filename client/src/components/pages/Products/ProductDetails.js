@@ -78,6 +78,14 @@ class ProductDetails extends Component {
         this.props.updateCartNumber()
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.importOptions()
+            this.props.updateCartNumber()
+        }
+    }
+
+
     importOptions() {
         const product_id = this.props.match.params.id
 

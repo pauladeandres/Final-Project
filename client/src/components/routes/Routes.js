@@ -42,7 +42,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert, updateCartNumber, updateCu
             <Route path="/cart" render={() => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} loggedUser={loggedUser} updateCartNumber={updateCartNumber} handleAlert={handleAlert} component={Cart} />} />
             <Route path="/checkout" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} history={props.history} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} component={Checkout} />} />
             <Route path="/confirm" render={() => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} loggedUser={loggedUser} updateCartNumber={updateCartNumber} component={PaymentConfirmation} />} />
-            <Route page="/customer-area" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber} component={CustomerArea} />} />
+            <Route page="/customer-area" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'], loggedUser)} storeUser={storeUser} updateCurrentUser={updateCurrentUser} loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} updateCartNumber={updateCartNumber} component={CustomerArea} />} />
         </Switch>
     )
 }
