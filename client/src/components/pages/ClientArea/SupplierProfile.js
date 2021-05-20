@@ -67,7 +67,7 @@ class SupplierProfile extends Component {
                     </Row>
                     <Row>
                         {console.log(this.props)}
-                        <DeleteUser currentUser={this.state.currentUser}/>
+                        <DeleteUser currentUser={this.state.currentUser} />
                     </Row>
                 </Container>
         )

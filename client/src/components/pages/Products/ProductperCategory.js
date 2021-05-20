@@ -45,10 +45,10 @@ class ProductPerCategory extends Component {
                     <Row>
                         {
                             !products.length
-                            ?
-                            <h1>No products in this category</h1>
-                            :
-                            <h1>{this.state.products[0].category.name} selection:</h1>
+                                ?
+                                <h1>No products in this category</h1>
+                                :
+                                <h1>{this.state.products[0].category.name} selection:</h1>
                         }
                     </Row>
                     <hr />
