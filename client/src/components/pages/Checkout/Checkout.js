@@ -19,7 +19,7 @@ class Checkout extends Component {
             promoCode: undefined,
             couponValue: 0,
             showModal: false,
-            orderId: ''
+            orderId: undefined
         }
 
         this.orderService = new OrdersService()
@@ -36,9 +36,10 @@ class Checkout extends Component {
         this.orderService
             .getUserOrder()
             .then(response => {
-                this.setState({ products: response.data[0].products, orderId: response.data[0]._id })
                 const reducer = (accumulator, currentValue) => accumulator + currentValue
-                this.setState({ total: this.state.products.map(elm => elm.option.price * elm.quantity).reduce(reducer) })
+                const products = response.data[0].products
+                const orderId = response.data[0]._id
+                products.length === 0? this.setState({ products, orderId, total: 0}) : this.setState({ products, orderId, total: products.map(elm => elm.option.price * elm.quantity).reduce(reducer) })
             })
             .catch(err => console.log(err))
     }
@@ -88,10 +89,11 @@ class Checkout extends Component {
     }
 
     render() {
+
         return (
             <Container>
                 {
-                    (!this.state.products || !this.state.total || this.state.total <= 0 ) ? <SpinnerRoll /> :
+                    (!this.state.products || !this.state.total || this.state.total <= 0  ) ? <SpinnerRoll /> :
                         
                         <Row>
                             <h1 className="checkout-title">Checkout</h1>

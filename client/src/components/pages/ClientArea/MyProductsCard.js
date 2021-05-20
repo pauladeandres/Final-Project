@@ -14,7 +14,7 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts, handleAler
         const optionService = new OptionService()
 
         e.preventDefault()
-        options.map(option => {
+        options.forEach(option => {
         optionService
             .deleteOption(option._id)
             .then(() => {

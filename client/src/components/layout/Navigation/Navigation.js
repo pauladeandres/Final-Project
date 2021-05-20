@@ -7,7 +7,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
-const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
+const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList, updateCartNumber }) => {
     const history = useHistory()
     const logout = () => {
         const authService = new AuthService()
@@ -15,6 +15,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
             .logout()
             .then(() => {
                 storeUser(undefined)
+                updateCartNumber()
                 history.push('/')
             })
             .catch(err => console.log(err))

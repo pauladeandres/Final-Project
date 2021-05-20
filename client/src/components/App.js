@@ -62,7 +62,10 @@ class App extends Component {
       .then(response => {
         response.data ? this.setState({ orderNumber: response.data[0].products.length }) : this.setState({ orderNumber: 0 })
         })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        this.setState({ orderNumber: 0 })
+      })
   }
 
   loadCategories() {
@@ -77,7 +80,7 @@ class App extends Component {
       (
         <>
           <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} />
+            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} updateCartNumber={() => this.updateCartNumber()}/>
 
           <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
 

@@ -55,7 +55,7 @@ class Products extends Component {
         console.log(selectedColor)
         const colorArray = []
         const productListCopy = [...this.state.fullList]
-        productListCopy.map(product => {
+        productListCopy.forEach(product => {
             product.options.forEach(elm => {
                 if (elm.color === selectedColor) {
                     colorArray.push(product)

@@ -18,14 +18,12 @@ class ProductCarousel extends Component {
 
     componentDidMount() {
         this.loadProducts()
-        console.log(this.props)
     }
 
     loadProducts() {
         this.productsService
             .getProductPerCategory(this.props.category)
             .then(response => {
-                console.log(response)
                 this.setState({ products: response.data })
             })
             .catch(err => console.log('Error', err))

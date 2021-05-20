@@ -46,7 +46,7 @@ router.put('/update-stock/:id', isLoggedIn, (req, res) => {
 
     Option
         .findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then(response => console.log(response))
+        .then(response => res.json(response))
         .catch(err => console.log(err))
 
 })

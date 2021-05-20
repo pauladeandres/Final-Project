@@ -5,13 +5,11 @@ import OptionService from '../../../service/option.service'
 import ProductsService from '../../../service/products.service'
 
 const DeleteUser = ({ ...props }) => {
-    console.log('LASPROPS', props)
     const clientService = new ClientService()
     const productService = new ProductsService()
     const optionService = new OptionService()
     const authService = new AuthService()
  
-    console.log(props.currentUser)
     function eliminateAccount(e) {
         
         e.preventDefault()

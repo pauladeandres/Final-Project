@@ -23,7 +23,6 @@ class CustomerArea extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.loggedUser.client)
         this.updateOrders()
         this.getFavoriteProducts()
         this.props.updateCartNumber()
