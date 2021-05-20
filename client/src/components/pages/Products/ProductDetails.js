@@ -54,6 +54,7 @@ class ProductDetails extends Component {
                 .then(() => {
                     this.props.updateCartNumber()
                     this.props.handleAlert(`You added ${this.state.order.product.name} to your Cart`)
+                    this.checkFavorite()
                 })
                 .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
             this.updateStock(selectedOption)

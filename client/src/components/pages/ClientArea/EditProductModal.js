@@ -1,4 +1,4 @@
-console.log(currentUser)import './EditProductModal.css'
+import './EditProductModal.css'
 import { Component } from 'react'
 
 import { Row, Modal, Col, Form, Button } from 'react-bootstrap'
@@ -43,12 +43,12 @@ class EditProductModal extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-
         this.productService
             .editProduct(this.props.product._id, this.state.product)
             .then(response => {
                 this.props.closeModal()
                 this.props.fetchProduct()
+                this.props.handleAlert(`${this.state.product.name} has been updated`)
             })
             .catch(err => console.log(err))
     }

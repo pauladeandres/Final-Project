@@ -14,6 +14,7 @@ class ClientService {
     getAssignedClient = client_id => this.app.get(`/clientdetails/${client_id}`)
     createUser = clientDetails => this.app.post('/new', clientDetails)
     deleteClient = client_id => this.app.delete(`/delete/${client_id}`)
+    addOrder = (order_id, client_id) => this.app.put('/add-order', {order_id, client_id})
 }
 
 export default ClientService

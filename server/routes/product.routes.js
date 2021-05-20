@@ -84,12 +84,9 @@ router.put('/favorite/add', isLoggedIn, (req, res) => {
 // REMOVE A PRODUCT FROM FAVORITES
 router.put('/favorite/remove/:id', isLoggedIn, (req, res) => {
 
-    console.log('product_id:', req.params.id)
-
-
     User
         .findByIdAndUpdate(req.session.currentUser._id, { $pull: { favoriteProducts: req.params.id }})
-        .then(response => console.log(response))
+        .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error removing this product from favorites', err }))
 })
 

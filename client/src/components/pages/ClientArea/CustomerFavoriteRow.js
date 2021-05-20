@@ -13,10 +13,11 @@ const CustomerFavoriteRow = ( {_id, name, updateFavoriteProducts, handleAlert} )
         e.preventDefault()
         productService
             .removeFavorite(product_id)
-            .then(response => console.log(response))
+            .then( () => {
+                updateFavoriteProducts()
+                handleAlert(`${name} was removed from your favorites`)
+            })
             .catch(err => console.log(err))
-        updateFavoriteProducts()
-        handleAlert(`${name} was removed from your favorites`)
     }
 
     return(

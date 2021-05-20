@@ -62,10 +62,6 @@ class Products extends Component {
                 }
             })
         })
-<<<<<<< HEAD
-        console.log(colorArray)
-=======
->>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
         this.setState({ products: colorArray })
     }
 

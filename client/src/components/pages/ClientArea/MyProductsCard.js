@@ -7,19 +7,17 @@ import nophoto from './nophoto.png'
 import { Card, Col, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
+const MyProductCard = ({ _id, name, category, options, fetchProducts, handleAlert }) => {
 
     function deleteProduct(e) {
         const productService = new ProductsService()
         const optionService = new OptionService()
 
         e.preventDefault()
-        console.log(currentUser)
         options.map(option => {
         optionService
             .deleteOption(option._id)
-            .then(response => {
-                console.log(response)
+            .then(() => {
                 fetchProducts()
             })
             .catch(err => console.log(err))
@@ -28,6 +26,7 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts }) => {
         productService
             .deleteProduct(_id)
             .then(() => {
+                handleAlert(`${name} has been removed`)
                 fetchProducts()
             })
             .catch(err => console.log(err))

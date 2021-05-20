@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import SpinnerRoll from 'components/shared/Spinner/SpinnnerRoll'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
-const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList, history }) => {
-
+const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
+    const history = useHistory()
     const logout = () => {
         const authService = new AuthService()
         authService
             .logout()
             .then(() => {
                 storeUser(undefined)
+                history.push('/')
             })
             .catch(err => console.log(err))
     }
@@ -36,16 +38,9 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList, history 
                                 </NavDropdown>
                         }
                         <NavDropdown title="My Area" id="basic-nav-dropdown">
-<<<<<<< HEAD
-                        
-                            {<NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
-                            {loggedUser && loggedUser.role === 'SUPPLIER' ? <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item> : null}
-                            {loggedUser && loggedUser.role === 'CUSTOMER' ? <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item> : null}
-=======
                             {loggedUser && loggedUser.role === 'ADMIN' && <NavDropdown.Item as={Link} to='/admin'>Admin</NavDropdown.Item>}
                             {loggedUser && loggedUser.role === 'SUPPLIER' && <NavDropdown.Item as={Link} to={`/supplier/myarea/${loggedUser._id}`}>My Area</NavDropdown.Item>}
                             {loggedUser && loggedUser.role === 'CUSTOMER' &&  <NavDropdown.Item as={Link} to="/customer-area">My area</NavDropdown.Item>}
->>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
                             <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                             <NavDropdown.Divider />

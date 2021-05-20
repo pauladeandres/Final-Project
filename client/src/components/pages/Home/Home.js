@@ -3,7 +3,9 @@ import CategoriesList from './CategoriesList'
 import homeImage from './HomeCover.webp'
 import './Home.css'
 
-const Home = () => {
+const Home = ({updateCartNumber}) => {
+
+
     return (
         <>
         <Container>

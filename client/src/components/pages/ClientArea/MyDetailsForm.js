@@ -28,8 +28,10 @@ class MyDetailsForm extends Component {
             .then(response => {
                 (this.props.loggedUser.role === 'ADMIN' && this.state.role === 'CUSTOMER') ? this.refresh() : this.loadClient()
                 this.setState({ disableForm: true })
+                this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
             .catch(err => {
+                console.log(err)
                 this.setState({ alert: { show: true, text: err.response.data.message } })
                 console.log(err.response)
             })
@@ -49,7 +51,6 @@ class MyDetailsForm extends Component {
             .getAssignedClient(this.state.client)
             .then(response => {
                 this.setState({ client: response.data })
-                this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
             .catch(err => console.log(err))
     }

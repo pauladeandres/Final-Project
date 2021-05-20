@@ -68,7 +68,7 @@ class MyProductDetails extends Component {
                                     <p> {this.state.product.category.name}</p>
                                     <Button variant="outline-danger" onClick={() => this.setState({ showModal: true })}>Edit</Button>
                                     <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
-                                        <EditProductModal product={this.state.product} fetchProduct={() => this.fetchProduct()} closeModal={() => this.setState({ showModal: false })} />
+                                        <EditProductModal handleAlert={this.props.handleAlert} product={this.state.product} fetchProduct={() => this.fetchProduct()} closeModal={() => this.setState({ showModal: false })} />
                                     </Modal>
                                 </Col>
                             </Row>
@@ -85,7 +85,7 @@ class MyProductDetails extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.state.product.options.map(elm => <OptionCard key={elm._id} {...elm} fetchProduct={() => this.fetchProduct()} />)}
+                                        {this.state.product.options.map(elm => <OptionCard key={elm._id} handleAlert={this.props.handleAlert} {...elm} fetchProduct={() => this.fetchProduct()} />)}
                                     </tbody>
                                 </Table>
                             </Row>
@@ -97,7 +97,7 @@ class MyProductDetails extends Component {
                                                 <Button className="addoption" variant="dark" style={{ width: '100%' }}>+</Button>
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="1">
-                                                <Card.Body><NewOption product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()} /></Card.Body>
+                                                <Card.Body><NewOption handleAlert={this.props.handleAlert} product_id={this.state.product._id} fetchProduct={() => this.fetchProduct()} /></Card.Body>
                                             </Accordion.Collapse>
                                         </Card>
                                     </Accordion>

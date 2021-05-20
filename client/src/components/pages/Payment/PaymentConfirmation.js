@@ -4,6 +4,7 @@ import confirm from './confirm.gif'
 import { Link } from 'react-router-dom'
 import './PaymentConfirmation.css'
 import OrdersService from '../../../service/order.service'
+import ClientService from '../../../service/client.service'
 
 
 class PaymentConfirmation extends Component {
@@ -14,6 +15,7 @@ class PaymentConfirmation extends Component {
         }
 
         this.orderService = new OrdersService()
+        this.clientService = new ClientService()
     }
 
     componentDidMount() { 
@@ -24,7 +26,19 @@ class PaymentConfirmation extends Component {
     getLastOrder() {
         this.orderService
             .getLastOrderId()
-            .then(response => this.setState({lastOrder: response.data._id}))
+            .then(response => {
+                this.setState({lastOrder: response.data._id})
+                this.addOrderCustomer(response.data._id)
+                this.props.updateCartNumber()
+            })
+            .catch(err => console.log(err))
+    }
+
+    addOrderCustomer(orderId) {
+        console.log('orderId', this.props.loggedUser.client, 'this.props.loggedUser.client')
+        this.clientService
+            .addOrder(orderId, this.props.loggedUser.client)
+            .then(() => {this.props.updateCartNumber()})
             .catch(err => console.log(err))
     }
 

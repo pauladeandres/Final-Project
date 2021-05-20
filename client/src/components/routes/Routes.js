@@ -22,7 +22,7 @@ import { isAccepted } from '../../utils/index'
 const Routes = ({ storeUser, loggedUser, handleAlert, updateCartNumber, updateCurrentUser, categoryList }) => {
     return (
         <Switch>
-            <Route path="/" exact render={() => <Home />} />
+            <Route path="/" exact render={() => <Home updateCartNumber={updateCartNumber}/>} />
             <Route path="/signup" exact render={props => <InitialSignup history={props.history} handleAlert={handleAlert} />} />
             <Route path="/login" exact render={props => <Login storeUser={storeUser} history={props.history} updateCartNumber={updateCartNumber} handleAlert={handleAlert} />} />
 
@@ -36,7 +36,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert, updateCartNumber, updateCu
             <Route path="/admin/suppliers" render={() => <ProtectedRoute condition={isAccepted(['ADMIN'], loggedUser)} loggedUser={loggedUser} component={SupplierList} />} />
 
             <Route path="/supplier/myarea/:id" exact render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} handleAlert={handleAlert} history={props.history} {...props} component={SupplierProfile} />} />
-            <Route path="/supplier/myarea/myproductdetails/:id" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN'], loggedUser)} storeUser={storeUser} loggedUser={loggedUser} {...props} component={MyProductDetails} />} />
+            <Route path="/supplier/myarea/myproductdetails/:id" render={props => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN'], loggedUser)} handleAlert={handleAlert} storeUser={storeUser} loggedUser={loggedUser} {...props} component={MyProductDetails} />} />
             <Route path="/supplier/signup" render={props => <SignupForm updateCurrentUser={updateCurrentUser} history={props.history} loggedUser={loggedUser} handleAlert={handleAlert} />} />
 
             <Route path="/cart" render={() => <ProtectedRoute condition={isAccepted(['SUPPLIER', 'ADMIN', 'CUSTOMER'],loggedUser)} loggedUser={loggedUser} updateCartNumber={updateCartNumber} handleAlert={handleAlert} component={Cart} />} />

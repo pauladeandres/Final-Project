@@ -58,7 +58,7 @@ class Checkout extends Component {
     }
 
     checkCoupon(couponArray) {
-        couponArray.map(elm => {
+        couponArray.forEach(elm => {
             if (elm.name === this.state.promoCode) {
                 this.setState({ couponValue: elm.value, total: this.state.total - elm.value })
                 this.applyCoupon(elm._id)
@@ -91,8 +91,8 @@ class Checkout extends Component {
         return (
             <Container>
                 {
-                    !this.state.products ? <SpinnerRoll /> :
-
+                    (!this.state.products || !this.state.total || this.state.total <= 0 ) ? <SpinnerRoll /> :
+                        
                         <Row>
                             <h1 className="checkout-title">Checkout</h1>
                             <Col md={8} className="checkout-column">

@@ -35,6 +35,7 @@ class NewOption extends Component {
             .createOption(this.props.product_id, this.state.option)
             .then(response => {
                 this.props.fetchProduct()
+                this.props.handleAlert(`A new option has been created`)
             })
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }

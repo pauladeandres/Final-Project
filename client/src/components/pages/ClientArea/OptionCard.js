@@ -2,15 +2,15 @@ import OptionService from '../../../service/option.service'
 import trash from './trash.jpg'
 import { Button } from 'react-bootstrap'
 
-const OptionCard = ({_id, image, price, stock, color, fetchProduct}) => {
+const OptionCard = ({_id, image, price, stock, color, fetchProduct, handleAlert}) => {
     function deleteProductOption(e) {
         const optionService = new OptionService()
         e.preventDefault()
         optionService
             .deleteOption(_id)
-            .then(response => {
-                console.log(response)
+            .then(() => {
                 fetchProduct()
+                handleAlert(`This option has been removed`)
             })
             .catch(err => console.log(err))
     }

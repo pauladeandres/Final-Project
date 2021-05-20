@@ -24,10 +24,7 @@ router.put('/new', isLoggedIn, (req, res) => {
 router.get('/customer', isLoggedIn, (req, res) => {
     Order
         .find({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false }] })
-        .populate('customer')
-        .populate('products.product')
-        .populate('products.option')
-        .populate('coupon')
+        .populate('customer products.product products.option coupon')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'No order to show', err }))
 })
@@ -36,10 +33,7 @@ router.get('/customer', isLoggedIn, (req, res) => {
 router.get('/customer/paid', isLoggedIn, (req, res) => {
     Order
         .find({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': true }] })
-        .populate('customer')
-        .populate('products.product')
-        .populate('products.option')
-        .populate('coupon')
+        .populate('customer products.product products.option coupon')
         .sort({ updatedAt: -1 })
         .limit(20)
         .then(response => res.json(response))
@@ -51,7 +45,7 @@ router.put('/remove/:id', isLoggedIn, (req, res) => {
 
     Order
         .findOneAndUpdate({ $and: [{ 'customer': req.session.currentUser._id }, { 'paid': false }] }, { $pull: { products: { '_id': req.params.id } } }, {new: true})
-        .then(response => console.log(response))
+        .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not find any order', err }))
 })
 

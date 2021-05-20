@@ -45,7 +45,7 @@ class Dashboard extends Component {
         this.adminService
             .getData()
             .then(response => {
-                this.setState({ ...this.state.data = response.data })
+                this.setState({ clients: {...this.state.clients}, data: response.data })
             })
             .catch(err => console.log(err))
     }

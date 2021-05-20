@@ -36,11 +36,7 @@ class NewProduct extends Component {
             .then(response => {
                 this.setState({ categorieOptions: response.data })
             })
-<<<<<<< HEAD
             .catch(err => console.log('Error', err))
-=======
-            .catch(err => console.log('Err:', err))
->>>>>>> 3dc077355d44f0edaaa1b89ff3a93960886e2947
     }
 
     handleInputChange(e) {
@@ -54,6 +50,7 @@ class NewProduct extends Component {
             .createProduct(this.state.product, this.props.client._id)
             .then(response => {
                 this.props.fetchProducts()
+                this.props.handleAlert(`${this.state.product.name} has been created`)
             })
             .catch(err => {
                 this.setState({ alert: { show: true, text: err.response.data.message } })
