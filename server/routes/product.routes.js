@@ -85,8 +85,6 @@ router.put('/favorite/remove/:id', isLoggedIn, (req, res) => {
 // GET USER'S FAVORITE PRODUCTS
 router.get('/favorite/myfavorite', isLoggedIn, (req, res) => {
 
-    console.log(req.session.currentUser._id)
-
     User
         .findById(req.session.currentUser._id)
         .select('favoriteProducts')

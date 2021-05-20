@@ -66,7 +66,6 @@ class SupplierProfile extends Component {
                         <MyProductList handleAlert={this.props.handleAlert} client={this.state.currentUser.client} />
                     </Row>
                     <Row>
-                        {console.log(this.props)}
                         <DeleteUser storeUser={this.props.storeUser} loggedUser={this.props.loggedUser} currentUser={this.state.currentUser} />
                     </Row>
                 </Container>

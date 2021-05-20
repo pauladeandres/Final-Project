@@ -30,7 +30,7 @@ class SupplierList extends Component {
 
     editRole(e, id) {
         const userDetails = { role: e, id }
-        console.log('los userDetails para el authservice:', userDetails)
+       
         this.authService
             .updateRole(userDetails)
             .then(response => this.loadClients())
@@ -43,8 +43,8 @@ class SupplierList extends Component {
             (
                 <Container>
                     <Row>
-                        <table class="table">
-                            <thead class="thead-light">
+                        <table className="table">
+                            <thead className="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Email</th>

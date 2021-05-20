@@ -36,18 +36,15 @@ router.post('/myarea/newoption/:product_id', isLoggedIn, checkRoles('ADMIN', 'SU
         .create({ price, color, stock, image })
         .then(option => Product.findByIdAndUpdate(product_id, { $push: { options: option._id } }))
         .then(response => res.json(response))
-        .catch(err => {
-            console.log(checkMongooseError(err))
-            res.status(400).json({ code: 400, message: checkMongooseError(err) })
-        })
+        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 })
 
 router.put('/update-stock/:id', isLoggedIn, (req, res) => {
 
     Option
         .findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then(response => console.log(response))
-        .catch(err => console.log(err))
+        .then(response => res.json(response))
+        .catch(err => res.json(err))
 
 })
 

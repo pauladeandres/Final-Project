@@ -34,7 +34,7 @@ router.get('/clients', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 router.get('/dashboard', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
     User
         .find()
-        .then(response => console.log(response))
+        .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error fetching clients', err }))
 })
 
@@ -53,7 +53,6 @@ router.get('/data', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     Promise.all([productPromise, ordersPromise, categoryPromise, pyramidPromise])
         .then(response => {
-            console.log('promise response:', response)
             return res.json({
                 products: response[0], orders: response[1],
                 categories: response[2], orderPyramid: response[3]

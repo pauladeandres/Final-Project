@@ -36,7 +36,6 @@ class PaymentConfirmation extends Component {
     }
 
     addOrderCustomer(orderId) {
-        console.log('orderId', this.props.loggedUser.client, 'this.props.loggedUser.client')
         this.clientService
             .addOrder(orderId, this.props.loggedUser.client)
             .then(() => {this.props.updateCartNumber()})

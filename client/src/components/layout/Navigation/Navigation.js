@@ -49,7 +49,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList }) => {
                     </Nav>
                     <div className="shopping-icons">
                         <Link to="/cart" ><FontAwesomeIcon icon={faShoppingCart} /></Link>
-                        <span class="order-number">{orderNumber}</span>
+                        <span className="order-number">{orderNumber}</span>
                         <Form inline>
 
                         </Form>

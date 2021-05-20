@@ -17,7 +17,6 @@ class ProductPerSupplier extends Component {
 
     componentDidMount() {
         this.loadProducts()
-        console.log(this.props)
     }
 
     loadProducts() {

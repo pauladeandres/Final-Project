@@ -52,7 +52,6 @@ router.post('/login', (req, res) => {
     User
         .findOne({ email })
         .then(user => {
-            console.log('este es el usuario encontrado', user)
             if (!user) {
                 res.status(401).json({ code: 401, message: 'Email not registered', err: "Wrong user" })
                 return
@@ -62,7 +61,6 @@ router.post('/login', (req, res) => {
                 res.status(401).json({ code: 401, message: 'Incorect password', err: "Wrong password" })
                 return
             }
-            console.log('la sesion es', req.session)
 
             req.session.currentUser = user
             res.json(req.session.currentUser)
@@ -91,7 +89,6 @@ router.get('/client/details', (req, res) => {
 
 router.put('/client/update', (req, res) => {
     const { role, id } = req.body
-    console.log(role, id)
 
     User
         .findByIdAndUpdate(id, { role })
@@ -102,7 +99,6 @@ router.put('/client/update', (req, res) => {
 //DELETE USER
 
 router.delete('/delete/:user_id', (req, res) => {
-    console.log(req.params.user_id)
 
     User
         .findByIdAndDelete(req.params.user_id)

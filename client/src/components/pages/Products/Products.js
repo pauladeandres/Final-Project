@@ -13,7 +13,9 @@ class Products extends Component {
         super()
         this.state = {
             fullList: undefined,
-            products: undefined
+            products: undefined,
+            minRangeValue: 0,
+            maxRangeValue: 3000
         }
         this.productsService = new ProductsService()
     }
@@ -32,7 +34,7 @@ class Products extends Component {
     }
 
     filterList(query) {
-        console.log(query, "que soyyyy")
+        
         const productListCopy = [...this.state.fullList]
         const filteredProducts = productListCopy.filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
         this.setState({ products: filteredProducts })
@@ -52,10 +54,10 @@ class Products extends Component {
 
     colorFilter(e) {
         const selectedColor = e.target.name
-        console.log(selectedColor)
+        
         const colorArray = []
         const productListCopy = [...this.state.fullList]
-        productListCopy.map(product => {
+        productListCopy.forEach(product => {
             product.options.forEach(elm => {
                 if (elm.color === selectedColor) {
                     colorArray.push(product)
@@ -67,7 +69,24 @@ class Products extends Component {
 
     removeFilters() {
         const productsArrayCopy = [...this.state.fullList]
-        this.setState({ products: productsArrayCopy })
+        this.setState({ products: productsArrayCopy, minRangeValue: 0, maxRangeValue: 3000})
+    }
+
+    handleChangemin(e) {
+        this.setState({ minRangeValue: e.target.value})
+        this.rangeFilter()
+        console.log(e.target.value)
+    }
+    handleChangemax(e) {
+        this.setState({ maxRangeValue: e.target.value })
+        this.rangeFilter()
+        console.log(e.target.value)
+    }
+
+    rangeFilter() {
+        const productsArrayCopy = [...this.state.fullList]
+        const filteredArray = productsArrayCopy.filter(product => product.options[0].price > this.state.minRangeValue && product.options[0].price < this.state.maxRangeValue)
+        this.setState({ products: filteredArray })
     }
 
     render() {
@@ -83,13 +102,15 @@ class Products extends Component {
                         <Row>
                             <Col lg="2">
                                 <Form>
-                                    <Form.Group controlId="formBasicRangeCustom">
-                                        <Form.Label>Min</Form.Label>
-                                        <Form.Control type="range" custom className="rangeSlider" />
+                                    <Form.Group controlId="minValue">
+                                        <Form.Label>Min   |</Form.Label>
+                                        <Form.Label>{this.state.minRangeValue}EUR</Form.Label>
+                                        <Form.Control tooltip='on' type="range" className="rangeSlider" min="10" max="3000" value={this.state.minRangeValue} onChange={e => this.handleChangemin(e)}/>
                                     </Form.Group>
-                                    <Form.Group controlId="formBasicRangeCustom">
-                                        <Form.Label>Max</Form.Label>
-                                        <Form.Control type="range" custom className="rangeSlider" />
+                                    <Form.Group controlId="maxValue">
+                                        <Form.Label>Max  |</Form.Label>
+                                        <Form.Label>{this.state.maxRangeValue}EUR</Form.Label>
+                                        <Form.Control type="range" className="rangeSlider" min="10" max="3000" value={this.state.maxRangeValue} onChange={e => this.handleChangemax(e)}/>
                                     </Form.Group>
                                 </Form>
                             </Col>
