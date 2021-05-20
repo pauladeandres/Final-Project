@@ -52,7 +52,7 @@ class NewOption extends Component {
     }
 
     emptyForm() {
-        this.setState({ price:' ' , color: ' ', stock: ' ' , image: ' ' })
+        this.setState({ option: { ...this.state.product, price: ' ' , color: ' ', stock: ' ' , image: ' ' }})
     }
 
     render() {

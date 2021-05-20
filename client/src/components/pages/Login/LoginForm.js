@@ -30,6 +30,7 @@ class LoginForm extends Component {
         this.authService
             .login(this.state)
             .then(response => {
+                console.log('usuario creado')
                 this.props.storeUser(response.data)
                 this.props.handleAlert(`Welcome back ${response.data.email}`)
                 if ((response.data.role === 'SUPPLIER') && !response.data.client) {
@@ -44,7 +45,8 @@ class LoginForm extends Component {
                 }
             })
             .catch(err => {
-                this.setState({ alert: { show: true, text: err.response.data.message } })
+                console.log(err)
+                //this.setState({ alert: { show: true, text: err.response.data.message } })
             })
     }
 
