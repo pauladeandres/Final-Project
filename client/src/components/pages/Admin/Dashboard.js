@@ -45,7 +45,8 @@ class Dashboard extends Component {
         this.adminService
             .getData()
             .then(response => {
-                this.setState({ clients: {...this.state.clients}, data: response.data })
+                this.setState({ clients: { ...this.state.clients }, data: response.data })
+
             })
             .catch(err => console.log(err))
     }
@@ -60,6 +61,7 @@ class Dashboard extends Component {
             .getAllClients()
             .then(response => {
                 this.setState({ clients: { ...this.state.clients, customers: response.data } })
+
             })
             .catch(err => console.log(err))
     }
@@ -76,7 +78,7 @@ class Dashboard extends Component {
 
     render() {
         return (
-            !this.state.orders ? <SpinnerRoll /> :
+            !this.state.data.orders ? <SpinnerRoll /> :
                 <div className="main-dashboard" >
                     < Container>
                         <h1>Dashboard</h1>
@@ -93,7 +95,7 @@ class Dashboard extends Component {
                                             <Col md="8" xs="7">
                                                 <div className="numbers text-right">
                                                     <p className="card-category board-item">Products</p>
-                                                    <p className="board-number">{this.state.products.length}</p>
+                                                    <p className="board-number">{this.state.data.products.length}</p>
                                                 </div>
                                             </Col>
                                         </Row>
@@ -152,7 +154,7 @@ class Dashboard extends Component {
                                             <Col md="8" xs="7">
                                                 <div className="numbers text-right">
                                                     <p className="card-category board-item">Orders</p>
-                                                    <p className="board-number">{this.state.orders ? this.state.orders.length : <SpinnerRoll />}</p>
+                                                    <p className="board-number">{this.state.data.orders ? this.state.data.orders.length : <SpinnerRoll />}</p>
                                                     <p />
                                                 </div>
                                             </Col>

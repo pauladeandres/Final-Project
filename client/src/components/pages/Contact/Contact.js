@@ -2,10 +2,10 @@ import ContactForm from "./ContactForm";
 
 const { InputGroup, FormControl, Form } = require("react-bootstrap");
 
-const Contact = () => {
+const Contact = (props) => {
 
     return (
-        <ContactForm></ContactForm>
+        <ContactForm {...props} ></ContactForm>
 
     )
 

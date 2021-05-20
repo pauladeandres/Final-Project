@@ -7,7 +7,7 @@ const User = require('../models/user.model')
 const Category = require('./../models/category.model')
 const Option = require('./../models/option.model')
 const Client = require('../models/client.model')
-
+const nodemailer = require("nodemailer");
 const mongoose = require('mongoose')
 const { checkMongooseError } = require('./../utils')
 
@@ -102,7 +102,7 @@ router.put('/client/:id', isLoggedIn, (req, res) => {
 
     if (client.firstName.length === 0 || client.secondName.length === 0 || client.address.length === 0 || client.zipcode.length === 0 || client.city.length === 0 || client.country.length === 0 || client.phone.length === 0) {
         res.status(500).json({ code: 500, message: 'Please fill all the fields' })
-        return 
+        return
     }
 
     Client
@@ -133,12 +133,37 @@ router.post('/new', isLoggedIn, (req, res) => {
 // ADD ORDER TO CLIENT
 router.put('/add-order', isLoggedIn, (req, res) => {
 
-    const {order_id, client_id} = req.body
+    const { order_id, client_id } = req.body
 
     Client
-        .findByIdAndUpdate(client_id, { $push: { order: order_id } }, {new: true})
+        .findByIdAndUpdate(client_id, { $push: { order: order_id } }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Could not insert this order', err }))
 })
+
+router.post('/contact', (req, res) => {
+    console.log('aqui andamos', req.body)
+    const { email, subject, text } = req.body
+    myEmail = 'homefurnitureapp@gmail.com'
+
+    let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'homefurnitureapp@gmail.com',
+            pass: 'Popino2021'
+        }
+    })
+
+    transporter.sendMail({
+        from: `"Client fed up" <${email}>`,
+        to: myEmail,
+        subject: subject,
+        text: text,
+        html: `<b>${text}</b>`
+    })
+        .then(info => res.json(info))
+        .catch(error => console.log(error));
+})
+
 
 module.exports = router
