@@ -33,7 +33,10 @@ class SupplierProfile extends Component {
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
+<<<<<<< HEAD
                 console.log(this.state.currentUser)
+=======
+>>>>>>> 3a73d0a3f0fbfd3d7afcaa6102fd7fd9440da191
             })
             .catch(err => console.log('Error loading User', err))
     }

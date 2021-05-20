@@ -12,7 +12,7 @@ export default function Payment({history, total, orderId}) {
     <div className="App">
       <Elements stripe={stripePromise}>
         <CheckoutForm history={history} total={total} orderId={orderId}/>
-      </Elements>
+      </Elements> 
     </div>
   );
 }

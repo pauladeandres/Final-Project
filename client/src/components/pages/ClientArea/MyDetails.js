@@ -48,7 +48,7 @@ class MyDetails extends Component {
                 :
                 <>
                     {this.state.client ? <MyDetailsForm loggedUser={this.props.loggedUser} client={this.props.loggedUser.client} disabled={this.state.disableForm}
-                        loadClient={() => this.loadClient()} history={this.props.history} /> : <SpinnerRoll />}
+                        loadClient={() => this.loadClient()} history={this.props.history} handleAlert={this.props.handleAlert}/> : <SpinnerRoll />}
                 </>
         )
     }

@@ -48,7 +48,10 @@ class NewProduct extends Component {
         e.preventDefault()
         this.productService
             .createProduct(this.state.product, this.props.client._id)
-            .then(response => this.props.fetchProducts())
+            .then(response => {
+                this.props.fetchProducts()
+                this.props.handleAlert(`${this.state.product.name} has been created`)
+            })
             .catch(err => {
                 this.setState({ alert: { show: true, text: err.response.data.message } })
                 console.log(err.response.data.message)

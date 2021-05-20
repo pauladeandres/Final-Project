@@ -25,16 +25,11 @@ class Cart extends Component {
         this.orderService
             .getUserOrder()
             .then(response => {
-                this.setState({ products: response.data[0].products })
                 const reducer = (accumulator, currentValue) => accumulator + currentValue
-                this.setState({ total: this.state.products.map(elm => elm.option.price * elm.quantity).reduce(reducer) })
+                const products = response.data[0].products
+                products.length === 0 ? this.setState({ products, total: 0}) : this.setState({ products, total: products.map(elm => elm.option.price * elm.quantity).reduce(reducer)})
             })
             .catch(err => console.log(err))
-    }
-
-    fetchProducts() {
-        this.props.updateCartNumber()
-        this.updateProducts()
     }
 
     render() {
@@ -47,7 +42,7 @@ class Cart extends Component {
                             <h1 className="cart-title">Shopping Cart</h1>
                             <Col md={8} className="cart-column">
                                 <h3>Cart (<span>{this.state.products.length}</span> items)</h3>
-                                {this.state.products.map(elm => <CartRow key={elm._id} handleAlert={this.props.handleAlert} fetchProducts={() => this.fetchProducts()} {...elm} />)}
+                                {this.state.products.map(elm => <CartRow key={elm._id} handleAlert={this.props.handleAlert} updateCartNumber={this.props.updateCartNumber} fetchProducts={() => this.updateProducts()} {...elm} />)}
                             </Col>
                             <Col md={4} className="total-column">
                                 <div className="cart-column">

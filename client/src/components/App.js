@@ -22,7 +22,7 @@ class App extends Component {
       categoryList: undefined
     }
     this.authService = new AuthService()
-    this.orderNumber = new OrdersService()
+    this.orderService = new OrdersService()
     this.categoryService = new CategoryService()
   }
 
@@ -53,12 +53,15 @@ class App extends Component {
     this.fetchUser()
     this.updateCurrentUser()
     this.loadCategories()
+    this.updateCartNumber()
   }
 
   updateCartNumber() {
-    this.orderNumber
+    this.orderService
       .getUserOrder()
-      .then(response => response.data && this.setState({ orderNumber: response.data[0].products.length }))
+      .then(response => {
+        response.data ? this.setState({ orderNumber: response.data[0].products.length }) : this.setState({ orderNumber: 0 })
+        })
       .catch(err => console.log(err))
   }
 
@@ -74,7 +77,7 @@ class App extends Component {
       (
         <>
           <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} history={this.props.history} />
+            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} />
 
           <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
 

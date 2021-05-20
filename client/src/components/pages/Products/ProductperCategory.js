@@ -28,7 +28,6 @@ class ProductPerCategory extends Component {
         this.productsService
             .getProductPerCategory(this.props.match.params.id)
             .then(response => {
-                console.log(response)
                 this.setState({ products: response.data })
             })
             .catch(err => console.log('Error', err))
@@ -46,10 +45,10 @@ class ProductPerCategory extends Component {
                     <Row>
                         {
                             !products.length
-                            ?
-                            <h1>No products in this category</h1>
-                            :
-                            <h1>{this.state.products[0].category.name} selection:</h1>
+                                ?
+                                <h1>No products in this category</h1>
+                                :
+                                <h1>{this.state.products[0].category.name} selection:</h1>
                         }
                     </Row>
                     <hr />
