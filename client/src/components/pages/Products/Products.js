@@ -15,7 +15,7 @@ class Products extends Component {
             fullList: undefined,
             products: undefined,
             minRangeValue: 0,
-            maxRangeValue: 3000
+            maxRangeValue: 2000
         }
         this.productsService = new ProductsService()
     }
@@ -105,12 +105,13 @@ class Products extends Component {
                                     <Form.Group controlId="minValue">
                                         <Form.Label>Min   |</Form.Label>
                                         <Form.Label>{this.state.minRangeValue}EUR</Form.Label>
-                                        <Form.Control tooltip='on' type="range" className="rangeSlider" min="10" max="3000" value={this.state.minRangeValue} onChange={e => this.handleChangemin(e)}/>
+                                        <Form.Control tooltip='on' type="range" className="rangeSlider" min="10" max="2000" value={this.state.minRangeValue} onChange={e => this.handleChangemin(e)}/>
                                     </Form.Group>
                                     <Form.Group controlId="maxValue">
                                         <Form.Label>Max  |</Form.Label>
                                         <Form.Label>{this.state.maxRangeValue}EUR</Form.Label>
-                                        <Form.Control type="range" className="rangeSlider" min="10" max="3000" value={this.state.maxRangeValue} onChange={e => this.handleChangemax(e)}/>
+                                        <br/>
+                                        <Form.Control type="range" min="10" max="2000" value={this.state.maxRangeValue} onChange={e => this.handleChangemax(e)}/>
                                     </Form.Group>
                                 </Form>
                             </Col>

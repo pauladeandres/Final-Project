@@ -66,5 +66,13 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 input[type='range']::-webkit-slider-thumb::before {
-    background: #777;
+    background: #777; 
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.dropdown-menu, .show{
+    transition: all 10s;
 }

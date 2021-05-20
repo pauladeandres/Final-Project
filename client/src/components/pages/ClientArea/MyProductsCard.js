@@ -33,6 +33,7 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts, handleAler
     }
 
     return (
+        <Col md={3}className="product-card">
         <Card border="dark" className="supplier-list" style={{ width: '16rem' }}>
             <Row as={Row} style={{ height: '450px' }}>
                 <Card.Header>{name}</Card.Header>
@@ -45,9 +46,10 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts, handleAler
                             <img src={options[0].image} alt={name}></img>
                     }
                 </Col>
+                </Row>
                 <Card.Body>
-
-                    <Col md={6}>
+                    <Row>
+                    <Col md={6} >
                         <Card.Text>
                             Category: {category === undefined ? <p>Other</p> : category.name}
                         </Card.Text>
@@ -57,8 +59,9 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts, handleAler
                             Options: {options.length}
                         </Card.Text>
                     </Col>
+                    </Row>
                 </Card.Body>
-            </Row>
+            
             <Row>
                 <Link to={`/supplier/myarea/myproductdetails/${_id}`} className="btn btn-outline-dark btn-sm" style={{ width: '100%' }}>See and Edit</Link>
             </Row>
@@ -66,6 +69,7 @@ const MyProductCard = ({ _id, name, category, options, fetchProducts, handleAler
                 <Button onClick={(e) => deleteProduct(e)} variant="danger">Delete</Button>
             </Row>
         </Card>
+        </Col>
     )
 }
 

@@ -60,7 +60,7 @@ class NewProduct extends Component {
     }
 
     emptyForm() {
-        this.setState({ supplier: ' ', name: ' ', description: ' ', category: undefined })
+        this.setState({option:{ ...this.state.product, supplier: ' ', name: ' ', description: ' ', category: undefined }})
     }
 
     render() {
