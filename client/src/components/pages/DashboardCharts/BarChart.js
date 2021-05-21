@@ -9,7 +9,7 @@ const BarChart = ({ data }) => (
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
         groupMode="stacked"
-        valueScale={{ type: 'linear' }}
+        valueScale={{ type: 'symlog' }}
         indexScale={{ type: 'band', round: true }}
         colors={{ scheme: 'yellow_green' }}
         defs={[
@@ -52,7 +52,7 @@ const BarChart = ({ data }) => (
         axisBottom={{
             tickSize: 5,
             tickPadding: 5,
-            tickRotation: 0,
+            tickRotation: -37,
             legend: 'product',
             legendPosition: 'middle',
             legendOffset: 32

@@ -168,6 +168,7 @@ class Dashboard extends Component {
                         <Row className="justify-content-md-center">
                             <Col md={10}>
                                 <Card className="dashboard-card dashboard-chart">
+                                    <h3 style={{ color: "gray", marginLeft: '10px' }}>Products in stock</h3>
                                     {!this.state.data.products ? <SpinnerRoll /> : <BarChart data={this.state.data.products} />}
                                 </Card>
                             </Col>
@@ -175,6 +176,7 @@ class Dashboard extends Component {
                         <Row className="justify-content-md-center">
                             <Col md={10}>
                                 <Card className="dashboard-card dashboard-chart">
+                                    <h3 style={{ color: "gray", marginLeft: '10px' }}>Products bought by user</h3>
                                     {!this.state.data.orders ? <SpinnerRoll /> : <LineChart data={this.state.data.orders} />}
                                 </Card>
                             </Col>
@@ -182,6 +184,7 @@ class Dashboard extends Component {
                         <Row className="justify-content-md-center">
                             <Col md={10}>
                                 <Card className="dashboard-card dashboard-chart">
+                                    <h3 style={{ color: "gray", marginLeft: '10px' }}>Products map</h3>
                                     {!this.state.data.categories ? <SpinnerRoll /> : <TreeChart data={this.state.data.categories} />}
                                 </Card>
                             </Col>
@@ -189,6 +192,7 @@ class Dashboard extends Component {
                         <Row className="justify-content-md-center">
                             <Col md={10}>
                                 <Card className="dashboard-card dashboard-chart">
+                                    <h3 style={{ color: "gray", marginLeft: '10px' }}>Sales-Quantity-Products-Orders</h3>
                                     {!this.state.data.categories ? <SpinnerRoll /> : <FunnelChart data={this.state.data.orderPyramid} />}
                                 </Card>
                             </Col>

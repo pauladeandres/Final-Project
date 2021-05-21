@@ -151,11 +151,11 @@ router.post('/contact', (req, res) => {
     })
 
     transporter.sendMail({
-        from: `"Client fed up" <${email}>`,
+        from: `"Client message" <${email}>`,
         to: myEmail,
         subject: subject,
         text: text,
-        html: `<b>${text}</b>`
+        html: `<b>${text} <br>${email}</b>`
     })
         .then(info => res.json(info))
         .catch(error => console.log(error));

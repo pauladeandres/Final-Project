@@ -21,21 +21,21 @@ const Sidebar = ({ storeUser }) => {
             >
                 <div className="sidebar-sticky"></div>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
+                    <Nav.Link as={Link} to="/"><h4>Home</h4></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link-1" as={Link} to="/admin" >Dashboard</Nav.Link>
+                    <Nav.Link eventKey="link-1" as={Link} to="/admin" ><h4>Dashboard</h4></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link-2" as={Link} to="/admin/clients">Clients</Nav.Link>
+                    <Nav.Link eventKey="link-2" as={Link} to="/admin/clients"><h4>Clients</h4></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link-3" as={Link} to="/admin/suppliers">Suppliers</Nav.Link>
+                    <Nav.Link eventKey="link-3" as={Link} to="/admin/suppliers"><h4>Suppliers</h4></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey="disabled" onClick={() => logout()} style={{ color: 'grey' }}>
-                        Log out
-                </Nav.Link>
+                        <h4>Log out</h4>
+                    </Nav.Link>
                 </Nav.Item>
             </Nav>
 
