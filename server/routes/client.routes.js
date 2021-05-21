@@ -140,12 +140,12 @@ router.put('/add-order', isLoggedIn, (req, res) => {
 router.post('/contact', (req, res) => {
     console.log('aqui andamos', req.body)
     const { email, subject, text } = req.body
-    myEmail = 'homefurnitureapp@gmail.com'
+    myEmail = 'homedesignfurnituresapp@gmail.com'
 
     let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'homefurnitureapp@gmail.com',
+            user: 'homedesignfurnituresapp@gmail.com',
             pass: 'Popino2021'
         }
     })

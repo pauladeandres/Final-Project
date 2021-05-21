@@ -27,9 +27,10 @@ class MyDetailsForm extends Component {
             .editClient(clientId, this.state.client)
             .then(response => {
                 (this.props.loggedUser.role === 'ADMIN' && this.props.role === 'CUSTOMER') ? this.refresh() : this.loadClient()
+
                 this.setState({ disableForm: true })
-                this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`)
             })
+            .then(() => this.props.handleAlert ? this.props.handleAlert(`Your datas have been saved ${this.state.client.firstName}`) : null)
             .catch(err => {
                 this.setState({ alert: { show: true, text: err.response.data.message } })
             })

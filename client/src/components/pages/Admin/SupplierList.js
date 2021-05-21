@@ -58,7 +58,7 @@ class SupplierList extends Component {
                                 {suppliers
                                     ?
                                     suppliers.map((elm, index) => <ClientCard key={elm._id} number={index}
-                                        loadClients={() => this.loadClients()} refreshClients={() => this.loadClients()} editRole={(e, id) => this.editRole(e, id)} {...elm} />)
+                                        loadClients={() => this.loadClients()} refreshClients={() => this.loadClients()} editRole={(e, id) => this.editRole(e, id)} loggedUser={this.props.loggedUser} {...elm} />)
                                     :
                                     <SpinnerRoll />
                                 }
