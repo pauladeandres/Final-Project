@@ -23,6 +23,7 @@ class SupplierProfile extends Component {
         this.clientService = new ClientService()
         this.authService = new AuthService()
     }
+    
 
     componentDidMount() {
         this.loadUser()
@@ -33,6 +34,7 @@ class SupplierProfile extends Component {
             .getOneSupplier(this.props.match.params.id)
             .then(response => {
                 this.setState({ currentUser: response.data })
+                console.log(this.state.currentUser)
             })
             .catch(err => console.log('Error loading User', err))
     }

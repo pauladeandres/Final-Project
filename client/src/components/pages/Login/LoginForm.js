@@ -46,7 +46,7 @@ class LoginForm extends Component {
             })
             .catch(err => {
                 console.log(err)
-                //this.setState({ alert: { show: true, text: err.response.data.message } })
+                this.setState({ alert: { show: true, text: err.response.data.message } })
             })
     }
 
