@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
 
-*{
+h1,h2,h3,h4{
     transition: all 0.5s ease-in !important;
 }
 
@@ -50,4 +50,8 @@ button {
 .form-control:read-only {
     background-color: #fff;
     border-bottom: 1px solid #212529;
+}
+
+.container{
+    padding-top:15px;
 }

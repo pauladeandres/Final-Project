@@ -14,6 +14,7 @@ router.get('/suppliers', isLoggedIn, checkRoles('ADMIN'), (req, res) => {
 
     User
         .find({ role: 'SUPPLIER' })
+        .populate('client')
         .then(response => {
             res.json(response)
         })

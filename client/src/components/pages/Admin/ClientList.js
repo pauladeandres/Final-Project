@@ -31,7 +31,7 @@ class ClientList extends Component {
     }
 
     onClickEdit(e, user) {
-        
+
         this.setState({ showModal: true, selectedClient: user })
     }
 
@@ -47,7 +47,7 @@ class ClientList extends Component {
     render() {
         const { clients } = this.state
         return (
-            <Container>
+            <Container style={{ marginLeft: '20px' }}>
                 <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}>
                     <Modal.Header> <Modal.Title>Edit user</Modal.Title> </Modal.Header>
                     <Modal.Body>
@@ -61,7 +61,7 @@ class ClientList extends Component {
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Test</th>
+                                <th scope="col">Orders</th>
                                 <th scope="col"># Favorites</th>
                                 <th scope="col">Edit user</th>
                                 <th scope="col">Delete user</th>
@@ -71,7 +71,7 @@ class ClientList extends Component {
                             {clients
                                 ?
                                 clients.map((elm, index) => {
-                                    return <ClientCard key={elm.id} number={index + 1} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} loadClients={() => this.loadClients()} loggedUser={this.props.loggedUser}/>
+                                    return <ClientCard key={elm.id} number={index} edit={(e, user) => this.onClickEdit(e, user)} editRole={(e, id) => this.editRole(e, id)} {...elm} loadClients={() => this.loadClients()} loggedUser={this.props.loggedUser} />
                                 })
                                 :
                                 <SpinnerRoll />
