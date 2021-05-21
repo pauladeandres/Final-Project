@@ -155,7 +155,7 @@ router.post('/contact', (req, res) => {
         to: myEmail,
         subject: subject,
         text: text,
-        html: `<b>${text} ${email}</b>`
+        html: `<b>${text} <br>${email}</b>`
     })
         .then(info => res.json(info))
         .catch(error => console.log(error));
