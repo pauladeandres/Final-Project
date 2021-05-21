@@ -72,7 +72,3 @@ input[type='range']::-webkit-slider-thumb::before {
 .navbar-toggler {
     border: none;
 }
-
-.dropdown-menu, .show{
-    transition: all 10s;
-}
