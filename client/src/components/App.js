@@ -61,7 +61,7 @@ class App extends Component {
       .getUserOrder()
       .then(response => {
         response.data ? this.setState({ orderNumber: response.data[0].products.length }) : this.setState({ orderNumber: 0 })
-        })
+      })
       .catch(err => {
         console.log(err)
         this.setState({ orderNumber: 0 })
@@ -79,16 +79,17 @@ class App extends Component {
     return (
       (
         <>
-          <Navigation handleAlert={alertText => this.handleAlert(alertText)}
-            storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} updateCartNumber={() => this.updateCartNumber()}/>
+          {this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? null :
+            <Navigation handleAlert={alertText => this.handleAlert(alertText)}
+              storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} orderNumber={this.state.orderNumber} categoryList={this.state.categoryList} updateCartNumber={() => this.updateCartNumber()} />}
 
           <div style={this.state.loggedUser && this.state.loggedUser.role === 'ADMIN' ? { display: 'flex', width: "100%" } : null}>
 
             {(this.state.loggedUser && this.state.loggedUser.role === 'ADMIN') ? <Sidebar storeUser={user => this.storeUser(user)} /> : null}
 
-            <main style={{ flex: '1', marginTop: "10px" }}>
+            <main style={{ flex: '1' }}>
 
-              <Routes storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />
+              <Routes style={{ marginTop: "10px" }} storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} updateCartNumber={() => this.updateCartNumber()} updateCurrentUser={() => this.updateCurrentUser()} />
 
               <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
 

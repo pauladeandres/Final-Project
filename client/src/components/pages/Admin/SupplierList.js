@@ -30,7 +30,7 @@ class SupplierList extends Component {
 
     editRole(e, id) {
         const userDetails = { role: e, id }
-       
+
         this.authService
             .updateRole(userDetails)
             .then(response => this.loadClients())
@@ -41,14 +41,14 @@ class SupplierList extends Component {
         const { suppliers } = this.state
         return (!this.props.loggedUser || this.props.loggedUser.role !== 'ADMIN') ? <Redirect to="/" /> :
             (
-                <Container>
+                <Container style={{ marginLeft: '20px' }}>
                     <Row>
                         <table className="table">
                             <thead className="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Test</th>
+                                    <th scope="col">Products</th>
                                     <th scope="col"># Favorites</th>
                                     <th scope="col">Edit user</th>
                                     <th scope="col">Delete user</th>

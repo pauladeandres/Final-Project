@@ -13,11 +13,11 @@ const Footer = () => {
                     </Col>
 
                     <Col>
-                        <h1>HOME</h1>
+                        <Link to={'/'} className={'footer-sections'}><h1>HOME</h1></Link>
                     </Col>
 
                     <Col>
-                        <h4>Chat</h4>
+                        <Link to={'/product'} className={'footer-sections'}><h4>Products</h4></Link>
                     </Col>
                 </Row>
                 <hr />
