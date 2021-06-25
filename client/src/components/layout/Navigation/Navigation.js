@@ -45,7 +45,7 @@ const Navigation = ({ loggedUser, storeUser, orderNumber, categoryList, updateCa
                             <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/signup">Sign up</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
+                            <NavDropdown.Item >Log out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <div className="shopping-icons">

@@ -13,7 +13,7 @@
 
 .carousel-item img{
     width: 400px;
-    opacity: 70%;
+    opacity: 0.6;
 }
 
 .carousel-control-next {
